@@ -6,6 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h3>BEM VINDO A HOME</h3>
+    <h3>BALANÇA</h3>
 </body>
 </html>

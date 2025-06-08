@@ -21,7 +21,7 @@ try {
     $username = $_POST['login'] ?? '';
     $password = $_POST['senha'] ?? '';
 
-    $sql = "SELECT id, login, password FROM tb_users WHERE login = :username";
+    $sql = "SELECT id, login, password, accesslevel FROM tb_users WHERE login = :username";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':username', $username, PDO::PARAM_STR);
 
@@ -33,8 +33,19 @@ try {
         if ($password === $user['password']){
             $_SESSION['id'] = $user['id'];
             $_SESSION['username'] = $user['login'];
+            $_SESSION['accesslevel'] = $user['accesslevel'];
 
-            echo "Login bem sucedido! Bem vindo, " . $_SESSION['username'];
+            echo "Login bem sucedido! Bem vindo, " . $_SESSION['username'] . " ID: " . $_SESSION['accesslevel'];
+
+            if($_SESSION['accesslevel'] == 0){                
+                header("Location: ../pages/admin.php");
+            }else if($_SESSION['accesslevel'] == 1){
+                header("Location: ../pages/entrada.php");
+            }else if($_SESSION['accesslevel'] == 2){
+                header("Location: ../pages/expedicao.php");
+            }else{
+                header("Location: ../index.html");
+            }
 
         }else{
             echo "Senha incorreta.";
