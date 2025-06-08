@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $serverName = "LOCALHOST\\SQLEXPRESS";
 $connectionOptions = array(
     "Database" => "db_checklist",
@@ -7,41 +9,44 @@ $connectionOptions = array(
     "PWD" => "123456"
 );
 
-$conn = sqlsrv_connect($serverName, $connectionOptions);
+try {
+    $conn = new PDO(
+        "sqlsrv:Server=$serverName;Database={$connectionOptions['Database']}",
+        $connectionOptions['Uid'],
+        $connectionOptions['PWD']
+    );
 
-if ($_SERVER["REQUEST_METHOD"] == "POST"){
-    $login = $_POST['login'] ?? '';
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $username = $_POST['login'] ?? '';
     $password = $_POST['senha'] ?? '';
 
-    $sql = "SELECT id, Login, password FROM tb_users WHERE Login = ?";
-    $params = array($login);
+    $sql = "SELECT id, login, password FROM tb_users WHERE login = :username";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':username', $username, PDO::PARAM_STR);
 
-    $$stmt = sqlsrv_query($conn, $sql, $params);
+    $stmt->execute();
 
-    if ($stmt === false){
-        echo "Erro na consulta.<br />";
-        die(print_r(sqlsrv_errors(), true));
-    }
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $row = sqlsrv_fetch_arrays($stmt, SQLSRV_FETCH_ASSOC);
+    if ($user){
+        if ($password === $user['password']){
+            $_SESSION['id'] = $user['id'];
+            $_SESSION['username'] = $user['login'];
 
-    if ($row){
-        if($password === $row['password']){
-            echo "Sucesso";
+            echo "Login bem sucedido! Bem vindo, " . $_SESSION['username'];
+
         }else{
-            echo "Login ou senha inválidos";
+            echo "Senha incorreta.";
         }
     }else{
-        echo "Login ou senha inválidos.";
+        echo "Usuário não encontrado.";
     }
-    
-    sqlsrv_free_stmt($stmt);
-}else{
-    echo "Erro no formulário.";
+} catch(PDOException $e){
+    die("Falha na conexão:" . $e->getMessage());
+}catch(Exception $e){
+    die("Erro: " . $e->getMessage());
 }
-
-sqlsrv_close($conn);
-
 
 
 
