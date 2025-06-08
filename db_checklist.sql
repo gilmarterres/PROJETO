@@ -12,19 +12,19 @@ GO
 
 create table tb_users (
 id INT PRIMARY KEY IDENTITY(1,1),
-Name NVARCHAR(255) NOT NULL,
-Login NVARCHAR(50) NOT NULL,
-PasswordHash NVARCHAR(255) NOT NULL,
-AccessLevel INT NOT NULL
+name NVARCHAR(255) NOT NULL,
+login NVARCHAR(50) NOT NULL,
+password NVARCHAR(255) NOT NULL,
+accesslevel INT NOT NULL
 );
 GO
 
-INSERT INTO tb_users (Name, Login, PasswordHash, AccessLevel)
+INSERT INTO tb_users (name, login, password, accesslevel)
 VALUES
-    ('Maria Oliveira', 'maria.o', 'hash_senha_maria', 1),
-    ('Carlos Santos', 'carlos.s', 'hash_senha_carlos', 2),
-    ('Ana Souza', 'ana.s', 'hash_senha_ana', 1),
-    ('Pedro Costa', 'pedro.c', 'hash_senha_pedro', 2);
+    ('Gilmar Ferreira Terres Correa', 'gilmar', '123456', 1),
+    ('Carlos Santos', 'carlos.s', '123456', 2),
+    ('Ana Souza', 'ana.s', '123456', 1),
+    ('Pedro Costa', 'pedro.c', '123456', 2);
 GO
 
 SELECT * FROM db_checklist.dbo.tb_users;
