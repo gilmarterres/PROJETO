@@ -21,10 +21,29 @@ GO
 
 INSERT INTO tb_users (name, login, password, accesslevel)
 VALUES
-    ('Gilmar Ferreira Terres Correa', 'gilmar', '123456', 1),
+    ('Gilmar Ferreira Terres Correa', 'gilmar', '123456', 0),
     ('Carlos Santos', 'carlos.s', '123456', 2),
-    ('Ana Souza', 'ana.s', '123456', 1),
-    ('Pedro Costa', 'pedro.c', '123456', 2);
+    ('Ana Souza', 'ana.s', '123456', 3);
 GO
 
 SELECT * FROM db_checklist.dbo.tb_users;
+GO
+
+CREATE TABLE tb_marking(
+    id INT PRIMARY KEY IDENTITY(1,1),
+    flow INT NOT NULL,
+    name_us_bal NVARCHAR(64) NOT NULL,
+    plate NVARCHAR(32) NOT NULL,
+    driver NVARCHAR(32) NOT NULL,    
+    name_us_exp NVARCHAR(32) NOT NULL,
+    seals NVARCHAR(128) NOT NULL
+);
+GO
+
+INSERT INTO tb_marking(flow, name_us_bal, plate, driver, name_us_exp, seals)
+VALUES
+    (1,'fran','XDS-7367','Antonio de oliveira','borges','6489458 548545 54854 51854 54843');
+GO
+
+SELECT * FROM db_checklist.dbo.tb_marking;
+GO
