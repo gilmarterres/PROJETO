@@ -35,9 +35,9 @@ try {
             if($_SESSION['accesslevel'] == 0){                
                 header("Location: ../pages/admin.php");
             }else if($_SESSION['accesslevel'] == 1){
-                header("Location: ../pages/entrada.php");
+                header("Location: ../pages/balance.php");
             }else if($_SESSION['accesslevel'] == 2){
-                header("Location: ../pages/expedicao.php");
+                header("Location: ../pages/expedition.php");
             }else{
                 header("Location: ../index.html");
             }
