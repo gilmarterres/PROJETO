@@ -14,11 +14,13 @@ body{
 
 </head>
 <body>
+    <button id="bt_lg_screen">Voltar</button>
+
     <h3>BALANÇA</h3>
 
-<button id="bt_new">Criar novo checklist</button>
+    <button id="bt_new">Criar novo checklist</button>
 
-<button id="bt_consult">Consultar checklist</button>
+    <button id="bt_consult">Consultar checklist</button>
 
 
 

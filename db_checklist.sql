@@ -29,9 +29,13 @@ GO
 SELECT * FROM db_checklist.dbo.tb_users;
 GO
 
+DROP TABLE tb_marking;
+GO
+
 CREATE TABLE tb_marking(
     id INT PRIMARY KEY IDENTITY(1,1),
     flow INT NOT NULL,
+	ticket INT NOT NULL,
     name_us_bal NVARCHAR(64) NOT NULL,
     plate NVARCHAR(32) NOT NULL,
     driver NVARCHAR(32) NOT NULL,    
@@ -40,9 +44,9 @@ CREATE TABLE tb_marking(
 );
 GO
 
-INSERT INTO tb_marking(flow, name_us_bal, plate, driver, name_us_exp, seals)
+INSERT INTO tb_marking(flow, ticket, name_us_bal, plate, driver, name_us_exp, seals)
 VALUES
-    (1,'fran','XDS-7367','Antonio de oliveira','borges','6489458 548545 54854 51854 54843');
+    (1,78526, 'fran', 'XDS-7367','Antonio de oliveira','borges','6489458 548545 54854 51854 54843');
 GO
 
 SELECT * FROM db_checklist.dbo.tb_marking;

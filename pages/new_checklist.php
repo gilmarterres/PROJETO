@@ -6,6 +6,11 @@
     <title>Novo checklist</title>
 </head>
 <body>
-    Novo checklist
+    <button id="bt_back">Voltar</button>
+        <h1>Novo Checklist</h1>
+
+
+
+<script src="../js/functions.js"></script>
 </body>
 </html>

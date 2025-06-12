@@ -1,17 +1,7 @@
 <?php
-        $serverName = "LOCALHOST\\SQLEXPRESS";
-        $databaseName = "db_checklist";
-        $Uid = "sa";
-        $PWE = "123456";
+    require_once("../assets/connection.php");
 
-        try {
-            $conn = new PDO("sqlsrv:Server=$serverName;Database=$databaseName", $Uid, $PWE);
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        }catch (PDOException $e){
-            die("Erro na conexão: " . $e->getMessage());
-        }
-
-        $sql = "SELECT id, flow, name_us_bal, plate, driver, name_us_exp, seals FROM db_checklist.dbo.tb_marking";
+        $sql = "SELECT id, flow, ticket, name_us_bal, plate, driver, name_us_exp, seals FROM db_checklist.dbo.tb_marking";
 
         try{
             $stmt = $conn->query($sql);
@@ -34,7 +24,8 @@
         }
         h1{
             color:#333;
-            border: 1px solid #000;
+            border: 0px solid #000;
+            text-align: center
         }
         table{
             border: 1px solid #000;
@@ -64,6 +55,7 @@
             </style>
 </head>
 <body>
+    <button id="bt_back">Voltar</button>
     
     <h1>Consulta Checklist</h1>
 <thead>
@@ -71,6 +63,7 @@
         <tr>
             <th>ID</th>
             <th>Fluxo</th>
+            <th>Ticket</th>
             <th>Nome Balanceiro</th>
             <th>Placa</th>
             <th>Motorista</th>
@@ -86,6 +79,7 @@
             echo "<tr>";
             echo "<td>" . htmlspecialchars($row['id']) . "</td>";
             echo "<td>" . htmlspecialchars($row['flow']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['ticket']) . "</td>";
             echo "<td>" . htmlspecialchars($row['name_us_bal']) . "</td>";
             echo "<td>" . htmlspecialchars($row['plate']) . "</td>";
             echo "<td>" . htmlspecialchars($row['driver']) . "</td>";
@@ -114,5 +108,7 @@
 <?php
     $conn = null;
 ?>
+
+<script src="../js/functions.js"></script>
 </body>
 </html>

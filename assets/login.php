@@ -2,7 +2,12 @@
 
 session_start();
 
-require_once('./connection.php');
+$serverName = "LOCALHOST\\SQLEXPRESS";
+$connectionOptions = array(
+    "Database" => "db_checklist",
+    "Uid" => "sa",
+    "PWD" => "123456"
+);
 
 try {
     $conn = new PDO(
