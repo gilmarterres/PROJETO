@@ -14,6 +14,11 @@ body{
 
 </head>
 <body>
+    <?php
+        session_start();
+        print_r($_SESSION);
+    ?>
+    <br>
     <button id="bt_lg_screen">Voltar</button>
 
     <h3>BALANÇA</h3>
