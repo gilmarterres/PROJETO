@@ -55,11 +55,11 @@
             </style>
 </head>
 <body>
-    <button id="bt_back">Voltar</button>
+<button id="bt_back">Voltar</button>
     
     <h1>Consulta Checklist</h1>
 <thead>
-    <table>
+<table>
         <tr>
             <th>ID</th>
             <th>Fluxo</th>
@@ -77,14 +77,14 @@
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             echo "<tr>";
-            echo "<td>" . htmlspecialchars($row['id']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['flow']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['ticket']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['name_us_bal']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['plate']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['driver']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['name_us_exp']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['seals']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['id'] ?? '') . "</td>";
+            echo "<td>" . htmlspecialchars($row['flow'] ?? '') . "</td>";
+            echo "<td>" . htmlspecialchars($row['ticket'] ?? '') . "</td>";
+            echo "<td>" . htmlspecialchars($row['name_us_bal'] ?? '') . "</td>";
+            echo "<td>" . htmlspecialchars($row['plate'] ?? '') . "</td>";
+            echo "<td>" . htmlspecialchars($row['driver'] ?? '') . "</td>";
+            echo "<td>" . htmlspecialchars($row['name_us_exp'] ?? '') . "</td>";
+            echo "<td>" . htmlspecialchars($row['seals'] ?? '') . "</td>";
             echo "</tr>";
         }
 
@@ -96,19 +96,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-<?php
-    $conn = null;
-?>
-
+<?php $conn = null; ?>
 <script src="../js/functions.js"></script>
 </body>
 </html>

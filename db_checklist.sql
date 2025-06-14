@@ -39,8 +39,8 @@ CREATE TABLE tb_marking(
     name_us_bal NVARCHAR(64) NOT NULL,
     plate NVARCHAR(32) NOT NULL,
     driver NVARCHAR(32) NOT NULL,    
-    name_us_exp NVARCHAR(32) NOT NULL,
-    seals NVARCHAR(128) NOT NULL
+    name_us_exp NVARCHAR(32),
+    seals NVARCHAR(128)
 );
 GO
 

@@ -9,6 +9,7 @@
     <?php
         session_start();
         print_r($_SESSION);
+        print_r($_GET);
     ?>
     <br>
     <button id="bt_back">Voltar</button>
@@ -19,7 +20,9 @@
         <?php
         if (isset($_GET['status'])){
             if ($_GET['status'] == 'sucess'){
-                echo '<div class="message success">Dados inseridos com sucesso!</div>';
+                echo "<script>";
+                echo "alert('Dados inseridos com sucesso!');";
+                echo "</script>";
             }elseif ($_GET['status'] == 'error'){
                 $error_message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : 'Ocorreu um erro ao inserir os dados.';
                 echo '<div class="message error">' . $error_message . '</div>';
