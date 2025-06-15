@@ -44,7 +44,7 @@
         th{
             background-color: #007bff;
             color: white;
-            text-transform: upercase;
+            text-transform: uppercase;
         }
         tr:nth-child(even){
             background-color: #f9f9f9;
@@ -52,16 +52,44 @@
         tr:hover{
             background-color: #f1f1f1;
         }
-        
+        a{
+          color: #007bff;
+          text-decoration: none;  
+        }
+        a:hover{
+            text-decoration: underline;
+        }
+        .add-button{
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-botton: 20px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .add-button:hover{
+            background-color: #218838;
+        }
     </style>
 </head>
 <body>
 <button id="bt_lg_screen">Voltar</button>
 <?php
         session_start();
+
+        if (isset($_SESSION['message'])){
+            echo '<div class="message-sucess">' . htmlspecialchars($_SESSION['message']) . '</div>';
+            unset($_SESSION['message']);
+        }
+
         print_r($_SESSION);
 ?>
 <h3>EXPEDICAO</h3>
+
 <table>
         <tr>
             <th>ID</th>
@@ -80,7 +108,7 @@
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             echo "<tr>";
-            echo "<td>" . htmlspecialchars($row['id'] ?? '') . "</td>";
+            echo "<td><a href=\"edit_checklist.php?id=" . htmlspecialchars($row['id'] ?? '') . "\">" . htmlspecialchars($row['id'] ?? '') . "</a></td>";
             echo "<td>" . htmlspecialchars($row['flow'] ?? '') . "</td>";
             echo "<td>" . htmlspecialchars($row['ticket'] ?? '') . "</td>";
             echo "<td>" . htmlspecialchars($row['name_us_bal'] ?? '') . "</td>";

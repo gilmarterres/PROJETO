@@ -22,8 +22,8 @@ GO
 INSERT INTO tb_users (name, login, password, accesslevel)
 VALUES
     ('Gilmar Ferreira Terres Correa', 'gilmar', '123456', 0),
-    ('Carlos Santos', 'carlos.s', '123456', 2),
-    ('Ana Souza', 'ana.s', '123456', 3);
+    ('Carlos Santos', 'paulo', '123456', 2),
+    ('Ana Souza', 'fran', '123456', 1);
 GO
 
 SELECT * FROM db_checklist.dbo.tb_users;
