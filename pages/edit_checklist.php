@@ -16,7 +16,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])){
             $stmt_select = $conn->prepare($sql_select);
             $stmt_select->bindParam(':id', $id_expedicao, PDO::PARAM_INT);
             $stmt_select->execute();
-            $dados_expedicao= $sql_select->fetch(PDO::FETCH_ASSOC);
+            $dados_expedicao = $stmt_select->fetch(PDO::FETCH_ASSOC);
 
             if(!$dados_expedicao){
                 $mensagem = "TICKET" . htmlspecialchars($id_expedicao) . " não encontrado";  
@@ -47,7 +47,7 @@ if ($id_to_update && $id_to_update = $id_expedicao){
         $stmt_update = $conn->prepare($sql_update);
         $stmt_update->bindParam(':name_us_exp', $name_us_exp, PDO::PARAM_STR);
         $stmt_update->bindParam(':seals', $seals, PDO::PARAM_STR);
-        $stmt_update->(':id', $id_to_update, PDO::PARAM_INT);
+        $stmt_update->bindParam(':id', $id_to_update, PDO::PARAM_MUMBER_INT);
         $stmt_update->execute();
 
         $dados_expedicao['name_us_exp'] = $name_us_exp;
@@ -85,7 +85,34 @@ if ($id_to_update && $id_to_update = $id_expedicao){
 </head>
 <body>
     <div class="container">
-        <h1> Preencher dados do id (ID: <?php echo htmlspecialchars)
+        <h1> Preencher dados do id ID: <?php echo htmlspecialchars($id_expedicao); ?> </h1>
+    
+    <?php if ($mensagem): ?>
+        <div class="message error">
+            <?php echo htmlspecialchars($mensagem); ?>
+        </div>
+        <?php endif; ?>
+
+        <?php if ($dados_expedicao) ?>
+            <div class="data-display">
+                <p><span>ID:</span><?php echo htmlspecialchars ($dados_expedicao['id'] ?? ''); ?></p>
+                <p><span>Fluxo:</span><?php echo htmlspecialchars ($dados_expedicao['flow'] ?? ''); ?></p>
+                <p><span>Ticket:</span><?php echo htmlspecialchars ($dados_expedicao['ticket'] ?? ''); ?></p>
+                <p><span>Responsável Balança:</span><?php echo htmlspecialchars ($dados_expedicao['name_us_bal'] ?? ''); ?></p>
+                <p><span>Placa:</span><?php echo htmlspecialchars ($dados_expedicao['plate'] ?? ''); ?></p>
+                <p><span>Motorista:</span><?php echo htmlspecialchars ($dados_expedicao['driver'] ?? ''); ?></p>
+                <p><span>Responsável Expedição:</span><?php echo htmlspecialchars ($dados_expedicao['name_us_exp'] ?? ''); ?></p>
+                <p><span>Lacres:</span><?php echo htmlspecialchars ($dados_expedicao['seals'] ?? ''); ?></p>
+            </div>
+
+        <form action="edit_cheklist.php?<?php echo htmlspecialchars($id_expedicao); ?>" method="POST">
+            <input type="hidden" name="id" value="<?php echo htmlspecialchars($id_expedicao) ?>">
+
+        <div class="form-group">
+            
+    
+    
+    
     </div>
 
     
