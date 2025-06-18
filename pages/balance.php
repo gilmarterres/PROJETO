@@ -16,7 +16,7 @@ body{
 <body>
     <?php
         session_start();
-        print_r($_SESSION);
+        //print_r($_SESSION);
     ?>
     <br>
     <button id="bt_lg_screen">Voltar</button>
@@ -25,7 +25,7 @@ body{
 
     <button id="bt_new">Criar novo checklist</button>
 
-    <button id="bt_consult">Consultar checklist</button>
+    <button id="bt_consult">Consultar checklist concluído</button>
 
 
 

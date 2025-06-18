@@ -75,13 +75,13 @@ if (isset($_GET['id']) && !empty($_GET['id'])){
 
         <div class="form-group">
             <label for="operador_expedicao">Operador Expedição: </label>
-            <input type="text" id="name_us_exp" name="name_us_exp"
+            <input required type="text" id="name_us_exp" name="name_us_exp"
                 value="<?php echo htmlspecialchars($_SESSION['username']?? '') ?>">
         </div>
 
         <div class="form-group">
             <label for="lacres">Lacres: </label>
-            <input type="text" id="seals" name="seals"
+            <input required type="text" id="seals" name="seals"
                 value="<?php echo htmlspecialchars($dados_expedicao['seals'] ?? '') ?>">
         </div>
 

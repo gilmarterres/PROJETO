@@ -8,8 +8,8 @@
 <body>
     <?php
         session_start();
-        print_r($_SESSION);
-        print_r($_GET);
+        //print_r($_SESSION);
+        //print_r($_GET);
     ?>
     <br>
     <button id="bt_back">Voltar</button>
@@ -35,7 +35,7 @@
             <input type="text" id="ticket" name="ticket" required><br>
 
             <label for="name_us_bal">Responsável Balança:</label>
-            <input type="text" id="name_us_bal" name="name_us_bal" value="<?php echo $_SESSION['username'] ?>" required><br>
+            <input type="text" id="name_us_bal" name="name_us_bal" value="<?php echo $_SESSION['username'] ?? '' ?>" required><br>
 
             <label for="plate">Placa:</label>
             <input type="text" id="plate" name="plate" required><br>

@@ -97,7 +97,7 @@
             <th>ID</th>
             <th>Fluxo</th>
             <th>Ticket</th>
-            <th>Nome Balanceiro</th>
+            <th>Responsável Balança</th>
             <th>Placa</th>
             <th>Motorista</th>
             <th>Operador Expedição</th>
