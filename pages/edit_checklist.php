@@ -29,44 +29,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])){
         exit();
     }
 
-
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-    $id_to_update = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
-    $name_us_exp = filter_input(INPUT_POST, 'name_us_exp', FILTER_SANITIZE_STRING);
-    $seals = filter_input(INPUT_POST, 'seals', FILTER_SANITIZE_STRING);
-
-
-if ($id_to_update && $id_to_update = $id_expedicao){
-    $sql_update = "UPDATE db_checklist.dbo.tb_marking SET
-                    name_us_exp = :name_us_exp,
-                    seals = :seals
-                    WHERE id = :id";
-
-    try {
-        $stmt_update = $conn->prepare($sql_update);
-        $stmt_update->bindParam(':name_us_exp', $name_us_exp, PDO::PARAM_STR);
-        $stmt_update->bindParam(':seals', $seals, PDO::PARAM_STR);
-        $stmt_update->bindParam(':id', $id_to_update, PDO::PARAM_MUMBER_INT);
-        $stmt_update->execute();
-
-        $dados_expedicao['name_us_exp'] = $name_us_exp;
-        $dados_expedicao['seals'] = $seals;
-
-        $_SESSION['message'] = "Sucesso!";
-
-        header("Location: expedition.php");
-
-        exit();
-    }catch(PDOException $e){
-        $mensagem = "Erro: " . $e->getMessage();
-    }
-}else{
-    $mensagem = "Idientificação Inválida";
-}
-
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -84,6 +46,11 @@ if ($id_to_update && $id_to_update = $id_expedicao){
 
 </head>
 <body>
+
+        
+    <?php
+        print_r($_SESSION);
+    ?>
     <div class="container">
         <h1> Preencher dados do id ID: <?php echo htmlspecialchars($id_expedicao); ?> </h1>
     
@@ -93,7 +60,7 @@ if ($id_to_update && $id_to_update = $id_expedicao){
         </div>
         <?php endif; ?>
 
-        <?php if ($dados_expedicao) ?>
+        <?php if ($dados_expedicao): ?>
             <div class="data-display">
                 <p><span>ID:</span><?php echo htmlspecialchars ($dados_expedicao['id'] ?? ''); ?></p>
                 <p><span>Fluxo:</span><?php echo htmlspecialchars ($dados_expedicao['flow'] ?? ''); ?></p>
@@ -101,20 +68,33 @@ if ($id_to_update && $id_to_update = $id_expedicao){
                 <p><span>Responsável Balança:</span><?php echo htmlspecialchars ($dados_expedicao['name_us_bal'] ?? ''); ?></p>
                 <p><span>Placa:</span><?php echo htmlspecialchars ($dados_expedicao['plate'] ?? ''); ?></p>
                 <p><span>Motorista:</span><?php echo htmlspecialchars ($dados_expedicao['driver'] ?? ''); ?></p>
-                <p><span>Responsável Expedição:</span><?php echo htmlspecialchars ($dados_expedicao['name_us_exp'] ?? ''); ?></p>
-                <p><span>Lacres:</span><?php echo htmlspecialchars ($dados_expedicao['seals'] ?? ''); ?></p>
             </div>
 
-        <form action="edit_cheklist.php?<?php echo htmlspecialchars($id_expedicao); ?>" method="POST">
+        <form action="../assets/confirm_checklist.php?<?php echo htmlspecialchars($id_expedicao); ?>" method="POST">
             <input type="hidden" name="id" value="<?php echo htmlspecialchars($id_expedicao) ?>">
 
         <div class="form-group">
-            
-    
-    
-    
+            <label for="operador_expedicao">Operador Expedição: </label>
+            <input type="text" id="name_us_exp" name="name_us_exp"
+                value="<?php echo htmlspecialchars($_SESSION['username']?? '') ?>">
+        </div>
+
+        <div class="form-group">
+            <label for="lacres">Lacres: </label>
+            <input type="text" id="seals" name="seals"
+                value="<?php echo htmlspecialchars($dados_expedicao['seals'] ?? '') ?>">
+        </div>
+
+        <button type="submit">Confirmar Checklist</button>
+        <a href="expedition.php" class="back-button">Voltar para Lista</a>
+    </form>
+
+    <?php else: ?>
+        <p>Nenhum checklist disponível para preenchimento. </p>
+        <a href="expedition.php" class="back-button">Voltar para Lista</a>
+    <?php endif; ?>
     </div>
 
-    
 </body>
 </html>
+<?php $conn = null; ?>

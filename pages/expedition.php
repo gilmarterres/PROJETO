@@ -1,7 +1,7 @@
 <?php
     require_once("../assets/connection.php");
 
-        $sql = "SELECT id, flow, ticket, name_us_bal, plate, driver, name_us_exp, seals FROM db_checklist.dbo.tb_marking";
+        $sql = "SELECT id, flow, ticket, name_us_bal, plate, driver, name_us_exp, seals FROM db_checklist.dbo.tb_marking WHERE flow = 1";
 
         try{
             $stmt = $conn->query($sql);
@@ -82,11 +82,13 @@
         session_start();
 
         if (isset($_SESSION['message'])){
-            echo '<div class="message-sucess">' . htmlspecialchars($_SESSION['message']) . '</div>';
+            echo "<script>";
+                echo "alert('Dados inseridos com sucesso!');";
+                echo "</script>";
             unset($_SESSION['message']);
         }
 
-        print_r($_SESSION);
+        //print_r($_SESSION);
 ?>
 <h3>EXPEDICAO</h3>
 
