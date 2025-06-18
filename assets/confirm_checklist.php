@@ -1,6 +1,5 @@
 <?php
     require_once("../assets/connection.php");
-
     session_start();
 ?>
 
@@ -15,7 +14,7 @@
 
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-    echo "Gilmar";
+    //echo "Gilmar";
     $id_to_update = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
     $name_us_exp = filter_input(INPUT_POST, 'name_us_exp', FILTER_UNSAFE_RAW);
     $seals = filter_input(INPUT_POST, 'seals', FILTER_UNSAFE_RAW);

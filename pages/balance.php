@@ -25,7 +25,7 @@ body{
 
     <button id="bt_new">Criar novo checklist</button>
 
-    <button id="bt_consult">Consultar checklist concluído</button>
+    <button id="bt_consult">Consultar checklist</button>
 
 
 
