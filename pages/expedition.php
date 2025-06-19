@@ -8,6 +8,12 @@
         }catch (PDOException $e){
             die ("Erro na execução. " . $e->gerMessage());
         }
+////////////////////////////////////////
+///contar linhas:
+
+$countSql = "SELECT COUNT(*) AS total_rows FROM ";
+
+////////////////////////////////////////
 ?>
 
 

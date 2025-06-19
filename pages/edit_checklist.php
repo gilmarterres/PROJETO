@@ -8,6 +8,7 @@
     $mensagem = '';
 
 if (isset($_GET['id']) && !empty($_GET['id'])){
+    
         $id_expedicao = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
         $sql_select = "SELECT id, flow, ticket, name_us_bal, plate, driver, name_us_exp, seals FROM db_checklist.dbo.tb_marking WHERE id = :id";
@@ -49,7 +50,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])){
 
         
     <?php
-        print_r($_SESSION);
+       // print_r($_SESSION);
     ?>
     <div class="container">
         <h1> Preencher dados do id ID: <?php echo htmlspecialchars($id_expedicao); ?> </h1>
@@ -58,7 +59,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])){
         <div class="message error">
             <?php echo htmlspecialchars($mensagem); ?>
         </div>
-        <?php endif; ?>
+    <?php endif; ?>
 
         <?php if ($dados_expedicao): ?>
             <div class="data-display">
