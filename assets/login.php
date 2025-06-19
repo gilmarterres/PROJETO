@@ -21,7 +21,7 @@ try {
     $username = $_POST['login'] ?? '';
     $password = $_POST['senha'] ?? '';
 
-    $sql = "SELECT id, login, password, accesslevel FROM tb_users WHERE login = :username";
+    $sql = "SELECT id, name, login, password, accesslevel FROM tb_users WHERE login = :username";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':username', $username, PDO::PARAM_STR);
 
@@ -34,6 +34,7 @@ try {
             $_SESSION['id'] = $user['id'];
             $_SESSION['username'] = $user['login'];
             $_SESSION['accesslevel'] = $user['accesslevel'];
+            $_SESSION['name'] = $user['name'];
 
             echo "Login bem sucedido! Bem vindo, " . $_SESSION['username'] . " ID: " . $_SESSION['accesslevel'];
 
@@ -58,7 +59,5 @@ try {
 }catch(Exception $e){
     die("Erro: " . $e->getMessage());
 }
-
-
 
 ?>

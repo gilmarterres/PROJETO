@@ -1,22 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
-<style>
-body{
-    text-align: center;
-}
-
-</style>
-
+    <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
+
+<body class="balance">
     <?php
-        session_start();
-        //print_r($_SESSION);
+    session_start();
+    //print_r($_SESSION);
     ?>
     <br>
     <button id="bt_lg_screen">Voltar</button>
@@ -29,6 +24,7 @@ body{
 
 
 
-<script src="../js/functions.js"></script>
+    <script src="../js/functions.js"></script>
 </body>
+
 </html>

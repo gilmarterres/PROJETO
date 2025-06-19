@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-
-    <style>
+    <link rel="stylesheet" href="/css/style.css">
+        <style>
         *{
             box-sizing: border-box;            
         }
-        body{
+        .index{
             display: flex;
             align-items: center;
             justify-content: center;
-            
+            background-color: #bbb;
         }
         form{
             
             width: 300px;
-            margin: 200px;
+            margin: 100px;
             text-align: center;
         }
         input{
@@ -29,14 +29,13 @@
             height: 30px;
         }
     </style>
-
 </head>
-<body>
+<body class="index">
     <form action="assets/login.php" method="POST">
-        <h3 >Login</h3>
+        <h1>Login</h1>
         <input type="text" placeholder="login" id="login" name="login">
         <input type="password" placeholder="senha" id="senha" name="senha">
-        <input type="submit" value="Logar">
+        <input class="bt-logar" type="submit" value="Logar">
     </form>
 </body>
 </html>
