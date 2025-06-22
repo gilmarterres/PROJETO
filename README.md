@@ -1,4 +1,4 @@
-# Sistema de Automação de Checklist de Carregamento de Combusíveis
+# Sistema de Automação de Checklist Para Carregamento de Combusíveis
 
 ## Sobre este TCC
 Projeto desenvolvido como parte do Trabalho de Conclusão de Curso (TCC II) na Unicesumar, com objetivo de criar uma solução prática para automação do processo de checklist.
