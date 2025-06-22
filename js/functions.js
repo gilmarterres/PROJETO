@@ -28,3 +28,11 @@ if (btLgscreen){
 });
 }
 
+const btbkexp = document.getElementById("bt_bk_exp");
+if (btbkexp){
+    btbkexp.addEventListener("click", function(){
+        console.log("Voltar")
+        window.location.href = "./expedition.php";    
+});
+}
+

@@ -23,7 +23,7 @@ INSERT INTO tb_users (name, login, password, accesslevel)
 VALUES
     ('Gilmar Ferreira Terres Correa', 'gilmar', '123456', 0),
     ('Paulo Santos', 'paulo', '123456', 2),
-    ('Franciane Ana Souza', 'fran', '123456', 1);
+    ('Francieli Ana Souza', 'fran', '123456', 1);
 GO
 
 SELECT * FROM db_checklist.dbo.tb_users;
@@ -49,7 +49,6 @@ CREATE TABLE tb_marking(
     placaTanque2 NVARCHAR(64),
     volumeCarreta NVARCHAR(64),
     responsavelExpedicao NVARCHAR(64),
-    laudo NVARCHAR(64),
     lacres NVARCHAR(128)
 );
 GO

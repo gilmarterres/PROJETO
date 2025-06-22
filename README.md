@@ -39,4 +39,4 @@ Para o desenvolvimento foi utilizado as seguintes teccnologias e ferramentas:
     * gilmarftc@gmail.com
 
 # Status do Projeto
-    Em desenvolvimento
+    * Em desenvolvimento

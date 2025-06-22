@@ -162,3 +162,17 @@ a:hover {
     background-color: #3e8e41;
     transform: translateY(1px);
 }
+
+.tableEdit{
+    margin-bottom: 32px;
+}
+
+.radio-group{
+    min-width: 200px;
+}
+
+input[type="radio"]{
+    transform: scale(2);
+    margin-right: 15px;
+    margin-left: 10px;
+}

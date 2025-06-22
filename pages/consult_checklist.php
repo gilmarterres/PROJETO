@@ -39,45 +39,44 @@ try {
 <body>
     <button id="bt_back">Voltar</button>
 
-<?php if ($totalRows > 0) { ?>
-    <h1>Consulta Checklist</h1>
-    <thead>
+    <?php if ($totalRows > 0) { ?>
+        <h1>Consulta Checklist</h1>
         <table>
-            <tr>
-                <th>circulacao</th>
-                <th>produto</th>
-                <th>transportadora</th>
-                <th>nomeMotorista</th>
-                <th>data</th>
-                <th>horaEntrada</th>
-                <th>destino</th>
-                <th>responsavelBalanca</th>
-            </tr>
+            <thead>
+                <tr>
+                    <th>circulacao</th>
+                    <th>produto</th>
+                    <th>transportadora</th>
+                    <th>nomeMotorista</th>
+                    <th>data</th>
+                    <th>horaEntrada</th>
+                    <th>destino</th>
+                    <th>responsavelBalanca</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
 
-    </thead>
-    <tbody>
-        <?php
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    echo "<tr>";
+                    echo "<td>" . htmlspecialchars($row['circulacao'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['produto'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['transportadora'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['nomeMotorista'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['data'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['horaEntrada'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['destino'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['responsavelBalanca'] ?? '') . "</td>";
+                    echo "</tr>";
+                }
 
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            echo "<tr>";
-            echo "<td>" . htmlspecialchars($row['circulacao'] ?? '') . "</td>";
-            echo "<td>" . htmlspecialchars($row['produto'] ?? '') . "</td>";
-            echo "<td>" . htmlspecialchars($row['transportadora'] ?? '') . "</td>";
-            echo "<td>" . htmlspecialchars($row['nomeMotorista'] ?? '') . "</td>";
-            echo "<td>" . htmlspecialchars($row['data'] ?? '') . "</td>";
-            echo "<td>" . htmlspecialchars($row['horaEntrada'] ?? '') . "</td>";
-            echo "<td>" . htmlspecialchars($row['destino'] ?? '') . "</td>";
-            echo "<td>" . htmlspecialchars($row['responsavelBalanca'] ?? '') . "</td>";
-            echo "</tr>";
-        }
+                ?>
+            </tbody>
+        </table>
 
-        ?>
-    </tbody>
-    </table>
-
-<?php } else { ?>
-    <h1>Nenhum checklist encontrado para consulta!</h1>
-<?php } ?>
+    <?php } else { ?>
+        <h1>Nenhum checklist encontrado para consulta!</h1>
+    <?php } ?>
 
     <?php $conn = null; ?>
     <script src="../js/functions.js"></script>
