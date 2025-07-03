@@ -11,7 +11,13 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
     $id_expedicao = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-    $sql_select = "SELECT id, flow, ticket, name_us_bal, plate, driver, name_us_exp, seals FROM db_checklist.dbo.tb_marking WHERE id = :id";
+    //$sql_select = "SELECT id, flow, ticket, name_us_bal, plate, driver, name_us_exp, seals FROM db_checklist.dbo.tb_marking WHERE id = :id";
+
+    $sql_select = "SELECT id,flow,circulacao,produto,transportadora,nomeMotorista,data,placaCarreta,cnhMotorista,horaEntrada,
+        placaTanque1,destino,responsavelBalanca,placaTanque2,volumeCarreta,farois,vagoes,cavalo,extintores,
+        verificado,lavar,vedacao,valvula,transporte,tubos,carregamento,responsavelExpedicao,lacres,obs
+  FROM db_checklist.dbo.tb_marking WHERE id = :id";
+
 
     try {
         $stmt_select = $conn->prepare($sql_select);
@@ -40,17 +46,29 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     <title>Checklist</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
-<h1>CHECKLIST</h1>
-<div class="data-display">
-    <p><span>ID:</span><?php echo htmlspecialchars($dados_expedicao['id'] ?? ''); ?></p>
-    <p><span>Fluxo:</span><?php echo htmlspecialchars($dados_expedicao['flow'] ?? ''); ?></p>
-    <p><span>Ticket:</span><?php echo htmlspecialchars($dados_expedicao['ticket'] ?? ''); ?></p>
-    <p><span>Responsável Balança:</span><?php echo htmlspecialchars($dados_expedicao['name_us_bal'] ?? ''); ?></p>
-    <p><span>Placa:</span><?php echo htmlspecialchars($dados_expedicao['plate'] ?? ''); ?></p>
-    <p><span>Motorista:</span><?php echo htmlspecialchars($dados_expedicao['driver'] ?? ''); ?></p>
-    <p><span>Responsável Expedição:</span><?php echo htmlspecialchars($dados_expedicao['name_us_exp'] ?? ''); ?></p>
-    <p><span>Lacres:</span><?php echo htmlspecialchars($dados_expedicao['seals'] ?? ''); ?></p>
-</div>
+
+<body>
+
+    <button id="bt_back_ck">Voltar</button>
+
+    <h1>CHECKLIST</h1>
+    <div class="data-display">
+        <p><span>ID:</span><?php echo htmlspecialchars($dados_expedicao['id'] ?? ''); ?></p>
+        <p><span>Fluxo:</span><?php echo htmlspecialchars($dados_expedicao['flow'] ?? ''); ?></p>
+        <p><span>Ticket:</span><?php echo htmlspecialchars($dados_expedicao['circulacao'] ?? ''); ?></p>
+        <p><span>Responsável Balança:</span><?php echo htmlspecialchars($dados_expedicao['produto'] ?? ''); ?></p>
+        <p><span>Placa:</span><?php echo htmlspecialchars($dados_expedicao['transportadora'] ?? ''); ?></p>
+        <p><span>Motorista:</span><?php echo htmlspecialchars($dados_expedicao['nomeMotorista'] ?? ''); ?></p>
+    </div>
+
+
+
+
+
+
+
+
+    <script src="../js/functions.js"></script>
 </body>
 
 </html>

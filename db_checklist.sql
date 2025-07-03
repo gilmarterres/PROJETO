@@ -48,8 +48,20 @@ CREATE TABLE tb_marking(
     responsavelBalanca NVARCHAR(64),
     placaTanque2 NVARCHAR(64),
     volumeCarreta NVARCHAR(64),
-    responsavelExpedicao NVARCHAR(64),
-    lacres NVARCHAR(128)
+	farois NVARCHAR(8),
+	vagoes NVARCHAR(8),
+	cavalo NVARCHAR(8),
+	extintores NVARCHAR(8),
+	verificado NVARCHAR(8),
+	lavar NVARCHAR(8),
+	vedacao NVARCHAR(8),
+	valvula NVARCHAR(8),
+	transporte NVARCHAR(8),
+	tubos NVARCHAR(8),
+	carregamento NVARCHAR(8),
+	responsavelExpedicao NVARCHAR(64),
+	lacres NVARCHAR(64),
+	obs NVARCHAR(64),
 );
 GO
 

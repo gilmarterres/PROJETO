@@ -36,3 +36,10 @@ if (btbkexp){
 });
 }
 
+const bt_back_ck = document.getElementById("bt_back_ck");
+if (bt_back_ck){
+    bt_back_ck.addEventListener("click", function(){
+        console.log("Voltar")
+        window.location.href = "./consult_checklist.php";    
+});
+}

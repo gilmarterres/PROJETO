@@ -3,7 +3,9 @@ require_once("../assets/connection.php");
 
 $sql = "SELECT id, flow, circulacao, produto, transportadora, nomeMotorista, data, placaCarreta,
                  cnhMotorista, horaEntrada, placaTanque1, destino, responsavelBalanca,
-                 placaTanque2, volumeCarreta FROM db_checklist.dbo.tb_marking";
+                 placaTanque2, volumeCarreta, responsavelExpedicao FROM db_checklist.dbo.tb_marking
+                 WHERE flow = 2
+                 ";
 
 try {
     $stmt = $conn->query($sql);
@@ -47,11 +49,12 @@ try {
                     <th>circulacao</th>
                     <th>produto</th>
                     <th>transportadora</th>
-                    <th>nomeMotorista</th>
+                    <th>nome Motorista</th>
                     <th>data</th>
-                    <th>horaEntrada</th>
+                    <th>hora Entrada</th>
                     <th>destino</th>
-                    <th>responsavelBalanca</th>
+                    <th>responsave lBalanca</th>
+                    <th>responsavel Expedicao</th>
                 </tr>
             </thead>
             <tbody>
@@ -59,7 +62,7 @@ try {
 
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     echo "<tr>";
-                    echo "<td>" . htmlspecialchars($row['circulacao'] ?? '') . "</td>";
+                    echo "<td><a href=\"checklist.php?id=" . htmlspecialchars($row['id'] ?? '') . "\">" . htmlspecialchars($row['circulacao'] ?? '') . "</td>";
                     echo "<td>" . htmlspecialchars($row['produto'] ?? '') . "</td>";
                     echo "<td>" . htmlspecialchars($row['transportadora'] ?? '') . "</td>";
                     echo "<td>" . htmlspecialchars($row['nomeMotorista'] ?? '') . "</td>";
@@ -67,6 +70,7 @@ try {
                     echo "<td>" . htmlspecialchars($row['horaEntrada'] ?? '') . "</td>";
                     echo "<td>" . htmlspecialchars($row['destino'] ?? '') . "</td>";
                     echo "<td>" . htmlspecialchars($row['responsavelBalanca'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['responsavelExpedicao'] ?? '') . "</td>";
                     echo "</tr>";
                 }
 

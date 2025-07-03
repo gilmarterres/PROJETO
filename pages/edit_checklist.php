@@ -211,20 +211,20 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
                     <div class="form-group">
                         <label for="operador_expedicao">Operador Expedição: </label>
-                        <input required type="text" id="name_us_exp" name="name_us_exp"
+                        <input required type="text" id="responsavelExpedicao" name="responsavelExpedicao"
                             value="<?php echo htmlspecialchars($_SESSION['name'] ?? '') ?>">
                     </div>
 
                     <div class="form-group">
                         <label for="lacres">Lacres: </label>
                         <input required type="text" id="lacres" name="lacres"
-                            value="<?php echo htmlspecialchars($dados_expedicao['lacres'] ?? '') ?>">
+                            value="">
                     </div>
 
                     <div class="form-group">
                         <label for="obs">Observação: </label>
                         <input type="text" id="obs" name="obs"
-                            value="<?php echo htmlspecialchars($dados_expedicao['obs'] ?? '') ?>">
+                            value="">
                     </div>
                     
                     <button type="submit">Confirmar Checklist</button>
