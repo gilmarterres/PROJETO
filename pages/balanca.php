@@ -16,7 +16,7 @@
     <br>
     <button id="bt_lg_screen">Voltar</button>
 
-    <h3>BALANÇA</h3>
+    <h1>BALANÇA</h1>
 
     <button id="bt_new">Criar novo checklist</button>
 

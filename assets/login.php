@@ -41,9 +41,9 @@ try {
             if($_SESSION['accesslevel'] == 0){                
                 header("Location: ../pages/admin.php");
             }else if($_SESSION['accesslevel'] == 1){
-                header("Location: ../pages/balance.php");
+                header("Location: ../pages/balanca.php");
             }else if($_SESSION['accesslevel'] == 2){
-                header("Location: ../pages/expedition.php");
+                header("Location: ../pages/expedicao.php");
             }else{
                 header("Location: ../index.html");
             }

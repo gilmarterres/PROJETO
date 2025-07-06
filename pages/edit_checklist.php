@@ -30,7 +30,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         die("Erro ao carregar dados: " . $e->getMessage());
     }
 } else {
-    header("Location: expedition.php");
+    header("Location: expedicao.php");
     exit();
 }
 
@@ -217,17 +217,15 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
                     <div class="form-group">
                         <label for="lacres">Lacres: </label>
-                        <input required type="text" id="lacres" name="lacres"
-                            value="">
+                        <input required type="text" id="lacres" name="lacres" value="" autocomplete="off">
                     </div>
 
                     <div class="form-group">
                         <label for="obs">Observação: </label>
-                        <input type="text" id="obs" name="obs"
-                            value="">
+                        <input type="text" id="obs" name="obs" value="" autocomplete="off">
                     </div>
                     
-                    <button type="submit">Confirmar Checklist</button>
+                    <button class="inserirDados" type="submit">Confirmar Checklist</button>
                     
                 
                 </form>

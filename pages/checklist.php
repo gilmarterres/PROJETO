@@ -1,4 +1,5 @@
 <?php
+
 require_once("../assets/connection.php");
 
 session_start();
@@ -7,17 +8,86 @@ $id_expedicao = null;
 $dados_expedicao = [];
 $mensagem = '';
 
-if (isset($_GET['id']) && !empty($_GET['id'])) {
+$camposExcluidos = [
+    'id',
+    'flow',
+];
 
+$nomesAmigaveis = [
+    'circulacao' => 'Número de Circulação',
+    'produto' => 'Produto',
+    'transportadora' => 'Transportadora',
+    'nomeMotorista' => 'Nome do Motorista',
+    'data' => 'Data do Checklist',
+    'placaCarreta' => 'Placa da Carreta',
+    'cnhMotorista' => 'CNH do Motorista',
+    'horaEntrada' => 'Hora de Entrada',
+    'placaTanque1' => 'Placa Tanque 1',
+    'destino' => 'Destino',
+    'responsavelBalanca' => 'Responsável Balança',
+    'placaTanque2' => 'Placa Tanque 2',
+    'volumeCarreta' => 'Volume da Carreta (Litros)',
+    'lacres' => 'Número dos Lacres',
+    'obs' => 'Observações',
+
+    'farois' => 'Faróis, lanternas e setas em bom estado?',
+    'vagoes' => 'Vagões, válvulas e conexões isentos de vazamentos?',
+    'cavalo' => 'No cavalo o painel de segurança e rótulo de risco meio ambiente estão conforme?',
+    'extintores' => 'Os extintores estão com a validade da carga e teste hidrostático conformes?',
+    'verificado' => 'Verificado se há volume remanescente nos compartimentos da carreta a ser carregada?',
+    'lavar' => 'Necessidade de lavar e/ou secar o tanque? (*Secar a umidade, se presente)',
+    'vedacao' => 'A vedação da boca de carregamento está conforme?',
+    'valvula' => 'Possui válvula de fundo de fecho rápido?',
+    'transporte' => 'Caminhão tanque em condições de realizar o transporte?',
+    'tubos' => 'Certificado se os tubos de descargas (canos) irão ser carregados cheios ou vazio?',
+    'carregamento' => 'Carregamento aprovado? Caso não, informar à supervisão.',
+];
+
+$gruposCampos = [
+    'Dados Gerais do Carregamento' => [
+        'circulacao',
+        'data',
+        'horaEntrada',
+        'produto',
+        'volumeCarreta',
+        'destino',
+        'obs'
+    ],
+    'Dados do Veículo e Motorista' => [
+        'nomeMotorista',
+        'cnhMotorista',
+        'transportadora',
+        'placaCarreta',
+        'placaTanque1',
+        'placaTanque2',
+        'lacres'
+    ],
+    'Itens de Checklist (Inspeção)' => [
+        'farois',
+        'vagoes',
+        'cavalo',
+        'extintores',
+        'verificado',
+        'lavar',
+        'vedacao',
+        'valvula',
+        'transporte',
+        'tubos',
+        'carregamento'
+    ],
+    'Responsáveis' => [
+        'responsavelBalanca',
+        'responsavelExpedicao'
+    ]
+];
+
+if (isset($_GET['id']) && !empty($_GET['id'])) {
     $id_expedicao = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-    //$sql_select = "SELECT id, flow, ticket, name_us_bal, plate, driver, name_us_exp, seals FROM db_checklist.dbo.tb_marking WHERE id = :id";
-
     $sql_select = "SELECT id,flow,circulacao,produto,transportadora,nomeMotorista,data,placaCarreta,cnhMotorista,horaEntrada,
-        placaTanque1,destino,responsavelBalanca,placaTanque2,volumeCarreta,farois,vagoes,cavalo,extintores,
-        verificado,lavar,vedacao,valvula,transporte,tubos,carregamento,responsavelExpedicao,lacres,obs
-  FROM db_checklist.dbo.tb_marking WHERE id = :id";
-
+                    placaTanque1,destino,responsavelBalanca,placaTanque2,volumeCarreta,farois,vagoes,cavalo,extintores,
+                    verificado,lavar,vedacao,valvula,transporte,tubos,carregamento,responsavelExpedicao,lacres,obs
+                   FROM db_checklist.dbo.tb_marking WHERE id = :id";
 
     try {
         $stmt_select = $conn->prepare($sql_select);
@@ -26,14 +96,63 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         $dados_expedicao = $stmt_select->fetch(PDO::FETCH_ASSOC);
 
         if (!$dados_expedicao) {
-            $mensagem = "TICKET" . htmlspecialchars($id_expedicao) . " não encontrado";
+            $mensagem = "Checklist com ID " . htmlspecialchars($id_expedicao) . " não encontrado.";
         }
     } catch (PDOException $e) {
-        die("Erro ao carregar dados: " . $e->getMessage());
+        $mensagem = "Erro ao carregar dados: " . $e->getMessage();
     }
 } else {
-    //header("Location: consult_checklist.php");
-    //exit();
+    $mensagem = "ID do checklist não fornecido.";
+}
+
+function formatChecklistValue($key, $value, $nomesAmigaveis)
+{
+    $displayValue = '';
+    $statusClass = '';
+
+    if (($key === 'data' || $key === 'horaEntrada') && $value instanceof DateTime) {
+        $displayValue = ($key === 'data') ? $value->format('d/m/Y') : $value->format('H:i');
+    } else if (
+        in_array($key, array_keys(array_intersect_key($nomesAmigaveis, array_flip([
+            'farois',
+            'vagoes',
+            'cavalo',
+            'extintores',
+            'verificado',
+            'lavar',
+            'vedacao',
+            'valvula',
+            'transporte',
+            'tubos',
+            'carregamento'
+        ]))))
+    ) {
+        $normalizedValue = strtolower($value);
+
+        if ($normalizedValue == 'sim') {
+            $displayValue = 'Sim';
+            $statusClass = 'status-sim';
+        } elseif ($normalizedValue == 'nao') {
+            $displayValue = 'Não';
+            $statusClass = 'status-nao';
+        } elseif ($normalizedValue == 'na') {
+            $displayValue = 'N/A';
+            $statusClass = 'status-na';
+        } else {
+            $displayValue = 'Desconhecido';
+            $statusClass = '';
+        }
+    } else {
+        $displayValue = htmlspecialchars($value);
+    }
+
+    $label = isset($nomesAmigaveis[$key]) ? $nomesAmigaveis[$key] : ucwords(str_replace(['_', 'responsavel'], [' ', 'Resp. '], $key));
+
+    return [
+        'label' => $label,
+        'displayValue' => ($displayValue !== '' ? $displayValue : '-'),
+        'statusClass' => $statusClass
+    ];
 }
 
 ?>
@@ -43,32 +162,330 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checklist</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <title>Detalhes do Checklist</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+            color: #333;
+            line-height: 1.6;
+            background-color: #ccc;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header-green {
+            background-color: #5cb85c;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            margin: 0;
+            font-weight: normal;
+            font-size: 1.8em;
+            color: #fff;
+        }
+
+        .btn-voltar {
+            display: inline-block;
+            background-color: #f0ad4e;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .btn-voltar:hover {
+            background-color: #ec971f;
+        }
+
+        .info-bar {
+            background-color: #f0f8f0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            border: 1px solid #d2e6d2;
+        }
+
+        .info-item {
+            flex: 1 1 180px;
+            font-size: 0.9em;
+        }
+
+        .info-item strong {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .checklist-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .checklist-section h2 {
+            color: #555;
+            font-size: 1.2em;
+            margin-top: 0;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        .checklist-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            flex-wrap: wrap;
+        }
+
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+
+        .question {
+            flex-grow: 1;
+            margin-right: 15px;
+            font-size: 0.95em;
+            padding-right: 10px;
+        }
+
+        .options {
+            flex-shrink: 0;
+            display: flex;
+            gap: 15px;
+            font-size: 0.9em;
+        }
+
+        .options input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .status-sim {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .status-nao {
+            color: #c0392b;
+            font-weight: bold;
+        }
+
+        .status-na {
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .input-group input[type="text"],
+        .input-group textarea {
+            width: calc(100% - 18px);
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+            background-color: #eee;
+        }
+
+        .input-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .message-box {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        @media (max-width: 768px) {
+            .info-bar {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .info-item {
+                flex: 1 1 100%;
+            }
+
+            .checklist-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .options {
+                margin-top: 5px;
+            }
+
+            .input-group input,
+            .input-group textarea {
+                width: 100%;
+            }
+        }
+
+        .back-button{
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    height: auto;
+}
+
+.back-button:hover{
+    background-color: #45a049;
+}
+
+.back-button:active{
+    background-color: #3e8e41;
+    transform: translateY(1px);
+}
+    </style>
 </head>
 
 <body>
+    <a href="#" onclick="history.back();" class="back-button">Voltar</a>
+    <div class="container">
+        <div class="header-green">
+            <h1>CHECKLIST</h1>
+        </div>
 
-    <button id="bt_back_ck">Voltar</button>
+        <?php if ($mensagem): ?>
+            <div
+                class="message-box <?php echo (strpos($mensagem, 'Erro') !== false || strpos($mensagem, 'não encontrado') !== false) ? 'error-message' : ''; ?>">
+                <p><?php echo $mensagem; ?></p>
+            </div>
+        <?php elseif ($dados_expedicao): ?>
+            <div class="info-bar">
+                <div class="info-item"><strong>CIRCULAÇÃO:</strong>
+                    <?php echo htmlspecialchars($dados_expedicao['circulacao'] ?? '-'); ?></div>
+                <div class="info-item"><strong>PRODUTO:</strong>
+                    <?php echo htmlspecialchars($dados_expedicao['produto'] ?? '-'); ?></div>
+                <div class="info-item"><strong>TRANSPORTADORA:</strong>
+                    <?php echo htmlspecialchars($dados_expedicao['transportadora'] ?? '-'); ?></div>
+                <div class="info-item"><strong>NOMEMOTORISTA:</strong>
+                    <?php echo htmlspecialchars($dados_expedicao['nomeMotorista'] ?? '-'); ?></div>
+                <div class="info-item"><strong>DATA:</strong>
+                    <?php echo (isset($dados_expedicao['data']) && $dados_expedicao['data'] != '') ? date('Y-m-d', strtotime($dados_expedicao['data'])) : '-'; ?>
+                </div>
+                <div class="info-item"><strong>HORAENTRADA:</strong>
+                    <?php echo (isset($dados_expedicao['horaEntrada']) && $dados_expedicao['horaEntrada'] != '') ? date('H:i', strtotime($dados_expedicao['horaEntrada'])) : '-'; ?>
+                </div>
+                <div class="info-item"><strong>DESTINO:</strong>
+                    <?php echo htmlspecialchars($dados_expedicao['destino'] ?? '-'); ?></div>
+                <div class="info-item"><strong>RESPONSAVELBALANCA:</strong>
+                    <?php echo htmlspecialchars($dados_expedicao['responsavelBalanca'] ?? '-'); ?></div>
+                <div class="info-item"><strong>PLACA CARRETA:</strong>
+                    <?php echo htmlspecialchars($dados_expedicao['placaCarreta'] ?? '-'); ?></div>
+                <div class="info-item"><strong>PLACA TANQUE 1:</strong>
+                    <?php echo htmlspecialchars($dados_expedicao['placaTanque1'] ?? '-'); ?></div>
+                <div class="info-item"><strong>VOLUME CARRETA:</strong>
+                    <?php echo htmlspecialchars($dados_expedicao['volumeCarreta'] ?? '-'); ?></div>
+            </div>
 
-    <h1>CHECKLIST</h1>
-    <div class="data-display">
-        <p><span>ID:</span><?php echo htmlspecialchars($dados_expedicao['id'] ?? ''); ?></p>
-        <p><span>Fluxo:</span><?php echo htmlspecialchars($dados_expedicao['flow'] ?? ''); ?></p>
-        <p><span>Ticket:</span><?php echo htmlspecialchars($dados_expedicao['circulacao'] ?? ''); ?></p>
-        <p><span>Responsável Balança:</span><?php echo htmlspecialchars($dados_expedicao['produto'] ?? ''); ?></p>
-        <p><span>Placa:</span><?php echo htmlspecialchars($dados_expedicao['transportadora'] ?? ''); ?></p>
-        <p><span>Motorista:</span><?php echo htmlspecialchars($dados_expedicao['nomeMotorista'] ?? ''); ?></p>
+            <div class="checklist-section">
+                <?php foreach ($nomesAmigaveis as $key => $pergunta): ?>
+                    <?php
+                    if (in_array($key, ['farois', 'vagoes', 'cavalo', 'extintores', 'verificado', 'lavar', 'vedacao', 'valvula', 'transporte', 'tubos', 'carregamento'])):
+                        $currentValue = $dados_expedicao[$key] ?? '';
+                        $normalizedValue = strtolower($currentValue);
+
+                        $exibirValor = '';
+                        $classeCor = '';
+
+                        if ($normalizedValue == 'sim') {
+                            $exibirValor = 'Sim';
+                            $classeCor = 'status-sim';
+                        } elseif ($normalizedValue == 'nao') {
+                            $exibirValor = 'Não';
+                            $classeCor = 'status-nao';
+                        } elseif ($normalizedValue == 'na') {
+                            $exibirValor = 'N/A';
+                            $classeCor = 'status-na';
+                        }
+                        ?>
+                        <div class="checklist-item">
+                            <div class="question"><?php echo htmlspecialchars($pergunta); ?></div>
+                            <div class="options">
+                                <span class="<?php echo $classeCor; ?>"><?php echo $exibirValor; ?></span>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </div>
+
+            <div class="input-group">
+                <label>Operador Expedição:</label>
+                <input type="text" value="<?php echo htmlspecialchars($dados_expedicao['responsavelExpedicao'] ?? ''); ?>"
+                    readonly>
+            </div>
+
+            <div class="input-group">
+                <label>Lacres:</label>
+                <input type="text" value="<?php echo htmlspecialchars($dados_expedicao['lacres'] ?? ''); ?>" readonly>
+            </div>
+
+            <div class="input-group">
+                <label>Observação:</label>
+                <textarea rows="3" readonly><?php echo htmlspecialchars($dados_expedicao['obs'] ?? ''); ?></textarea>
+            </div>
+
+        <?php else: ?>
+            <div class="message-box error-message">
+                <p>Nenhum checklist encontrado para o ID fornecido ou ocorreu um erro.</p>
+            </div>
+        <?php endif; ?>
+
+
     </div>
-
-
-
-
-
-
-
-
-    <script src="../js/functions.js"></script>
 </body>
 
 </html>

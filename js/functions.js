@@ -17,7 +17,7 @@ btConsult.addEventListener("click", function(){
 const btBack = document.getElementById("bt_back");
 if (btBack){
     btBack.addEventListener("click", function(){
-        window.location.href = "../pages/balance.php";    
+        window.location.href = "../pages/balanca.php";    
 });
 }
 
@@ -32,7 +32,7 @@ const btbkexp = document.getElementById("bt_bk_exp");
 if (btbkexp){
     btbkexp.addEventListener("click", function(){
         console.log("Voltar")
-        window.location.href = "./expedition.php";    
+        window.location.href = "./expedicao.php";    
 });
 }
 

@@ -176,3 +176,38 @@ input[type="radio"]{
     margin-right: 15px;
     margin-left: 10px;
 }
+
+button{
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    height: auto;
+}
+
+button:hover{
+    background-color: #45a049;
+}
+
+button:active{
+    background-color: #3e8e41;
+    transform: translateY(1px);
+}
+
+.inserirDados{
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    height: auto;
+}
