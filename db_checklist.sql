@@ -10,6 +10,9 @@ GO
 USE db_checklist;
 GO
 
+DROP TABLE tb_users;
+GO
+
 create table tb_users (
 id INT PRIMARY KEY IDENTITY(1,1),
 name NVARCHAR(64) NOT NULL,
@@ -23,7 +26,7 @@ INSERT INTO tb_users (name, login, password, accesslevel)
 VALUES
     ('Gilmar Ferreira Terres Correa', 'gilmar', '123456', 0),
     ('Paulo Santos', 'paulo', '123456', 2),
-    ('Francieli Ana Souza', 'fran', '123456', 1);
+    ('Francieli Lima Souza', 'fran', '123456', 1);
 GO
 
 SELECT * FROM db_checklist.dbo.tb_users;
@@ -63,14 +66,6 @@ CREATE TABLE tb_marking(
 	lacres NVARCHAR(64),
 	obs NVARCHAR(64),
 );
-GO
-
-INSERT INTO tb_marking(flow, circulacao, produto, transportadora, nomeMotorista, data, 
-                        placaCarreta, cnhMotorista, horaEntrada, placaTanque1, destino, responsavelBalanca,
-                        placaTanque2, volumeCarreta, laudo, lacres
-                        )
-VALUES
-    (1,78526, 'fran', 'XDS-7367','Antonio de oliveira','borges','6489458 548545 54854 51854 54843');
 GO
 
 SELECT * FROM db_checklist.dbo.tb_marking;
