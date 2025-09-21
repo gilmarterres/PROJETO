@@ -86,7 +86,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
     $sql_select = "SELECT id,flow,circulacao,produto,transportadora,nomeMotorista,data,placaCarreta,cnhMotorista,horaEntrada,
                     placaTanque1,destino,responsavelBalanca,placaTanque2,volumeCarreta,farois,vagoes,cavalo,extintores,
-                    verificado,lavar,vedacao,valvula,transporte,tubos,carregamento,responsavelExpedicao,lacres,obs
+                    verificado,lavar,vedacao,valvula,transporte,tubos,carregamento,responsavelExpedicao,laudo,lacres,obs
                    FROM db_checklist.dbo.tb_marking WHERE id = :id";
 
     try {
@@ -227,7 +227,7 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
         }
 
         .info-item {
-            flex: 1 1 180px;
+            flex: 1 1 270px;
             font-size: 0.9em;
         }
 
@@ -409,26 +409,34 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
                     <?php echo htmlspecialchars($dados_expedicao['circulacao'] ?? '-'); ?></div>
                 <div class="info-item"><strong>PRODUTO:</strong>
                     <?php echo htmlspecialchars($dados_expedicao['produto'] ?? '-'); ?></div>
+                <div class="info-item"><strong>LAUDO:</strong>
+                    <?php echo htmlspecialchars($dados_expedicao['laudo'] ?? '-'); ?></div>
                 <div class="info-item"><strong>TRANSPORTADORA:</strong>
                     <?php echo htmlspecialchars($dados_expedicao['transportadora'] ?? '-'); ?></div>
-                <div class="info-item"><strong>NOMEMOTORISTA:</strong>
+                <div class="info-item"><strong>NOME MOTORISTA:</strong>
                     <?php echo htmlspecialchars($dados_expedicao['nomeMotorista'] ?? '-'); ?></div>
+                <div class="info-item"><strong>CNH MOTORISTA:</strong>
+                    <?php echo htmlspecialchars($dados_expedicao['cnhMotorista'] ?? '-'); ?></div>
                 <div class="info-item"><strong>DATA:</strong>
                     <?php echo (isset($dados_expedicao['data']) && $dados_expedicao['data'] != '') ? date('Y-m-d', strtotime($dados_expedicao['data'])) : '-'; ?>
                 </div>
-                <div class="info-item"><strong>HORAENTRADA:</strong>
+                <div class="info-item"><strong>HORA ENTRADA:</strong>
                     <?php echo (isset($dados_expedicao['horaEntrada']) && $dados_expedicao['horaEntrada'] != '') ? date('H:i', strtotime($dados_expedicao['horaEntrada'])) : '-'; ?>
                 </div>
                 <div class="info-item"><strong>DESTINO:</strong>
                     <?php echo htmlspecialchars($dados_expedicao['destino'] ?? '-'); ?></div>
-                <div class="info-item"><strong>RESPONSAVELBALANCA:</strong>
-                    <?php echo htmlspecialchars($dados_expedicao['responsavelBalanca'] ?? '-'); ?></div>
                 <div class="info-item"><strong>PLACA CARRETA:</strong>
                     <?php echo htmlspecialchars($dados_expedicao['placaCarreta'] ?? '-'); ?></div>
                 <div class="info-item"><strong>PLACA TANQUE 1:</strong>
                     <?php echo htmlspecialchars($dados_expedicao['placaTanque1'] ?? '-'); ?></div>
+                <div class="info-item"><strong>PLACA TANQUE 2:</strong>
+                    <?php echo htmlspecialchars($dados_expedicao['placaTanque2'] ?? '-'); ?></div>
                 <div class="info-item"><strong>VOLUME CARRETA:</strong>
                     <?php echo htmlspecialchars($dados_expedicao['volumeCarreta'] ?? '-'); ?></div>
+                <div class="info-item"><strong>RESPONSÁVEL BALANÇA:</strong>
+                    <?php echo htmlspecialchars($dados_expedicao['responsavelBalanca'] ?? '-'); ?></div>
+                <div class="info-item"><strong>RESPONSÁVEL EXPEDIÇÃO:</strong>
+                    <?php echo htmlspecialchars($dados_expedicao['responsavelExpedicao'] ?? '-'); ?></div>
             </div>
 
             <div class="checklist-section">
@@ -460,12 +468,6 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
                         </div>
                     <?php endif; ?>
                 <?php endforeach; ?>
-            </div>
-
-            <div class="input-group">
-                <label>Operador Expedição:</label>
-                <input type="text" value="<?php echo htmlspecialchars($dados_expedicao['responsavelExpedicao'] ?? ''); ?>"
-                    readonly>
             </div>
 
             <div class="input-group">

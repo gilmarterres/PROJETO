@@ -63,7 +63,8 @@ CREATE TABLE tb_marking(
 	tubos NVARCHAR(8),
 	carregamento NVARCHAR(8),
 	responsavelExpedicao NVARCHAR(64),
-	lacres NVARCHAR(64),
+	laudo NVARCHAR(32),
+	lacres NVARCHAR(128),
 	obs NVARCHAR(64),
 );
 GO

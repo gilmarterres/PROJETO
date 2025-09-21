@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tubos = filter_input(INPUT_POST, 'tubos', FILTER_UNSAFE_RAW);    
     $carregamento = filter_input(INPUT_POST, 'carregamento', FILTER_UNSAFE_RAW);
     $responsavelExpedicao = filter_input(INPUT_POST, 'responsavelExpedicao', FILTER_UNSAFE_RAW);
+    $laudo = filter_input(INPUT_POST, 'laudo', FILTER_UNSAFE_RAW);
     $lacres = filter_input(INPUT_POST, 'lacres', FILTER_UNSAFE_RAW);
     $obs = filter_input(INPUT_POST, 'obs', FILTER_UNSAFE_RAW);    
     $flow = 2;
@@ -36,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         tubos = :tubos,
                         carregamento = :carregamento,
                         responsavelExpedicao = :responsavelExpedicao,
+                        laudo = :laudo,
                         lacres = :lacres,
                         obs = :obs,
                         flow = :flow
@@ -57,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt_update->bindParam(':tubos', $tubos, PDO::PARAM_STR);
             $stmt_update->bindParam(':carregamento', $carregamento, PDO::PARAM_STR);
             $stmt_update->bindParam(':responsavelExpedicao', $responsavelExpedicao, PDO::PARAM_STR);
+            $stmt_update->bindParam(':laudo', $laudo, PDO::PARAM_STR);
             $stmt_update->bindParam(':lacres', $lacres, PDO::PARAM_STR);
             $stmt_update->bindParam(':obs', $obs, PDO::PARAM_STR);
             

@@ -179,11 +179,11 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                                 </td>
                             </tr>
                             <tr>
-                                <td>Caminhão tanque em condições de realizar o transporte</td>
+                                <td>Caminhão tanque em condições de realizar o transporte?</td>
                                 <td class="radio-group">
                                     <label><input type="radio" name="transporte" value="sim" required>Sim
                                     <input type="radio" name="transporte" value="nao">Não
-                                    <input type="radio" name="transporte" value="na">n/a</label>
+                                    <!-- <input type="radio" name="transporte" value="na">n/a</label> -->
                                 </td>
                             </tr>
                             <tr>
@@ -191,7 +191,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                                 <td class="radio-group">
                                     <label><input type="radio" name="tubos" value="sim" required>Sim
                                     <input type="radio" name="tubos" value="nao">Não
-                                    <input type="radio" name="tubos" value="na">n/a</label>
+                                    <!-- <input type="radio" name="tubos" value="na">n/a</label> -->
                                 </td>
                             </tr>
                             <tr>
@@ -199,7 +199,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                                 <td class="radio-group">
                                     <label><input type="radio" name="carregamento" value="sim" required>Sim
                                     <input type="radio" name="carregamento" value="nao">Não
-                                    <input type="radio" name="carregamento" value="na">n/a</label>
+                                    <!-- <input type="radio" name="carregamento" value="na">n/a</label> -->
                                 </td>
                             </tr>
 
@@ -213,6 +213,11 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                         <label for="operador_expedicao">Operador Expedição: </label>
                         <input required type="text" id="responsavelExpedicao" name="responsavelExpedicao"
                             value="<?php echo htmlspecialchars($_SESSION['name'] ?? '') ?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="laudo">Laudo: </label>
+                        <input required type="text" id="laudo" name="laudo" value="" autocomplete="off">
                     </div>
 
                     <div class="form-group">
