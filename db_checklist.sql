@@ -64,7 +64,14 @@ CREATE TABLE tb_marking(
 	carregamento NVARCHAR(8),
 	responsavelExpedicao NVARCHAR(64),
 	laudo NVARCHAR(32),
-	lacres NVARCHAR(128),
+	baia NVARCHAR(32),
+	temperaturaAmostra NVARCHAR(32),
+	densidade NVARCHAR(32),
+	vCarregado NVARCHAR(32),
+	temperaturaCarreta NVARCHAR(32),
+	lacresAmostra NVARCHAR(32),
+	lacreMotorista NVARCHAR(32),
+	lacresCarreta NVARCHAR(128),
 	obs NVARCHAR(64),
 );
 GO

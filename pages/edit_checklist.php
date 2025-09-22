@@ -208,27 +208,66 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
                     </table>
 
-
+<div class="form-container">
                     <div class="form-group">
-                        <label for="operador_expedicao">Operador Expedição: </label>
+                        <label for="operador_expedicao">RESPONSÁVEL EXPEDIÇÃO: </label>
                         <input required type="text" id="responsavelExpedicao" name="responsavelExpedicao"
                             value="<?php echo htmlspecialchars($_SESSION['name'] ?? '') ?>">
                     </div>
 
+<!-- II.III REGISTROS DO CARREGAMENTO -->
+
                     <div class="form-group">
-                        <label for="laudo">Laudo: </label>
+                        <label for="laudo">LAUDO: </label>
                         <input required type="text" id="laudo" name="laudo" value="" autocomplete="off">
                     </div>
 
                     <div class="form-group">
-                        <label for="lacres">Lacres: </label>
-                        <input required type="text" id="lacres" name="lacres" value="" autocomplete="off">
+                        <label for="baia">N° BAIA DE CARREGAMENTO/ BRAÇO: </label>
+                        <input required type="text" id="baia" name="baia" value="" autocomplete="off">
                     </div>
 
                     <div class="form-group">
-                        <label for="obs">Observação: </label>
+                        <label for="temperaturaAmostra">TEMPERATURA DA AMOSTRA (°C): </label>
+                        <input required type="text" id="temperaturaAmostra" name="temperaturaAmostra" value="" autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="densidade">DENSIDADE DA AMOSTRA:  </label>
+                        <input required type="text" id="densidade" name="densidade" value="" autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="'vCarregado'">VOLUME CARREGADO: </label>
+                        <input required type="text" id="vCarregado" name="vCarregado" value="" autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="temperaturaCarreta">TEMPERATURA DA CARRETA (°C): </label>
+                        <input required type="text" id="temperaturaCarreta" name="temperaturaCarreta" value="" autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lacresAmostra">LACRES DAS AMOSTRAS: </label>
+                        <input required type="text" id="lacresAmostra" name="lacresAmostra" value="" autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lacreMotorista">LACRE DA AMOSTRA DO MOTORISTA: </label>
+                        <input required type="text" id="lacreMotorista" name="lacreMotorista" value="" autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lacresCarreta">LACRES DA CARRETA: </label>
+                        <input required type="text" id="lacresCarreta" name="lacresCarreta" value="" autocomplete="off">
+                    </div>
+<!-- II.III REGISTROS DO CARREGAMENTO -->
+
+                    <div class="form-group">
+                        <label for="obs">OBSERVAÇÃO: </label>
                         <input type="text" id="obs" name="obs" value="" autocomplete="off">
                     </div>
+</div>
                     
                     <button class="inserirDados" type="submit">Confirmar Checklist</button>
                     

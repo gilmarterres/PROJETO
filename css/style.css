@@ -36,13 +36,20 @@ legend{
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 15px;
+    gap: 20px;
+}
+
+.form-container {
+    display: flex;
+    flex-wrap: wrap; /* Isso permite que os elementos quebrem para a próxima linha */
+    gap: 20px; /* Adiciona um espaço entre as colunas */
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .form-group{
-    flex: 1;
+    flex-basis: calc(33% - 10px); /* 50% para duas colunas, menos metade do gap */
     min-width: 250px;
-    margin-right: 20px;
-    margin-bottom: 10px;
 }
 
 label{
@@ -57,7 +64,7 @@ input[type="submit"],
 input[type="text"],
 input[type="date"],
 input[type="time"]{
-    width: calc(100% - 22px);
+    width: calc(100%);
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -85,7 +92,7 @@ table {
     border: 1px solid #000;
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 0px;
     box-shadow: 0 0 10px rgb(0, 0, 0, 0.1);
     background-color: #fff;
 }

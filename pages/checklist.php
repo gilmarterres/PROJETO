@@ -27,7 +27,7 @@ $nomesAmigaveis = [
     'responsavelBalanca' => 'Responsável Balança',
     'placaTanque2' => 'Placa Tanque 2',
     'volumeCarreta' => 'Volume da Carreta (Litros)',
-    'lacres' => 'Número dos Lacres',
+
     'obs' => 'Observações',
 
     'farois' => 'Faróis, lanternas e setas em bom estado?',
@@ -59,8 +59,7 @@ $gruposCampos = [
         'transportadora',
         'placaCarreta',
         'placaTanque1',
-        'placaTanque2',
-        'lacres'
+        'placaTanque2'
     ],
     'Itens de Checklist (Inspeção)' => [
         'farois',
@@ -86,7 +85,8 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
     $sql_select = "SELECT id,flow,circulacao,produto,transportadora,nomeMotorista,data,placaCarreta,cnhMotorista,horaEntrada,
                     placaTanque1,destino,responsavelBalanca,placaTanque2,volumeCarreta,farois,vagoes,cavalo,extintores,
-                    verificado,lavar,vedacao,valvula,transporte,tubos,carregamento,responsavelExpedicao,laudo,lacres,obs
+                    verificado,lavar,vedacao,valvula,transporte,tubos,carregamento,responsavelExpedicao,laudo,baia,
+                    temperaturaAmostra,densidade,vCarregado,temperaturaCarreta,lacresAmostra,lacreMotorista,lacresCarreta,obs
                    FROM db_checklist.dbo.tb_marking WHERE id = :id";
 
     try {
@@ -232,6 +232,27 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
         }
 
         .info-item strong {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .info-bar2 {
+            background-color: #f0f8f0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            border: 1px solid #d2e6d2;
+        }
+
+        .info-item2 {
+            flex: 1 1 370px;
+            font-size: 0.9em;
+        }
+
+        .info-item2 strong {
             font-weight: bold;
             margin-right: 5px;
         }
@@ -388,6 +409,22 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
     background-color: #3e8e41;
     transform: translateY(1px);
 }
+
+
+.form-container {
+    display: flex;
+    flex-wrap: wrap; /* Isso permite que os elementos quebrem para a próxima linha */
+    gap: 20px; /* Adiciona um espaço entre as colunas */
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.form-group{
+    /* flex-basis: calc(30% - 10px); 50% para duas colunas, menos metade do gap */
+    /* min-width: 250px; */
+}
+
+
     </style>
 </head>
 
@@ -470,15 +507,24 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
                 <?php endforeach; ?>
             </div>
 
-            <div class="input-group">
-                <label>Lacres:</label>
-                <input type="text" value="<?php echo htmlspecialchars($dados_expedicao['lacres'] ?? ''); ?>" readonly>
-            </div>
-
-            <div class="input-group">
-                <label>Observação:</label>
-                <textarea rows="3" readonly><?php echo htmlspecialchars($dados_expedicao['obs'] ?? ''); ?></textarea>
-            </div>
+<div class="info-bar2">
+                <div class="info-item2"><strong>N° BAIA DE CARREGAMENTO/ BRAÇO:</strong>
+                    <?php echo htmlspecialchars($dados_expedicao['baia'] ?? '-'); ?></div>
+                <div class="info-item2"><strong>TEMPERATURA DA AMOSTRA (°C):</strong>
+                    <?php echo htmlspecialchars($dados_expedicao['temperaturaAmostra'] ?? '-'); ?></div>
+                <div class="info-item2"><strong>DENSIDADE DA AMOSTRA:</strong>
+                    <?php echo htmlspecialchars($dados_expedicao['densidade'] ?? '-'); ?></div>
+                <div class="info-item2"><strong>VOLUME CARREGADO:</strong>
+                    <?php echo htmlspecialchars($dados_expedicao['vCarregado'] ?? '-'); ?></div>
+                <div class="info-item2"><strong>TEMPERATURA DA CARRETA (°C):</strong>
+                    <?php echo htmlspecialchars($dados_expedicao['temperaturaCarreta'] ?? '-'); ?></div>
+                <div class="info-item2"><strong>LACRES DAS AMOSTRAS:</strong>
+                    <?php echo htmlspecialchars($dados_expedicao['lacresAmostra'] ?? '-'); ?></div>
+                <div class="info-item2"><strong>LACRE DA AMOSTRA DO MOTORISTA:</strong>
+                    <?php echo htmlspecialchars($dados_expedicao['lacreMotorista'] ?? '-'); ?></div>
+                <div class="info-item2"><strong>LACRES DA CARRETA:</strong>
+                    <?php echo htmlspecialchars($dados_expedicao['lacresCarreta'] ?? '-'); ?></div>
+</div>
 
         <?php else: ?>
             <div class="message-box error-message">

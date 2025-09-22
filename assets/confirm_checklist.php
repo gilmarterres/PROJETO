@@ -19,7 +19,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $carregamento = filter_input(INPUT_POST, 'carregamento', FILTER_UNSAFE_RAW);
     $responsavelExpedicao = filter_input(INPUT_POST, 'responsavelExpedicao', FILTER_UNSAFE_RAW);
     $laudo = filter_input(INPUT_POST, 'laudo', FILTER_UNSAFE_RAW);
-    $lacres = filter_input(INPUT_POST, 'lacres', FILTER_UNSAFE_RAW);
+    $baia = filter_input(INPUT_POST, 'baia', FILTER_UNSAFE_RAW);
+    $temperaturaAmostra = filter_input(INPUT_POST, 'temperaturaAmostra', FILTER_UNSAFE_RAW);
+    $densidade = filter_input(INPUT_POST, 'densidade', FILTER_UNSAFE_RAW);
+    $vCarregado = filter_input(INPUT_POST, 'vCarregado', FILTER_UNSAFE_RAW);
+    $temperaturaCarreta = filter_input(INPUT_POST, 'temperaturaCarreta', FILTER_UNSAFE_RAW);
+    $lacresAmostra = filter_input(INPUT_POST, 'lacresAmostra', FILTER_UNSAFE_RAW);
+    $lacreMotorista = filter_input(INPUT_POST, 'lacreMotorista', FILTER_UNSAFE_RAW);
+    $lacresCarreta = filter_input(INPUT_POST, 'lacresCarreta', FILTER_UNSAFE_RAW);
     $obs = filter_input(INPUT_POST, 'obs', FILTER_UNSAFE_RAW);    
     $flow = 2;
 
@@ -38,7 +45,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         carregamento = :carregamento,
                         responsavelExpedicao = :responsavelExpedicao,
                         laudo = :laudo,
-                        lacres = :lacres,
+                        baia = :baia,
+                        temperaturaAmostra = :temperaturaAmostra,
+                        densidade = :densidade,
+                        vCarregado = :vCarregado,
+                        temperaturaCarreta = :temperaturaCarreta,
+                        lacresAmostra = :lacresAmostra,
+                        lacreMotorista = :lacreMotorista,
+                        lacresCarreta = :lacresCarreta,
                         obs = :obs,
                         flow = :flow
                         WHERE id = :id";
@@ -60,7 +74,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt_update->bindParam(':carregamento', $carregamento, PDO::PARAM_STR);
             $stmt_update->bindParam(':responsavelExpedicao', $responsavelExpedicao, PDO::PARAM_STR);
             $stmt_update->bindParam(':laudo', $laudo, PDO::PARAM_STR);
-            $stmt_update->bindParam(':lacres', $lacres, PDO::PARAM_STR);
+            $stmt_update->bindParam(':baia', $baia, PDO::PARAM_STR);
+            $stmt_update->bindParam(':temperaturaAmostra', $temperaturaAmostra, PDO::PARAM_STR);
+            $stmt_update->bindParam(':densidade', $densidade, PDO::PARAM_STR);
+            $stmt_update->bindParam(':vCarregado', $vCarregado, PDO::PARAM_STR);
+            $stmt_update->bindParam(':temperaturaCarreta', $temperaturaCarreta, PDO::PARAM_STR);
+            $stmt_update->bindParam(':lacresAmostra', $lacresAmostra, PDO::PARAM_STR);
+            $stmt_update->bindParam(':lacreMotorista', $lacreMotorista, PDO::PARAM_STR);
+            $stmt_update->bindParam(':lacresCarreta', $lacresCarreta, PDO::PARAM_STR);
             $stmt_update->bindParam(':obs', $obs, PDO::PARAM_STR);
             
             $stmt_update->execute();
