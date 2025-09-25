@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -29,6 +31,18 @@
             height: 30px;
         }
     </style>
+
+    <?php
+    session_start();
+
+    if (isset($_SESSION['message'])) {
+        echo "<script>";
+        echo "alert('Dados inseridos com sucesso!');";
+        echo "</script>";
+        unset($_SESSION['message']);
+    }
+    //print_r($_SESSION);
+    ?>
 </head>
 <body class="index">
     <form action="assets/login.php" method="POST">

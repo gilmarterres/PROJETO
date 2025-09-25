@@ -22,34 +22,59 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $placaTanque2 = $_POST['placaTanque2'] ?? null;
     $volumeCarreta = $_POST['volumeCarreta'] ?? null;
 
-    $sql = "INSERT INTO db_checklist.dbo.tb_marking
-                (flow, circulacao, produto, transportadora, nomeMotorista, data, placaCarreta,
-                 cnhMotorista, horaEntrada, placaTanque1, destino, responsavelBalanca, placaTanque2, volumeCarreta)
-        VALUES (:flow, :circulacao, :produto, :transportadora, :nomeMotorista, :data, :placaCarreta,
-         :cnhMotorista, :horaEntrada, :placaTanque1, :destino, :responsavelBalanca, :placaTanque2, :volumeCarreta)";
 
     try {
-        $stmt = $conn->prepare($sql);
 
-        $stmt->bindParam(':flow', $flow);
-        $stmt->bindParam(':circulacao', $circulacao);
-        $stmt->bindParam(':produto', $produto);
-        $stmt->bindParam(':transportadora', $transportadora);
-        $stmt->bindParam(':nomeMotorista', $nomeMotorista);
-        $stmt->bindParam(':data', $data);
-        $stmt->bindParam(':placaCarreta', $placaCarreta);
-        $stmt->bindParam(':cnhMotorista', $cnhMotorista);
-        $stmt->bindParam(':horaEntrada', $horaEntrada);
-        $stmt->bindParam(':placaTanque1', $placaTanque1);
-        $stmt->bindParam(':destino', $destino);
-        $stmt->bindParam(':responsavelBalanca', $responsavelBalanca);
-        $stmt->bindParam(':placaTanque2', $placaTanque2);
-        $stmt->bindParam(':volumeCarreta', $volumeCarreta);
+        // Inicia a transação para garantir a integridade dos dados
+        $conn->beginTransaction();
 
-        $stmt->execute();
+        // 1. Validação: Verifica se a CNH do motorista já existe na tabela 'tb_motorista'
+        $sql_check_cnh = "SELECT COUNT(*) FROM tb_motorista WHERE cnh_motorista = :cnh_motorista";
+        $stmt_check = $conn->prepare($sql_check_cnh);
+        $stmt_check->bindParam(':cnh_motorista', $cnhMotorista);
+        $stmt_check->execute();
+        $cnh_existe = $stmt_check->fetchColumn();
+
+        // Se a CNH não existir, insere o novo motorista
+        if ($cnh_existe == 0) {
+            $sql_motorista = "INSERT INTO tb_motorista (nome_motorista, cnh_motorista) VALUES (:nome_motorista, :cnh_motorista)";
+            $stmt_motorista = $conn->prepare($sql_motorista);
+            $stmt_motorista->bindParam(':nome_motorista', $nomeMotorista);
+            $stmt_motorista->bindParam(':cnh_motorista', $cnhMotorista);
+            $stmt_motorista->execute();
+        }
+
+        // 2. Insere na tabela 'tb_marking' (esta inserção sempre ocorrerá)
+        $sql_marking = "INSERT INTO db_checklist.dbo.tb_marking
+                        (flow, circulacao, produto, transportadora, nomeMotorista, data, placaCarreta,
+                         cnhMotorista, horaEntrada, placaTanque1, destino, responsavelBalanca, placaTanque2, volumeCarreta)
+                        VALUES (:flow, :circulacao, :produto, :transportadora, :nomeMotorista, :data, :placaCarreta,
+                        :cnhMotorista, :horaEntrada, :placaTanque1, :destino, :responsavelBalanca, :placaTanque2, :volumeCarreta)";
+        $stmt_marking = $conn->prepare($sql_marking);
+
+        $stmt_marking->bindParam(':flow', $flow);
+        $stmt_marking->bindParam(':circulacao', $circulacao);
+        $stmt_marking->bindParam(':produto', $produto);
+        $stmt_marking->bindParam(':transportadora', $transportadora);
+        $stmt_marking->bindParam(':nomeMotorista', $nomeMotorista);
+        $stmt_marking->bindParam(':data', $data);
+        $stmt_marking->bindParam(':placaCarreta', $placaCarreta);
+        $stmt_marking->bindParam(':cnhMotorista', $cnhMotorista);
+        $stmt_marking->bindParam(':horaEntrada', $horaEntrada);
+        $stmt_marking->bindParam(':placaTanque1', $placaTanque1);
+        $stmt_marking->bindParam(':destino', $destino);
+        $stmt_marking->bindParam(':responsavelBalanca', $responsavelBalanca);
+        $stmt_marking->bindParam(':placaTanque2', $placaTanque2);
+        $stmt_marking->bindParam(':volumeCarreta', $volumeCarreta);
+        $stmt_marking->execute();
+
+        // Confirma a transação se tudo der certo
+        $conn->commit();
 
         header("Location: ../pages/new_checklist.php?status=sucess");
+        exit();
     } catch (PDOException $e) {
+        $conn->rollBack();
         $error_message = urlencode($e->getMessage());
         header("Location: ../pages/new_checklist.php?status=error&message=" . $error_message);
         echo $error_message;

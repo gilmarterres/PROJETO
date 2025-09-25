@@ -37,14 +37,14 @@ try {
 <body>
     <button id="bt_lg_screen">Voltar</button>
     <?php
-    session_start();
+    //session_start();
 
-    if (isset($_SESSION['message'])) {
-        echo "<script>";
-        echo "alert('Dados inseridos com sucesso!');";
-        echo "</script>";
-        unset($_SESSION['message']);
-    }
+    //if (isset($_SESSION['message'])) {
+    //    echo "<script>";
+    //    echo "alert('Dados inseridos com sucesso!');";
+     //   echo "</script>";
+     //   unset($_SESSION['message']);
+    //}
 
     //print_r($_SESSION);
     ?>

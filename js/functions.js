@@ -24,7 +24,7 @@ if (btBack){
 const btLgscreen = document.getElementById("bt_lg_screen");
 if (btLgscreen){
     btLgscreen.addEventListener("click", function(){
-        window.location.href = "../index.html";    
+        window.location.href = "../index.php";    
 });
 }
 

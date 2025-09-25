@@ -78,3 +78,13 @@ GO
 
 SELECT * FROM db_checklist.dbo.tb_marking;
 GO
+
+DROP TABLE tb_motorista;
+GO
+
+create table tb_motorista (
+id INT PRIMARY KEY IDENTITY(1,1),
+nome_motorista NVARCHAR(64) NOT NULL,
+cnh_motorista NVARCHAR(32) NOT NULL
+);
+GO

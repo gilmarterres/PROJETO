@@ -91,7 +91,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $_SESSION['message'] = "sucess";
 
-            header("Location: ../pages/expedicao.php");
+            //alterado para ir para a página de login
+            //header("Location: ../pages/expedicao.php");
+            header("Location: ../index.php");
             echo "Sucesso!!";
 
             exit();

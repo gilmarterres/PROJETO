@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Novo checklist</title>
     <link rel="stylesheet" href="../css/style.css">
+    
 </head>
 
 <body>
@@ -55,8 +56,18 @@
                         <input required type="text" id="transportadora" name="transportadora" autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label for="nomeMotorista">Nome do motorista:</label>
-                        <input required type="text" id="nomeMotorista" name="nomeMotorista" autocomplete="off">
+                        <!-- <label for="cnhMotorista">CNH motorista:</label> -->
+                        <!-- <input required type="text" id="cnhMotorista" name="cnhMotorista" autocomplete="off"> -->
+
+                        <label for="cnh_motorista">CNH motorista:</label>
+                        <input type="text" id="cnh_motorista" name="cnhMotorista">
+                    </div>
+                    <div class="form-group">
+                        <!-- <label for="nomeMotorista">Nome do motorista:</label> -->
+                        <!-- <input required type="text" id="nomeMotorista" name="nomeMotorista" autocomplete="off"> -->
+
+                        <label for="nome_motorista">Nome do motorista:</label>
+                        <input type="text" id="nome_motorista" name="nomeMotorista">
                     </div>
                     <div class="form-group">
                         <label for="data">Data:</label>
@@ -65,10 +76,6 @@
                     <div class="form-group">
                         <label for="placaCarreta">Placa da carreta:</label>
                         <input required type="text" id="placaCarreta" name="placaCarreta" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label for="cnhMotorista">CNH motorista:</label>
-                        <input required type="text" id="cnhMotorista" name="cnhMotorista" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="horaEntrada">Hora entrada:</label>
@@ -102,6 +109,52 @@
         </fieldset>
     </div>
     <script src="../js/functions.js"></script>
+    <script>
+    // Seleciona os campos de CNH e Nome do Motorista
+    const cnhInput = document.getElementById('cnh_motorista');
+    const nomeMotoristaInput = document.getElementById('nome_motorista');
+
+    // Adiciona um "ouvinte de evento" que será ativado quando você sair do campo CNH
+    cnhInput.addEventListener('blur', () => {
+        const cnh = cnhInput.value;
+
+        // Se o campo CNH estiver vazio, não faz nada
+        if (cnh.trim() === '') {
+            return;
+        }
+
+        // Faz a requisição para o arquivo PHP criado no Passo 1
+        fetch(`../assets/get_motorista.php?cnh_motorista=${cnh}`)
+            .then(response => {
+                // Se a resposta não for OK (código 200), lança um erro
+                if (!response.ok) {
+                    throw new Error('Erro na requisição.');
+                }
+                // Converte a resposta para JSON
+                return response.json();
+            })
+            .then(data => {
+                // Verifica se a resposta contém o nome do motorista
+                if (data.nome_motorista) {
+                    // Preenche o campo Nome do Motorista com o valor recebido
+                    nomeMotoristaInput.value = data.nome_motorista;
+                    // --- NOVA LINHA: Torna o campo de nome somente leitura
+                    nomeMotoristaInput.readOnly = true;
+                } else {
+                    // Se a CNH não for encontrada, limpa o campo Nome do Motorista
+                    nomeMotoristaInput.value = '';
+                    // --- NOVA LINHA: Remove o atributo de somente leitura
+                    nomeMotoristaInput.readOnly = false;
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                // Opcional: mostrar uma mensagem de erro para o usuário
+                alert('Erro ao buscar o nome do motorista. Tente novamente.');
+                nomeMotoristaInput.value = '';
+            });
+    });
+</script>
 </body>
 
 </html>
