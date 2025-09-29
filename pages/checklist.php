@@ -83,7 +83,7 @@ $gruposCampos = [
 if (isset($_GET['id']) && !empty($_GET['id'])) {
     $id_expedicao = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-    $sql_select = "SELECT id,flow,circulacao,produto,transportadora,nomeMotorista,data,placaCarreta,cnhMotorista,horaEntrada,
+    $sql_select = "SELECT id,flow,ticket,circulacao,produto,transportadora,nomeMotorista,data,placaCarreta,cnhMotorista,horaEntrada,
                     placaTanque1,destino,responsavelBalanca,placaTanque2,volumeCarreta,farois,vagoes,cavalo,extintores,
                     verificado,lavar,vedacao,valvula,transporte,tubos,carregamento,responsavelExpedicao,laudo,baia,
                     temperaturaAmostra,densidade,vCarregado,temperaturaCarreta,lacresAmostra,lacreMotorista,lacresCarreta,obs
@@ -442,37 +442,39 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
             </div>
         <?php elseif ($dados_expedicao): ?>
             <div class="info-bar">
-                <div class="info-item"><strong>CIRCULAÇÃO:</strong>
+                <div class="info-item"><strong>TICKET :</strong>
+                    <?php echo htmlspecialchars($dados_expedicao['ticket'] ?? '-'); ?></div>
+                <div class="info-item"><strong>CIRCULAÇÃO :</strong>
                     <?php echo htmlspecialchars($dados_expedicao['circulacao'] ?? '-'); ?></div>
-                <div class="info-item"><strong>PRODUTO:</strong>
+                <div class="info-item"><strong>PRODUTO :</strong>
                     <?php echo htmlspecialchars($dados_expedicao['produto'] ?? '-'); ?></div>
-                <div class="info-item"><strong>LAUDO:</strong>
+                <div class="info-item"><strong>LAUDO :</strong>
                     <?php echo htmlspecialchars($dados_expedicao['laudo'] ?? '-'); ?></div>
-                <div class="info-item"><strong>TRANSPORTADORA:</strong>
+                <div class="info-item"><strong>TRANSPORTADORA :</strong>
                     <?php echo htmlspecialchars($dados_expedicao['transportadora'] ?? '-'); ?></div>
-                <div class="info-item"><strong>NOME MOTORISTA:</strong>
+                <div class="info-item"><strong>NOME MOTORISTA :</strong>
                     <?php echo htmlspecialchars($dados_expedicao['nomeMotorista'] ?? '-'); ?></div>
-                <div class="info-item"><strong>CNH MOTORISTA:</strong>
+                <div class="info-item"><strong>CNH MOTORISTA :</strong>
                     <?php echo htmlspecialchars($dados_expedicao['cnhMotorista'] ?? '-'); ?></div>
-                <div class="info-item"><strong>DATA:</strong>
+                <div class="info-item"><strong>DATA :</strong>
                     <?php echo (isset($dados_expedicao['data']) && $dados_expedicao['data'] != '') ? date('Y-m-d', strtotime($dados_expedicao['data'])) : '-'; ?>
                 </div>
-                <div class="info-item"><strong>HORA ENTRADA:</strong>
+                <div class="info-item"><strong>HORA ENTRADA :</strong>
                     <?php echo (isset($dados_expedicao['horaEntrada']) && $dados_expedicao['horaEntrada'] != '') ? date('H:i', strtotime($dados_expedicao['horaEntrada'])) : '-'; ?>
                 </div>
-                <div class="info-item"><strong>DESTINO:</strong>
+                <div class="info-item"><strong>DESTINO :</strong>
                     <?php echo htmlspecialchars($dados_expedicao['destino'] ?? '-'); ?></div>
-                <div class="info-item"><strong>PLACA CARRETA:</strong>
+                <div class="info-item"><strong>PLACA CARRETA :</strong>
                     <?php echo htmlspecialchars($dados_expedicao['placaCarreta'] ?? '-'); ?></div>
-                <div class="info-item"><strong>PLACA TANQUE 1:</strong>
+                <div class="info-item"><strong>PLACA TANQUE 1 :</strong>
                     <?php echo htmlspecialchars($dados_expedicao['placaTanque1'] ?? '-'); ?></div>
-                <div class="info-item"><strong>PLACA TANQUE 2:</strong>
+                <div class="info-item"><strong>PLACA TANQUE 2 :</strong>
                     <?php echo htmlspecialchars($dados_expedicao['placaTanque2'] ?? '-'); ?></div>
-                <div class="info-item"><strong>VOLUME CARRETA:</strong>
+                <div class="info-item"><strong>VOLUME CARRETA :</strong>
                     <?php echo htmlspecialchars($dados_expedicao['volumeCarreta'] ?? '-'); ?></div>
-                <div class="info-item"><strong>RESPONSÁVEL BALANÇA:</strong>
+                <div class="info-item"><strong>RESPONSÁVEL BALANÇA :</strong>
                     <?php echo htmlspecialchars($dados_expedicao['responsavelBalanca'] ?? '-'); ?></div>
-                <div class="info-item"><strong>RESPONSÁVEL EXPEDIÇÃO:</strong>
+                <div class="info-item"><strong>RESPONSÁVEL EXPEDIÇÃO :</strong>
                     <?php echo htmlspecialchars($dados_expedicao['responsavelExpedicao'] ?? '-'); ?></div>
             </div>
 
@@ -525,6 +527,8 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
                 <div class="info-item2"><strong>LACRES DA CARRETA:</strong>
                     <?php echo htmlspecialchars($dados_expedicao['lacresCarreta'] ?? '-'); ?></div>
 </div>
+
+
 
         <?php else: ?>
             <div class="message-box error-message">

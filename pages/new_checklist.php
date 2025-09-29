@@ -44,6 +44,10 @@
 
                 <div class="form-row">
                     <div class="form-group">
+                        <label for="ticket">N° Ticket:</label>
+                        <input required type="text" id="ticket" name="ticket" autocomplete="off">
+                    </div>
+                    <div class="form-group">
                         <label for="circulacao">N° Circulação:</label>
                         <input required type="text" id="circulacao" name="circulacao" autocomplete="off">
                     </div>

@@ -8,6 +8,7 @@ foreach ($_POST as $key => $value) {
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $flow = 1;
+    $ticket = $_POST['ticket'] ?? null;
     $circulacao = $_POST['circulacao'] ?? null;
     $produto = $_POST['produto'] ?? null;
     $transportadora = $_POST['transportadora'] ?? null;
@@ -46,13 +47,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         // 2. Insere na tabela 'tb_marking' (esta inserção sempre ocorrerá)
         $sql_marking = "INSERT INTO db_checklist.dbo.tb_marking
-                        (flow, circulacao, produto, transportadora, nomeMotorista, data, placaCarreta,
+                        (flow, ticket, circulacao, produto, transportadora, nomeMotorista, data, placaCarreta,
                          cnhMotorista, horaEntrada, placaTanque1, destino, responsavelBalanca, placaTanque2, volumeCarreta)
-                        VALUES (:flow, :circulacao, :produto, :transportadora, :nomeMotorista, :data, :placaCarreta,
+                        VALUES (:flow, :ticket, :circulacao, :produto, :transportadora, :nomeMotorista, :data, :placaCarreta,
                         :cnhMotorista, :horaEntrada, :placaTanque1, :destino, :responsavelBalanca, :placaTanque2, :volumeCarreta)";
         $stmt_marking = $conn->prepare($sql_marking);
 
         $stmt_marking->bindParam(':flow', $flow);
+        $stmt_marking->bindParam(':ticket', $ticket);
         $stmt_marking->bindParam(':circulacao', $circulacao);
         $stmt_marking->bindParam(':produto', $produto);
         $stmt_marking->bindParam(':transportadora', $transportadora);

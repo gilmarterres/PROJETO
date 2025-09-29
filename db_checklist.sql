@@ -38,7 +38,8 @@ GO
 CREATE TABLE tb_marking(
     id INT PRIMARY KEY IDENTITY(1,1),
     flow INT NOT NULL,
-    circulacao NVARCHAR(64),
+    ticket NVARCHAR(16),
+	circulacao NVARCHAR(16),
     produto NVARCHAR(64),
     transportadora NVARCHAR(64),
     nomeMotorista NVARCHAR(64),
