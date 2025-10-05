@@ -257,6 +257,39 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
             margin-right: 5px;
         }
 
+.info-bar3 {
+    background-color: #ff0000ff;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    border: 1px solid #d2e6d2;
+    /* Adicionamos 'justify-content: center' aqui para centralizar o H2
+       horizontalmente dentro do container flex, caso ele não tenha 'width: 100%' */
+    justify-content: center;
+}
+
+.info-bar3 h2 {
+    color: #ffffffff;
+    /* Propriedade chave: centraliza o texto dentro do <h2> */
+    text-align: center;
+    /* Garante que o H2 ocupe toda a largura disponível para que a centralização
+       funcione perfeitamente (útil em containers flex) */
+    width: 100%; 
+    margin: 10px;
+}
+
+.info-item3 {
+    flex: 1 1 370px;
+    font-size: 0.9em;
+}
+
+        .info-item3 strong {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
         .checklist-section {
             margin-bottom: 20px;
             padding: 15px;
@@ -528,6 +561,29 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
                     <?php echo htmlspecialchars($dados_expedicao['lacresCarreta'] ?? '-'); ?></div>
 </div>
 
+<div class="info-bar3" id="resultadoConversao">
+    <h2>RESULTADO DA CONVERSÃO DOS DADOS</h2>
+</div>
+
+<div class="info-bar2">
+
+                <div class="info-item2">
+                        <strong><label for="massaCarreta">MASSA DA CARRETA:</label>
+                        <input type="number" id="massaCarreta" autocomplete="off" oninput="atualizarValores()"></strong>
+                    </div>
+                <div class="info-item2"><strong>DENSIDADE 20°: </strong><span id="densidade">0,879</span></div>
+                <div class="info-item2"><strong>FATOR CORREÇÃO: </strong><span id="fatorCorrecao">0,992440</span></div>
+                <div class="info-item2"><strong>VOLUME CONVERTIDO:</strong>
+                    <span id="volumeConvertido"></span></div>
+                <div class="info-item2"><strong>VOLUME CONVERTIDO (BALANÇA):</strong>
+                    <span id="volumeConvertidoBalanca"></span></div>
+                <div class="info-item2"><strong>Δ VOLUME:</strong>
+                    <span id="deltaVolume"></span></div>
+                <div class="info-item2"><strong>VALOR DE EMBARQUE:</strong>
+                    <span id="valorEmbarque"></span></div>
+
+</div>
+
 
 
         <?php else: ?>
@@ -538,6 +594,85 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
 
 
     </div>
+
+
+<script>
+function atualizarValores() {
+
+    //dados fixos
+    const densidade20 = 0.878772523339648;
+    const fatorCorrecao20 = 0.992439910505447;
+
+    //captura valores de densidade, temperaturas e volume da carreta.
+    const volumeCarreta = <?php echo json_encode($dados_expedicao['volumeCarreta'] ?? '-'); ?>;
+    const densidade = <?php echo json_encode($dados_expedicao['densidade'] ?? '-'); ?>;
+    const temperaturaAmostra = <?php echo json_encode($dados_expedicao['temperaturaAmostra'] ?? '-'); ?>;
+    const temperaturaCarreta = <?php echo json_encode($dados_expedicao['temperaturaCarreta'] ?? '-'); ?>;
+    
+    // 1. Pega o elemento de entrada (MASSA DA CARRETA)
+    const massaCarretaInput = document.getElementById('massaCarreta');
+    
+    // 2. Pega o valor digitado
+    const novoValor = massaCarretaInput.value;
+
+    // 3. Pega os elementos que precisam ser atualizados
+    const volumeConvertido = document.getElementById('volumeConvertido');
+    const volumeConvertidoBalanca = document.getElementById('volumeConvertidoBalanca');
+    const deltaVolume = document.getElementById('deltaVolume');
+    const valorEmbarque = document.getElementById('valorEmbarque');
+
+    // 4. Atualiza o conteúdo de cada elemento com o novo valor
+    // Se o campo estiver vazio, podemos exibir um texto padrão ou um zero
+    const valorFormatado = novoValor === '' ? '0' : novoValor;
+
+    //cáuculos de conversão:
+    calcVolumeConvertidoBalanca = novoValor/densidade20;
+
+    calcVolumeConvertido = (volumeCarreta/1000*fatorCorrecao20);
+    valorComPonto = calcVolumeConvertido.toFixed(3);
+    valorFinal = valorComPonto.replace('.', ',');
+
+    calcVolume = (calcVolumeConvertidoBalanca-(calcVolumeConvertido*1000));
+
+    //valor embarque
+    const resultado = Math.round(calcVolumeConvertido * 1000);
+    const calcValorEmbarque = (resultado * 0.85) - novoValor;
+
+    //////////////////////////////////////////////////////////
+    //volume convertido
+    volumeConvertido.textContent = valorFinal;
+    //Volume convertido balança
+    volumeConvertidoBalanca.textContent = Math.trunc(calcVolumeConvertidoBalanca);
+    // delta volume
+    deltaVolume.textContent = Math.trunc(calcVolume);
+
+    valorEmbarque.textContent = Math.trunc(calcValorEmbarque);
+    //////////////////////////////////////////////////////////
+
+    //trocar de cor
+    const v1 = volumeCarreta * 0.005;
+    const v2 = volumeCarreta * -0.005;
+
+    console.log(v1);
+    console.log(v2);
+    console.log(calcVolume);
+
+
+    const divResultado = document.getElementById('resultadoConversao');
+
+    if (calcVolume < v1 && calcVolume > v2){
+        divResultado.style.backgroundColor = 'blue';
+        console.log("azul");
+    }else{
+        console.log("vermelho");
+        divResultado.style.backgroundColor = 'red';
+    }
+
+
+
+}
+
+</script>
 </body>
 
 </html>
