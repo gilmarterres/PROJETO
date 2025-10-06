@@ -490,7 +490,7 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
                 <div class="info-item"><strong>CNH MOTORISTA :</strong>
                     <?php echo htmlspecialchars($dados_expedicao['cnhMotorista'] ?? '-'); ?></div>
                 <div class="info-item"><strong>DATA :</strong>
-                    <?php echo (isset($dados_expedicao['data']) && $dados_expedicao['data'] != '') ? date('Y-m-d', strtotime($dados_expedicao['data'])) : '-'; ?>
+                    <?php echo (isset($dados_expedicao['data']) && $dados_expedicao['data'] != '') ? date('d/m/Y', strtotime($dados_expedicao['data'])) : '-'; ?>
                 </div>
                 <div class="info-item"><strong>HORA ENTRADA :</strong>
                     <?php echo (isset($dados_expedicao['horaEntrada']) && $dados_expedicao['horaEntrada'] != '') ? date('H:i', strtotime($dados_expedicao['horaEntrada'])) : '-'; ?>
@@ -546,13 +546,13 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
                 <div class="info-item2"><strong>N° BAIA DE CARREGAMENTO/ BRAÇO:</strong>
                     <?php echo htmlspecialchars($dados_expedicao['baia'] ?? '-'); ?></div>
                 <div class="info-item2"><strong>TEMPERATURA DA AMOSTRA (°C):</strong>
-                    <?php echo htmlspecialchars($dados_expedicao['temperaturaAmostra'] ?? '-'); ?></div>
+                    <?php echo htmlspecialchars($dados_expedicao['temperaturaAmostra'] ?? '-'); ?> °C</div>
                 <div class="info-item2"><strong>DENSIDADE DA AMOSTRA:</strong>
-                    <?php echo htmlspecialchars($dados_expedicao['densidade'] ?? '-'); ?></div>
+                    <?php echo htmlspecialchars($dados_expedicao['densidade'] ?? '-'); ?> Kg/L</div>
                 <div class="info-item2"><strong>VOLUME CARREGADO:</strong>
-                    <?php echo htmlspecialchars($dados_expedicao['vCarregado'] ?? '-'); ?></div>
+                    <?php echo htmlspecialchars($dados_expedicao['vCarregado'] ?? '-'); ?> M³</div>
                 <div class="info-item2"><strong>TEMPERATURA DA CARRETA (°C):</strong>
-                    <?php echo htmlspecialchars($dados_expedicao['temperaturaCarreta'] ?? '-'); ?></div>
+                    <?php echo htmlspecialchars($dados_expedicao['temperaturaCarreta'] ?? '-'); ?> °C</div>
                 <div class="info-item2"><strong>LACRES DAS AMOSTRAS:</strong>
                     <?php echo htmlspecialchars($dados_expedicao['lacresAmostra'] ?? '-'); ?></div>
                 <div class="info-item2"><strong>LACRE DA AMOSTRA DO MOTORISTA:</strong>
@@ -568,19 +568,19 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
 <div class="info-bar2">
 
                 <div class="info-item2">
-                        <strong><label for="massaCarreta">MASSA DA CARRETA:</label>
+                        <strong><label for="massaCarreta">MASSA DA CARRETA (BALANÇA):</label>
                         <input type="number" id="massaCarreta" autocomplete="off" oninput="atualizarValores()"></strong>
                     </div>
-                <div class="info-item2"><strong>DENSIDADE 20°: </strong><span id="densidade">0,879</span></div>
-                <div class="info-item2"><strong>FATOR CORREÇÃO: </strong><span id="fatorCorrecao">0,992440</span></div>
+                <div class="info-item2"><strong>DENSIDADE 20°: </strong><span id="densidade">0,879 Kg/L</span></div>
+                <div class="info-item2"><strong>FATOR CORREÇÃO: </strong><span id="fatorCorrecao">0,992440 a 20 °C</span></div>
                 <div class="info-item2"><strong>VOLUME CONVERTIDO:</strong>
-                    <span id="volumeConvertido"></span></div>
+                    <span id="volumeConvertido"></span> M³</div>
                 <div class="info-item2"><strong>VOLUME CONVERTIDO (BALANÇA):</strong>
-                    <span id="volumeConvertidoBalanca"></span></div>
+                    <span id="volumeConvertidoBalanca"></span> M³</div>
                 <div class="info-item2"><strong>Δ VOLUME:</strong>
-                    <span id="deltaVolume"></span></div>
+                    <span id="deltaVolume"></span> L</div>
                 <div class="info-item2"><strong>VALOR DE EMBARQUE:</strong>
-                    <span id="valorEmbarque"></span></div>
+                    <span id="valorEmbarque"></span> Kg</div>
 
 </div>
 
