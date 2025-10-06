@@ -296,6 +296,16 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
             border: 1px solid #ddd;
             border-radius: 5px;
             background-color: #f9f9f9;
+
+            /*background-image: url('../logo.png');  Substitua pelo caminho da sua imagem */
+            /* background-repeat: no-repeat; A imagem não se repetirá */
+            background-position: center center; /* Centraliza a imagem no meio da página */
+            background-attachment: fixed; /* A marca d'água permanece fixa ao rolar a página */
+            background-size: 70%; /* Ajuste o tamanho da imagem (ex: 70% da largura do body) */
+            /*opacity: 0.15;  Define a opacidade para a imagem (15% visível). Ajuste conforme necessário */
+            /* ATENÇÃO: Aplicar opacidade diretamente ao body pode afetar todo o conteúdo.
+            Melhor usar um pseudo-elemento ou uma div de sobreposição para a imagem.
+            Veja o Cenário 2/3. */
         }
 
         .checklist-section h2 {
@@ -457,6 +467,24 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
     /* min-width: 250px; */
 }
 
+.valor-azul{
+     /* Define a cor azul */
+    color: blue; 
+    /* Garante que o texto está em negrito (caso não use <strong>) */
+    font-weight: bold; 
+}
+
+.valor-vermelho{
+     /* Define a cor azul */
+    color: red; 
+    /* Garante que o texto está em negrito (caso não use <strong>) */
+    font-weight: bold; 
+}
+
+#massaCarreta{
+    width: 100px;
+}
+
 
     </style>
 </head>
@@ -569,18 +597,20 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
 
                 <div class="info-item2">
                         <strong><label for="massaCarreta">MASSA DA CARRETA (BALANÇA):</label>
-                        <input type="number" id="massaCarreta" autocomplete="off" oninput="atualizarValores()"></strong>
+                        <input class="valor-azul" type="number" id="massaCarreta" autocomplete="off" oninput="atualizarValores()"></strong>
                     </div>
-                <div class="info-item2"><strong>DENSIDADE 20°: </strong><span id="densidade">0,879 Kg/L</span></div>
-                <div class="info-item2"><strong>FATOR CORREÇÃO: </strong><span id="fatorCorrecao">0,992440 a 20 °C</span></div>
+                <div class="info-item2"><strong>DENSIDADE 20°: </strong>
+                    <span class="valor-vermelho"><span id="densidade">0,879 Kg/L</span></span></div>
+                <div class="info-item2"><strong>FATOR CORREÇÃO: </strong>
+                    <span class="valor-vermelho"><span id="fatorCorrecao">0,992440 a 20 °C</span></span></div>
                 <div class="info-item2"><strong>VOLUME CONVERTIDO:</strong>
-                    <span id="volumeConvertido"></span> M³</div>
+                    <span class="valor-azul"><span id="volumeConvertido"></span> M³</span></div>
                 <div class="info-item2"><strong>VOLUME CONVERTIDO (BALANÇA):</strong>
-                    <span id="volumeConvertidoBalanca"></span> M³</div>
+                    <span class="valor-azul"><span id="volumeConvertidoBalanca"></span> M³</span></div>
                 <div class="info-item2"><strong>Δ VOLUME:</strong>
-                    <span id="deltaVolume"></span> L</div>
+                    <span class="valor-azul"><span id="deltaVolume"></span> L</span></div>
                 <div class="info-item2"><strong>VALOR DE EMBARQUE:</strong>
-                    <span id="valorEmbarque"></span> Kg</div>
+                    <span class="valor-azul"><span id="valorEmbarque"></span> Kg</span></div>
 
 </div>
 
