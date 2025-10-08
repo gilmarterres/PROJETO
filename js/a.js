@@ -1,12 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <script>
 // --- DADOS DA TABELA DE COEFICIENTES (P, R, S, T, U) ---
 const COEFICIENTES_TABELA = [
     { min: 0.0000, R: -0.0024620000, S: 0.0032150000, T: -0.0000101400, U: 0.0000173800 },
@@ -149,6 +140,3 @@ const Q71_RESULTADO = calcularFatorConversaoVolume(GRAVIDADE, TEMPERATURA_AMOSTR
 
 console.log(`Gravidade Corrigida 20C (Q70): ${Q70_RESULTADO}`); 
 console.log(`Fator de Conversão de Volume (Q71): ${Q71_RESULTADO}`);
-    </script>
-</body>
-</html>
