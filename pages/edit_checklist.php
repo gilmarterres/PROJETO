@@ -238,11 +238,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                     </div>
 
                     <div class="form-group">
-                        <label for="'vCarregado'">VOLUME CARREGADO: </label>
-                        <input required type="text" id="vCarregado" name="vCarregado" value="" autocomplete="off">
-                    </div>
-
-                    <div class="form-group">
                         <label for="temperaturaCarreta">TEMPERATURA DA CARRETA (°C): </label>
                         <input required type="text" id="temperaturaCarreta" name="temperaturaCarreta" value="" autocomplete="off">
                     </div>

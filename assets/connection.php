@@ -2,7 +2,7 @@
 $serverName = "LOCALHOST\\SQLEXPRESS";
 $databaseName = "db_checklist";
 $uid = "sa";
-$pwe = "123456";
+$pwe = "Guilo@0716";
 
 try {
     $conn = new PDO("sqlsrv:Server=$serverName;Database=$databaseName", $uid, $pwe);

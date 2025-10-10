@@ -68,7 +68,6 @@ CREATE TABLE tb_marking(
 	baia NVARCHAR(32),
 	temperaturaAmostra NVARCHAR(32),
 	densidade NVARCHAR(32),
-	vCarregado NVARCHAR(32),
 	temperaturaCarreta NVARCHAR(32),
 	lacresAmostra NVARCHAR(32),
 	lacreMotorista NVARCHAR(32),
