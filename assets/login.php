@@ -29,8 +29,8 @@ try {
 
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($user){
-        if ($password === $user['password']){
+    if ($user) {
+        if ($password === $user['password']) {
             $_SESSION['id'] = $user['id'];
             $_SESSION['username'] = $user['login'];
             $_SESSION['accesslevel'] = $user['accesslevel'];
@@ -38,26 +38,23 @@ try {
 
             echo "Login bem sucedido! Bem vindo, " . $_SESSION['username'] . " ID: " . $_SESSION['accesslevel'];
 
-            if($_SESSION['accesslevel'] == 0){                
+            if ($_SESSION['accesslevel'] == 0) {
                 header("Location: ../pages/admin.php");
-            }else if($_SESSION['accesslevel'] == 1){
+            } else if ($_SESSION['accesslevel'] == 1) {
                 header("Location: ../pages/balanca.php");
-            }else if($_SESSION['accesslevel'] == 2){
+            } else if ($_SESSION['accesslevel'] == 2) {
                 header("Location: ../pages/expedicao.php");
-            }else{
+            } else {
                 header("Location: ../index.html");
             }
-
-        }else{
+        } else {
             echo "Senha incorreta.";
         }
-    }else{
+    } else {
         echo "Usuário não encontrado.";
     }
-} catch(PDOException $e){
+} catch (PDOException $e) {
     die("Falha na conexão:" . $e->getMessage());
-}catch(Exception $e){
+} catch (Exception $e) {
     die("Erro: " . $e->getMessage());
 }
-
-?>

@@ -42,8 +42,8 @@ try {
     //if (isset($_SESSION['message'])) {
     //    echo "<script>";
     //    echo "alert('Dados inseridos com sucesso!');";
-     //   echo "</script>";
-     //   unset($_SESSION['message']);
+    //   echo "</script>";
+    //   unset($_SESSION['message']);
     //}
 
     //print_r($_SESSION);

@@ -1,30 +1,32 @@
-
-
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="/css/style.css">
-        <style>
-        *{
-            box-sizing: border-box;            
+    <style>
+        * {
+            box-sizing: border-box;
         }
-        .index{
+
+        .index {
             display: flex;
             align-items: center;
             justify-content: center;
             background-color: #bbb;
         }
-        form{
-            
+
+        form {
+
             width: 300px;
             margin: 100px;
             text-align: center;
         }
-        input{
-            
+
+        input {
+
             display: block;
             margin: 10px auto;
             width: 250px;
@@ -44,12 +46,14 @@
     //print_r($_SESSION);
     ?>
 </head>
+
 <body class="index">
     <form action="assets/login.php" method="POST">
         <h1>Login</h1>
-        <input type="text" placeholder="login" id="login" name="login"  autocomplete="off">
-        <input type="password" placeholder="senha" id="senha" name="senha"  autocomplete="off">
+        <input type="text" placeholder="login" id="login" name="login" autocomplete="off">
+        <input type="password" placeholder="senha" id="senha" name="senha" autocomplete="off">
         <input class="bt-logar" type="submit" value="Logar">
     </form>
 </body>
+
 </html>

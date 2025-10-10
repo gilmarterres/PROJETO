@@ -3,7 +3,7 @@
 require_once 'connection.php';
 
 foreach ($_POST as $key => $value) {
-    echo '<li><strong>'. $key .': '. $value .'</li>';
+    echo '<li><strong>' . $key . ': ' . $value . '</li>';
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -88,4 +88,3 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     header("Location: ../pages/new_checklist.php");
     exit();
 }
-?>

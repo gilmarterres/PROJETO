@@ -22,8 +22,6 @@
 
     <button id="bt_consult">Consultar checklist</button>
 
-
-
     <script src="../js/functions.js"></script>
 </body>
 

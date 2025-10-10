@@ -64,7 +64,7 @@ $nomesAmigaveis = [
     'lacresAmostra' => 'Lacres das Amostras',
     'lacreMotorista' => 'Lacre da Amostra do Motorista',
     'lacresCarreta' => 'Lacres da Carreta',
-    
+
     // NOVOS CAMPOS PARA CONVERSÃO
     'massaCarreta' => 'Massa da Carreta:', // Campo manual (adicionado)
     'densidade20Display' => 'DENSIDADE 20°:', // Fixo
@@ -141,18 +141,37 @@ function formatChecklistValue(string $key, $value, array $nomesAmigaveis): array
 
     // Formatação de Data/Hora
     if ($key === 'data' && !empty($value)) {
-        try { $dateTime = new DateTime($value); $displayValue = $dateTime->format('d/m/Y'); } catch (Exception $e) { $displayValue = htmlspecialchars($value); }
+        try {
+            $dateTime = new DateTime($value);
+            $displayValue = $dateTime->format('d/m/Y');
+        } catch (Exception $e) {
+            $displayValue = htmlspecialchars($value);
+        }
     } elseif ($key === 'horaEntrada' && !empty($value)) {
-        try { $dateTime = new DateTime($value); $displayValue = $dateTime->format('H:i'); } catch (Exception $e) { $displayValue = htmlspecialchars($value); }
-    } 
+        try {
+            $dateTime = new DateTime($value);
+            $displayValue = $dateTime->format('H:i');
+        } catch (Exception $e) {
+            $displayValue = htmlspecialchars($value);
+        }
+    }
     // Formatação dos Itens de Checklist Sim/Não/N/A
     elseif (in_array($key, array_keys(array_intersect_key($nomesAmigaveis, array_flip(['farois', 'vagoes', 'cavalo', 'extintores', 'verificado', 'lavar', 'vedacao', 'valvula', 'transporte', 'tubos', 'carregamento']))))) {
         $normalizedValue = strtolower((string) $value);
-        if ($normalizedValue === 'sim') { $displayValue = 'Sim'; $statusClass = 'status-sim'; } 
-        elseif ($normalizedValue === 'nao') { $displayValue = 'Não'; $statusClass = 'status-nao'; } 
-        elseif ($normalizedValue === 'na') { $displayValue = 'N/A'; $statusClass = 'status-na'; } 
-        else { $displayValue = htmlspecialchars((string) $value); $statusClass = 'status-desconhecido'; }
-    } 
+        if ($normalizedValue === 'sim') {
+            $displayValue = 'Sim';
+            $statusClass = 'status-sim';
+        } elseif ($normalizedValue === 'nao') {
+            $displayValue = 'Não';
+            $statusClass = 'status-nao';
+        } elseif ($normalizedValue === 'na') {
+            $displayValue = 'N/A';
+            $statusClass = 'status-na';
+        } else {
+            $displayValue = htmlspecialchars((string) $value);
+            $statusClass = 'status-desconhecido';
+        }
+    }
     // Formatação Padrão (demais campos)
     else {
         $displayValue = htmlspecialchars((string) $value);
@@ -199,17 +218,17 @@ $volumeCarreta = (float) ($dados_filtrados['volumeCarreta'] ?? 0);
 
 // Massa da Carreta: Deve ser obtida de um input. Simulamos aqui lendo de um campo de POST
 // Para fins de visualização, se não houver POST, usamos um valor padrão (50000)
-$massaCarretaInput = (float) ($_POST['massaCarreta'] ?? 50000); 
+$massaCarretaInput = (float) ($_POST['massaCarreta'] ?? 50000);
 
 $resultadosConversao = [];
 
 if ($dados_filtrados) {
-    
+
     // DADOS FIXOS E MASSA MANUAL
     $resultadosConversao['massaCarreta'] = $massaCarretaInput; // Valor bruto para o input
     $resultadosConversao['densidade20Display'] = number_format(DENSIDADE_20, 3, ',', '') . ' Kg/L';
     $resultadosConversao['fatorCorrecaoDisplay'] = number_format(FATOR_CORRECAO, 6, ',', '') . ' a 20 °C';
-    
+
     // 1. VOLUME CONVERTIDO (m³)
     // Fórmula: (volume da carreta) / 1000 * fator correção
     $volumeConvertido_m3 = ($volumeCarreta / 1000) * FATOR_CORRECAO;
@@ -217,18 +236,18 @@ if ($dados_filtrados) {
 
     // 2. VOLUME CONVERTIDO (BALANÇA) (L)
     // Fórmula: MASSA DA CARRETA / DENSIDADE 20°
-    $valorConvertidoBalanca_L = ($massaCarretaInput > 0 && DENSIDADE_20 > 0) 
-        ? ($massaCarretaInput / DENSIDADE_20) 
+    $valorConvertidoBalanca_L = ($massaCarretaInput > 0 && DENSIDADE_20 > 0)
+        ? ($massaCarretaInput / DENSIDADE_20)
         : 0;
-    
+
     // Conversão de L para M³ para exibição (como na imagem)
     $valorConvertidoBalanca_m3 = $valorConvertidoBalanca_L / 1000;
 
     $resultadosConversao['volumeConvertidoBalanca'] = number_format($valorConvertidoBalanca_m3, 3, ',', '') . ' M³';
-    
+
     // 3. Δ VOLUME (L)
     // Sua fórmula: VALOR CONVERTIDO (BALANÇA) [L] - (VOLUME CONVERTIDO [m³] * 10000)
-    $DeltaVolume = $valorConvertidoBalanca_L - ($volumeConvertido_m3 * 10000); 
+    $DeltaVolume = $valorConvertidoBalanca_L - ($volumeConvertido_m3 * 10000);
     $resultadosConversao['DeltaVolume'] = number_format($DeltaVolume, 0, ',', '') . ' L';
 
     // 4. VALOR DE EMBARQUE (Kg)
@@ -320,21 +339,25 @@ $dados_filtrados = array_merge($dados_filtrados, $resultadosConversao);
             padding-bottom: 5px;
             border-bottom: 1px dashed #d2e6d2;
         }
-        
+
         /* Título do Bloco de Conversão */
         .conversion-header {
-            background-color: #0000ff; /* Azul da imagem */
+            background-color: #0000ff;
+            /* Azul da imagem */
             color: white;
             padding: 10px;
             text-align: center;
             font-size: 1.2em;
             font-style: italic;
             font-weight: bold;
-            margin: -15px -15px 15px -15px; /* Estende para as bordas do section */
+            margin: -15px -15px 15px -15px;
+            /* Estende para as bordas do section */
             border-radius: 5px 5px 0 0;
         }
+
         .conversion-section {
-            background-color: #ffffcc; /* Amarelo claro da imagem */
+            background-color: #ffffcc;
+            /* Amarelo claro da imagem */
             padding: 15px;
             border-radius: 5px;
             margin-bottom: 20px;
@@ -412,7 +435,8 @@ $dados_filtrados = array_merge($dados_filtrados, $resultadosConversao);
 
         .conversion-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* Duas colunas principais */
+            grid-template-columns: 1fr 1fr;
+            /* Duas colunas principais */
             gap: 15px 30px;
             padding-top: 10px;
             font-size: 1.1em;
@@ -424,10 +448,10 @@ $dados_filtrados = array_merge($dados_filtrados, $resultadosConversao);
             justify-content: space-between;
             padding: 5px 0;
         }
-        
+
         /* Labels e Valores alinhados à direita */
-        .conversion-item:nth-child(even) { 
-            justify-content: flex-end; 
+        .conversion-item:nth-child(even) {
+            justify-content: flex-end;
         }
 
         .conversion-item .label {
@@ -443,22 +467,26 @@ $dados_filtrados = array_merge($dados_filtrados, $resultadosConversao);
             padding: 5px 8px;
             border-radius: 3px;
             font-weight: bold;
-            color: #0000ff; /* Cor azul para valores (como na imagem) */
+            color: #0000ff;
+            /* Cor azul para valores (como na imagem) */
             text-align: right;
-            width: 90px; 
+            width: 90px;
             flex-shrink: 0;
-            margin-left: auto; /* Empurra o valor para a direita */
+            margin-left: auto;
+            /* Empurra o valor para a direita */
             margin-right: 5px;
         }
-        
+
         /* Cor de destaque para Fixo/Manual */
         .conversion-item .value-box.fixed,
         .conversion-item input.manual-input {
-            color: #c0392b; /* Vermelho/Laranja para DADOS FIXOS e MANUAL */
+            color: #c0392b;
+            /* Vermelho/Laranja para DADOS FIXOS e MANUAL */
         }
-        
+
         .conversion-item .value-box.fixed {
-            background-color: #f0f0f0; /* Fundo diferente para fixo/manual */
+            background-color: #f0f0f0;
+            /* Fundo diferente para fixo/manual */
         }
 
         .conversion-item .unit {
@@ -498,19 +526,20 @@ $dados_filtrados = array_merge($dados_filtrados, $resultadosConversao);
 
         /* Responsividade */
         @media (max-width: 768px) {
+
             .info-item,
             .checklist-item {
                 flex: 1 1 100%;
             }
 
             .conversion-grid {
-                grid-template-columns: 1fr; 
+                grid-template-columns: 1fr;
             }
-            
+
             .conversion-item {
-                 justify-content: flex-start;
+                justify-content: flex-start;
             }
-            
+
             .conversion-item .value-box,
             .conversion-item input.manual-input {
                 margin-left: auto;
@@ -531,123 +560,125 @@ $dados_filtrados = array_merge($dados_filtrados, $resultadosConversao);
                 <p><?php echo $mensagem; ?></p>
             </div>
         <?php elseif ($dados_filtrados): ?>
-            
+
             <form method="POST" action="?id=<?php echo htmlspecialchars($id_expedicao); ?>">
 
-            <?php foreach ($gruposCampos as $titulo_grupo => $campos): ?>
-                
-                <?php if ($titulo_grupo === 'RESULTADO DA CONVERSÃO DOS DADOS'): ?>
-                    <div class="conversion-section">
-                        <div class="conversion-header"><?php echo htmlspecialchars($titulo_grupo); ?></div>
-                        <div class="conversion-grid">
-                            
-                            <?php 
-                            // Lista de campos que estarão no layout de conversão, na ordem da imagem (esquerda/direita)
-                            $campos_ordenados = [
-                                'densidade20Display', 'volumeConvertidoBalanca', 
-                                'fatorCorrecaoDisplay', 'DeltaVolume',
-                                'volumeConvertido', 'valorEmbarque',
-                                'massaCarreta' // Adicionado no final para ter um espaço próprio abaixo
-                            ];
-                            
-                            // Usamos este loop para criar o layout de 2 colunas da imagem
-                            $i = 0;
-                            while ($i < count($campos_ordenados)) {
-                                $key_left = $campos_ordenados[$i++];
-                                $key_right = $campos_ordenados[$i++] ?? null; // Pega o próximo item ou null
-                                
-                                // Se for o campo Massa da Carreta (que precisa de um input)
-                                if ($key_left === 'massaCarreta') {
-                                    // Adicionamos um campo extra para a Massa da Carreta, fora da grade principal se necessário.
-                                    // Ou, para simplificar a estrutura do grid, podemos exibi-lo onde ele foi colocado.
-                                    // Vamos exibi-lo como uma linha separada, forçando o layout abaixo do grid.
-                                    continue; 
-                                }
+                <?php foreach ($gruposCampos as $titulo_grupo => $campos): ?>
 
-                                // Exibição dos itens em 2 colunas
-                                $data_left = formatChecklistValue($key_left, $dados_filtrados[$key_left] ?? '', $nomesAmigaveis);
-                                $parts_left = explode(' ', $data_left['displayValue']);
-                                $value_left = htmlspecialchars($parts_left[0]);
-                                $unit_left = htmlspecialchars($parts_left[1] ?? '');
+                    <?php if ($titulo_grupo === 'RESULTADO DA CONVERSÃO DOS DADOS'): ?>
+                        <div class="conversion-section">
+                            <div class="conversion-header"><?php echo htmlspecialchars($titulo_grupo); ?></div>
+                            <div class="conversion-grid">
 
-                                $data_right = $key_right ? formatChecklistValue($key_right, $dados_filtrados[$key_right] ?? '', $nomesAmigaveis) : null;
-                                $parts_right = $data_right ? explode(' ', $data_right['displayValue']) : [null, null];
-                                $value_right = htmlspecialchars($parts_right[0] ?? '');
-                                $unit_right = htmlspecialchars($parts_right[1] ?? '');
-                                
-                                // Bloco da ESQUERDA
-                                echo '<div class="conversion-item conversion-left">';
-                                echo '<span class="label">'.htmlspecialchars($data_left['label']).'</span>';
-                                
-                                // DENSIDADE e FATOR CORREÇÃO são fixos (vermelho na imagem)
-                                $isFixed = in_array($key_left, ['densidade20Display', 'fatorCorrecaoDisplay']);
-                                
-                                echo '<div class="value-box'.($isFixed ? ' fixed' : '').'">'.$value_left.'</div>';
-                                echo '<span class="unit">'.$unit_left.'</span>';
-                                echo '</div>';
-
-                                // Bloco da DIREITA
-                                if ($key_right) {
-                                    echo '<div class="conversion-item conversion-right">';
-                                    echo '<span class="label">'.htmlspecialchars($data_right['label']).'</span>';
-                                    echo '<div class="value-box">'.$value_right.'</div>';
-                                    echo '<span class="unit">'.$unit_right.'</span>';
-                                    echo '</div>';
-                                }
-                            }
-                            ?>
-                        </div>
-                        
-                        <div style="clear: both; margin-top: 20px;">
-                            <div class="conversion-item" style="justify-content: flex-start; border-top: 1px dashed #aaa; padding-top: 15px;">
-                                <span class="label"><?php echo htmlspecialchars($nomesAmigaveis['massaCarreta']); ?></span>
-                                <input type="text" name="massaCarreta" class="manual-input" 
-                                    value="<?php echo number_format($dados_filtrados['massaCarreta'] ?? 0, 2, ',', ''); ?>" 
-                                    placeholder="0,00"
-                                    style="margin-left: 10px;"
-                                >
-                                <span class="unit">Kg</span>
-                                <button type="submit" class="back-button" style="background-color: #3498db; margin-left: 20px;">Recalcular</button>
-                            </div>
-                            <small style="display: block; text-align: right; color: #555; margin-top: 5px;">* Preencha a Massa da Carreta e clique em Recalcular para atualizar os valores.</small>
-
-                        </div>
-
-                    </div>
-                <?php else: ?>
-                    <div class="info-section">
-                        <h2><?php echo htmlspecialchars($titulo_grupo); ?></h2>
-                        <div class="info-grid">
-                            <?php foreach ($campos as $key): ?>
                                 <?php
-                                $valor = $dados_filtrados[$key] ?? '';
-                                $formatedData = formatChecklistValue($key, $valor, $nomesAmigaveis);
+                                // Lista de campos que estarão no layout de conversão, na ordem da imagem (esquerda/direita)
+                                $campos_ordenados = [
+                                    'densidade20Display',
+                                    'volumeConvertidoBalanca',
+                                    'fatorCorrecaoDisplay',
+                                    'DeltaVolume',
+                                    'volumeConvertido',
+                                    'valorEmbarque',
+                                    'massaCarreta' // Adicionado no final para ter um espaço próprio abaixo
+                                ];
+
+                                // Usamos este loop para criar o layout de 2 colunas da imagem
+                                $i = 0;
+                                while ($i < count($campos_ordenados)) {
+                                    $key_left = $campos_ordenados[$i++];
+                                    $key_right = $campos_ordenados[$i++] ?? null; // Pega o próximo item ou null
+
+                                    // Se for o campo Massa da Carreta (que precisa de um input)
+                                    if ($key_left === 'massaCarreta') {
+                                        // Adicionamos um campo extra para a Massa da Carreta, fora da grade principal se necessário.
+                                        // Ou, para simplificar a estrutura do grid, podemos exibi-lo onde ele foi colocado.
+                                        // Vamos exibi-lo como uma linha separada, forçando o layout abaixo do grid.
+                                        continue;
+                                    }
+
+                                    // Exibição dos itens em 2 colunas
+                                    $data_left = formatChecklistValue($key_left, $dados_filtrados[$key_left] ?? '', $nomesAmigaveis);
+                                    $parts_left = explode(' ', $data_left['displayValue']);
+                                    $value_left = htmlspecialchars($parts_left[0]);
+                                    $unit_left = htmlspecialchars($parts_left[1] ?? '');
+
+                                    $data_right = $key_right ? formatChecklistValue($key_right, $dados_filtrados[$key_right] ?? '', $nomesAmigaveis) : null;
+                                    $parts_right = $data_right ? explode(' ', $data_right['displayValue']) : [null, null];
+                                    $value_right = htmlspecialchars($parts_right[0] ?? '');
+                                    $unit_right = htmlspecialchars($parts_right[1] ?? '');
+
+                                    // Bloco da ESQUERDA
+                                    echo '<div class="conversion-item conversion-left">';
+                                    echo '<span class="label">' . htmlspecialchars($data_left['label']) . '</span>';
+
+                                    // DENSIDADE e FATOR CORREÇÃO são fixos (vermelho na imagem)
+                                    $isFixed = in_array($key_left, ['densidade20Display', 'fatorCorrecaoDisplay']);
+
+                                    echo '<div class="value-box' . ($isFixed ? ' fixed' : '') . '">' . $value_left . '</div>';
+                                    echo '<span class="unit">' . $unit_left . '</span>';
+                                    echo '</div>';
+
+                                    // Bloco da DIREITA
+                                    if ($key_right) {
+                                        echo '<div class="conversion-item conversion-right">';
+                                        echo '<span class="label">' . htmlspecialchars($data_right['label']) . '</span>';
+                                        echo '<div class="value-box">' . $value_right . '</div>';
+                                        echo '<span class="unit">' . $unit_right . '</span>';
+                                        echo '</div>';
+                                    }
+                                }
                                 ?>
-                                <?php if ($formatedData['isChecklistItem']): ?>
-                                    <div class="checklist-item">
-                                        <div class="question">
-                                            <?php echo htmlspecialchars($formatedData['label']); ?>
+                            </div>
+
+                            <div style="clear: both; margin-top: 20px;">
+                                <div class="conversion-item" style="justify-content: flex-start; border-top: 1px dashed #aaa; padding-top: 15px;">
+                                    <span class="label"><?php echo htmlspecialchars($nomesAmigaveis['massaCarreta']); ?></span>
+                                    <input type="text" name="massaCarreta" class="manual-input"
+                                        value="<?php echo number_format($dados_filtrados['massaCarreta'] ?? 0, 2, ',', ''); ?>"
+                                        placeholder="0,00"
+                                        style="margin-left: 10px;">
+                                    <span class="unit">Kg</span>
+                                    <button type="submit" class="back-button" style="background-color: #3498db; margin-left: 20px;">Recalcular</button>
+                                </div>
+                                <small style="display: block; text-align: right; color: #555; margin-top: 5px;">* Preencha a Massa da Carreta e clique em Recalcular para atualizar os valores.</small>
+
+                            </div>
+
+                        </div>
+                    <?php else: ?>
+                        <div class="info-section">
+                            <h2><?php echo htmlspecialchars($titulo_grupo); ?></h2>
+                            <div class="info-grid">
+                                <?php foreach ($campos as $key): ?>
+                                    <?php
+                                    $valor = $dados_filtrados[$key] ?? '';
+                                    $formatedData = formatChecklistValue($key, $valor, $nomesAmigaveis);
+                                    ?>
+                                    <?php if ($formatedData['isChecklistItem']): ?>
+                                        <div class="checklist-item">
+                                            <div class="question">
+                                                <?php echo htmlspecialchars($formatedData['label']); ?>
+                                            </div>
+                                            <div class="options">
+                                                <span class="<?php echo $formatedData['statusClass']; ?>">
+                                                    <?php echo $formatedData['displayValue']; ?>
+                                                </span>
+                                            </div>
                                         </div>
-                                        <div class="options">
+                                    <?php else: ?>
+                                        <div class="info-item">
+                                            <strong><?php echo htmlspecialchars(strtoupper($formatedData['label'])); ?>:</strong>
                                             <span class="<?php echo $formatedData['statusClass']; ?>">
                                                 <?php echo $formatedData['displayValue']; ?>
                                             </span>
                                         </div>
-                                    </div>
-                                <?php else: ?>
-                                    <div class="info-item">
-                                        <strong><?php echo htmlspecialchars(strtoupper($formatedData['label'])); ?>:</strong>
-                                        <span class="<?php echo $formatedData['statusClass']; ?>">
-                                            <?php echo $formatedData['displayValue']; ?>
-                                        </span>
-                                    </div>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
-                    </div>
-                <?php endif; ?>
+                    <?php endif; ?>
 
-            <?php endforeach; ?>
+                <?php endforeach; ?>
             </form>
 
         <?php else: ?>

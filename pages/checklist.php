@@ -257,33 +257,33 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
             margin-right: 5px;
         }
 
-.info-bar3 {
-    background-color: #ff0000ff;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    border: 1px solid #d2e6d2;
-    /* Adicionamos 'justify-content: center' aqui para centralizar o H2
+        .info-bar3 {
+            background-color: #ff0000ff;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            border: 1px solid #d2e6d2;
+            /* Adicionamos 'justify-content: center' aqui para centralizar o H2
        horizontalmente dentro do container flex, caso ele não tenha 'width: 100%' */
-    justify-content: center;
-}
+            justify-content: center;
+        }
 
-.info-bar3 h2 {
-    color: #ffffffff;
-    /* Propriedade chave: centraliza o texto dentro do <h2> */
-    text-align: center;
-    /* Garante que o H2 ocupe toda a largura disponível para que a centralização
+        .info-bar3 h2 {
+            color: #ffffffff;
+            /* Propriedade chave: centraliza o texto dentro do <h2> */
+            text-align: center;
+            /* Garante que o H2 ocupe toda a largura disponível para que a centralização
        funcione perfeitamente (útil em containers flex) */
-    width: 100%; 
-    margin: 10px;
-}
+            width: 100%;
+            margin: 10px;
+        }
 
-.info-item3 {
-    flex: 1 1 370px;
-    font-size: 0.9em;
-}
+        .info-item3 {
+            flex: 1 1 370px;
+            font-size: 0.9em;
+        }
 
         .info-item3 strong {
             font-weight: bold;
@@ -299,9 +299,12 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
 
             /*background-image: url('../logo.png');  Substitua pelo caminho da sua imagem */
             /* background-repeat: no-repeat; A imagem não se repetirá */
-            background-position: center center; /* Centraliza a imagem no meio da página */
-            background-attachment: fixed; /* A marca d'água permanece fixa ao rolar a página */
-            background-size: 70%; /* Ajuste o tamanho da imagem (ex: 70% da largura do body) */
+            background-position: center center;
+            /* Centraliza a imagem no meio da página */
+            background-attachment: fixed;
+            /* A marca d'água permanece fixa ao rolar a página */
+            background-size: 70%;
+            /* Ajuste o tamanho da imagem (ex: 70% da largura do body) */
             /*opacity: 0.15;  Define a opacidade para a imagem (15% visível). Ajuste conforme necessário */
             /* ATENÇÃO: Aplicar opacidade diretamente ao body pode afetar todo o conteúdo.
             Melhor usar um pseudo-elemento ou uma div de sobreposição para a imagem.
@@ -431,61 +434,61 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
             }
         }
 
-        .back-button{
-    background-color: #4caf50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-    height: auto;
-}
+        .back-button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            height: auto;
+        }
 
-.back-button:hover{
-    background-color: #45a049;
-}
+        .back-button:hover {
+            background-color: #45a049;
+        }
 
-.back-button:active{
-    background-color: #3e8e41;
-    transform: translateY(1px);
-}
-
-
-.form-container {
-    display: flex;
-    flex-wrap: wrap; /* Isso permite que os elementos quebrem para a próxima linha */
-    gap: 20px; /* Adiciona um espaço entre as colunas */
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.form-group{
-    /* flex-basis: calc(30% - 10px); 50% para duas colunas, menos metade do gap */
-    /* min-width: 250px; */
-}
-
-.valor-azul{
-     /* Define a cor azul */
-    color: blue; 
-    /* Garante que o texto está em negrito (caso não use <strong>) */
-    font-weight: bold; 
-}
-
-.valor-vermelho{
-     /* Define a cor azul */
-    color: red; 
-    /* Garante que o texto está em negrito (caso não use <strong>) */
-    font-weight: bold; 
-}
-
-#massaCarreta{
-    width: 100px;
-}
+        .back-button:active {
+            background-color: #3e8e41;
+            transform: translateY(1px);
+        }
 
 
+        .form-container {
+            display: flex;
+            flex-wrap: wrap;
+            /* Isso permite que os elementos quebrem para a próxima linha */
+            gap: 20px;
+            /* Adiciona um espaço entre as colunas */
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            /* flex-basis: calc(30% - 10px); 50% para duas colunas, menos metade do gap */
+            /* min-width: 250px; */
+        }
+
+        .valor-azul {
+            /* Define a cor azul */
+            color: blue;
+            /* Garante que o texto está em negrito (caso não use <strong>) */
+            font-weight: bold;
+        }
+
+        .valor-vermelho {
+            /* Define a cor azul */
+            color: red;
+            /* Garante que o texto está em negrito (caso não use <strong>) */
+            font-weight: bold;
+        }
+
+        #massaCarreta {
+            width: 100px;
+        }
     </style>
 </head>
 
@@ -559,7 +562,7 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
                             $exibirValor = 'N/A';
                             $classeCor = 'status-na';
                         }
-                        ?>
+                    ?>
                         <div class="checklist-item">
                             <div class="question"><?php echo htmlspecialchars($pergunta); ?></div>
                             <div class="options">
@@ -570,7 +573,7 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
                 <?php endforeach; ?>
             </div>
 
-<div class="info-bar2">
+            <div class="info-bar2">
                 <div class="info-item2"><strong>N° BAIA DE CARREGAMENTO/ BRAÇO:</strong>
                     <?php echo htmlspecialchars($dados_expedicao['baia'] ?? '-'); ?></div>
                 <div class="info-item2"><strong>TEMPERATURA DA AMOSTRA (°C):</strong>
@@ -585,57 +588,58 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
                     <?php echo htmlspecialchars($dados_expedicao['lacreMotorista'] ?? '-'); ?></div>
                 <div class="info-item2"><strong>LACRES DA CARRETA:</strong>
                     <?php echo htmlspecialchars($dados_expedicao['lacresCarreta'] ?? '-'); ?></div>
-</div>
+            </div>
 
-<div class="info-bar3" id="resultadoConversao">
-    <h2>RESULTADO DA CONVERSÃO DOS DADOS</h2>
-</div>
+            <div class="info-bar3" id="resultadoConversao">
+                <h2>RESULTADO DA CONVERSÃO DOS DADOS</h2>
+            </div>
 
-<div class="info-bar2">
+            <div class="info-bar2">
 
                 <div class="info-item2">
-                        <strong><label for="massaCarreta">MASSA DA CARRETA (BALANÇA):</label>
+                    <strong><label for="massaCarreta">MASSA DA CARRETA (BALANÇA):</label>
                         <input class="valor-azul" type="number" id="massaCarreta" autocomplete="off" oninput="atualizarValores()"></strong>
-                    </div>
+                </div>
                 <div class="info-item2"><strong>DENSIDADE 20°: </strong>
-                    <span class="valor-vermelho"><span id="densidade">Kg/L</span></span></div>
+                    <span class="valor-vermelho"><span id="densidade">Kg/L</span></span>
+                </div>
                 <div class="info-item2"><strong>FATOR CORREÇÃO: </strong>
-                    <span class="valor-vermelho"><span id="fatorCorrecao">a 20 °C</span></span></div>
+                    <span class="valor-vermelho"><span id="fatorCorrecao">a 20 °C</span></span>
+                </div>
                 <div class="info-item2"><strong>VOLUME CONVERTIDO:</strong>
-                    <span class="valor-azul"><span id="volumeConvertido"></span> M³</span></div>
+                    <span class="valor-azul"><span id="volumeConvertido"></span> M³</span>
+                </div>
                 <div class="info-item2"><strong>VOLUME CONVERTIDO (BALANÇA):</strong>
-                    <span class="valor-azul"><span id="volumeConvertidoBalanca"></span> M³</span></div>
+                    <span class="valor-azul"><span id="volumeConvertidoBalanca"></span> M³</span>
+                </div>
                 <div class="info-item2"><strong>Δ VOLUME:</strong>
-                    <span class="valor-azul"><span id="deltaVolume"></span> L</span></div>
+                    <span class="valor-azul"><span id="deltaVolume"></span> L</span>
+                </div>
                 <div class="info-item2"><strong>VALOR DE EMBARQUE:</strong>
-                    <span class="valor-azul"><span id="valorEmbarque"></span> Kg</span></div>
+                    <span class="valor-azul"><span id="valorEmbarque"></span> Kg</span>
+                </div>
 
-</div>
-
-
-
+            </div>
         <?php else: ?>
             <div class="message-box error-message">
                 <p>Nenhum checklist encontrado para o ID fornecido ou ocorreu um erro.</p>
             </div>
         <?php endif; ?>
-
-
     </div>
 
 
-<script>
-    // Usamos um objeto global para evitar poluir o escopo
-    window.APP_CONFIG = window.APP_CONFIG || {};
+    <script>
+        // Usamos um objeto global para evitar poluir o escopo
+        window.APP_CONFIG = window.APP_CONFIG || {};
 
-    // Aqui o PHP imprime o valor da variável como código JS válido
-    window.APP_CONFIG.volumeCarreta = <?php echo json_encode($dados_expedicao['volumeCarreta'] ?? '-'); ?>;
-    window.APP_CONFIG.densidade = <?php echo json_encode($dados_expedicao['densidade'] ?? ' ') ; ?>;
-    window.APP_CONFIG.temperaturaAmostra = <?php echo json_encode($dados_expedicao['temperaturaAmostra'] ?? ' ') ; ?>;
-    window.APP_CONFIG.temperaturaCarreta = <?php echo json_encode($dados_expedicao['temperaturaCarreta'] ?? ' ') ; ?>;
-</script>
-<script src="../js/tabelaDensidade.js"></script>
-<script src="../js/conversaoDados.js"></script>
+        // Aqui o PHP imprime o valor da variável como código JS válido
+        window.APP_CONFIG.volumeCarreta = <?php echo json_encode($dados_expedicao['volumeCarreta'] ?? '-'); ?>;
+        window.APP_CONFIG.densidade = <?php echo json_encode($dados_expedicao['densidade'] ?? ' '); ?>;
+        window.APP_CONFIG.temperaturaAmostra = <?php echo json_encode($dados_expedicao['temperaturaAmostra'] ?? ' '); ?>;
+        window.APP_CONFIG.temperaturaCarreta = <?php echo json_encode($dados_expedicao['temperaturaCarreta'] ?? ' '); ?>;
+    </script>
+    <script src="../js/tabelaDensidade.js"></script>
+    <script src="../js/conversaoDados.js"></script>
 
 </body>
 

@@ -48,10 +48,10 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
 <body>
     <?php
-     //print_r($_SESSION);
+    //print_r($_SESSION);
     ?>
     <div class="container">
-    <button id="bt_bk_exp">Voltar</button>
+        <button id="bt_bk_exp">Voltar</button>
         <h3>Preenchimento do Checklist: <?php echo htmlspecialchars($dados_expedicao['ticket'] ?? ''); ?> </h3>
 
         <?php if ($mensagem): ?>
@@ -102,104 +102,104 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                                 <td>Faróis, lanternas e setas em bom estado?</td>
                                 <td class="radio-group">
                                     <label><input type="radio" name="farois" value="sim" required>Sim
-                                    <input type="radio" name="farois" value="nao">Não
-                                    <input type="radio" name="farois" value="na">n/a</label>
+                                        <input type="radio" name="farois" value="nao">Não
+                                        <input type="radio" name="farois" value="na">n/a</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Vagões, válvulas e conexões isentos de vazamentos?</td>
                                 <td class="radio-group">
                                     <label><input type="radio" name="vagoes" value="sim" required>Sim
-                                    <input type="radio" name="vagoes" value="nao">Não
-                                    <input type="radio" name="vagoes" value="na">n/a</label>
+                                        <input type="radio" name="vagoes" value="nao">Não
+                                        <input type="radio" name="vagoes" value="na">n/a</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>No cavalo o painel de segurança e rótulo de risco meio ambiente estão conforme?</td>
                                 <td class="radio-group">
                                     <label><input type="radio" name="cavalo" value="sim" required>Sim
-                                    <input type="radio" name="cavalo" value="nao">Não
-                                    <input type="radio" name="cavalo" value="na">n/a</label>
+                                        <input type="radio" name="cavalo" value="nao">Não
+                                        <input type="radio" name="cavalo" value="na">n/a</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Os extintores estão com a validade da carga e teste hidrostático conformes?</td>
                                 <td class="radio-group">
                                     <label><input type="radio" name="extintores" value="sim" required>Sim
-                                    <input type="radio" name="extintores" value="nao">Não
-                                    <input type="radio" name="extintores" value="na">n/a</label>
+                                        <input type="radio" name="extintores" value="nao">Não
+                                        <input type="radio" name="extintores" value="na">n/a</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Verificado se há volume remanescente nos compartimentos da carreta a ser carregada?</td>
                                 <td class="radio-group">
                                     <label><input type="radio" name="verificado" value="sim" required>Sim
-                                    <input type="radio" name="verificado" value="nao">Não
-                                    <input type="radio" name="verificado" value="na">n/a</label>
+                                        <input type="radio" name="verificado" value="nao">Não
+                                        <input type="radio" name="verificado" value="na">n/a</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Se houver volume, drenou todas as bocas de saída?</td>
                                 <td class="radio-group">
                                     <label><input type="radio" name="volume" value="sim" required>Sim
-                                    <input type="radio" name="volume" value="nao">Não
-                                    <input type="radio" name="volume" value="na">n/a</label>
+                                        <input type="radio" name="volume" value="nao">Não
+                                        <input type="radio" name="volume" value="na">n/a</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Necessidade de lavar e/ou secar o tanque? (*Secar a umidade, se presente)</td>
                                 <td class="radio-group">
                                     <label><input type="radio" name="lavar" value="sim" required>Sim
-                                    <input type="radio" name="lavar" value="nao">Não
-                                    <input type="radio" name="lavar" value="na">n/a</label>
+                                        <input type="radio" name="lavar" value="nao">Não
+                                        <input type="radio" name="lavar" value="na">n/a</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Setas de medidas de compartimento visíveis?</td>
                                 <td class="radio-group">
                                     <label><input type="radio" name="setas" value="sim" required>Sim
-                                    <input type="radio" name="setas" value="nao">Não
-                                    <input type="radio" name="setas" value="na">n/a</label>
+                                        <input type="radio" name="setas" value="nao">Não
+                                        <input type="radio" name="setas" value="na">n/a</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>A vedação da boca de carregamento está conforme?</td>
                                 <td class="radio-group">
                                     <label><input type="radio" name="vedacao" value="sim" required>Sim
-                                    <input type="radio" name="vedacao" value="nao">Não
-                                    <input type="radio" name="vedacao" value="na">n/a</label>
+                                        <input type="radio" name="vedacao" value="nao">Não
+                                        <input type="radio" name="vedacao" value="na">n/a</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Possui válvula de fundo de fecho rápido?</td>
                                 <td class="radio-group">
                                     <label><input type="radio" name="valvula" value="sim" required>Sim
-                                    <input type="radio" name="valvula" value="nao">Não
-                                    <input type="radio" name="valvula" value="na">n/a</label>
+                                        <input type="radio" name="valvula" value="nao">Não
+                                        <input type="radio" name="valvula" value="na">n/a</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Caminhão tanque em condições de realizar o transporte?</td>
                                 <td class="radio-group">
                                     <label><input type="radio" name="transporte" value="sim" required>Sim
-                                    <input type="radio" name="transporte" value="nao">Não
-                                    <!-- <input type="radio" name="transporte" value="na">n/a</label> -->
+                                        <input type="radio" name="transporte" value="nao">Não
+                                        <!-- <input type="radio" name="transporte" value="na">n/a</label> -->
                                 </td>
                             </tr>
                             <tr>
                                 <td>Certificado se os tubos de descargas (canos) irão ser carregados cheios ou vazio? </td>
                                 <td class="radio-group">
                                     <label><input type="radio" name="tubos" value="sim" required>Sim
-                                    <input type="radio" name="tubos" value="nao">Não
-                                    <!-- <input type="radio" name="tubos" value="na">n/a</label> -->
+                                        <input type="radio" name="tubos" value="nao">Não
+                                        <!-- <input type="radio" name="tubos" value="na">n/a</label> -->
                                 </td>
                             </tr>
                             <tr>
                                 <td>Carregamento aprovado? Caso não, informar à supervisão.</td>
                                 <td class="radio-group">
                                     <label><input type="radio" name="carregamento" value="sim" required>Sim
-                                    <input type="radio" name="carregamento" value="nao">Não
-                                    <!-- <input type="radio" name="carregamento" value="na">n/a</label> -->
+                                        <input type="radio" name="carregamento" value="nao">Não
+                                        <!-- <input type="radio" name="carregamento" value="na">n/a</label> -->
                                 </td>
                             </tr>
 
@@ -208,72 +208,72 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
                     </table>
 
-<div class="form-container">
-                    <div class="form-group">
-                        <label for="operador_expedicao">RESPONSÁVEL EXPEDIÇÃO: </label>
-                        <input required type="text" id="responsavelExpedicao" name="responsavelExpedicao"
-                            value="<?php echo htmlspecialchars($_SESSION['name'] ?? '') ?>">
+                    <div class="form-container">
+                        <div class="form-group">
+                            <label for="operador_expedicao">RESPONSÁVEL EXPEDIÇÃO: </label>
+                            <input required type="text" id="responsavelExpedicao" name="responsavelExpedicao"
+                                value="<?php echo htmlspecialchars($_SESSION['name'] ?? '') ?>">
+                        </div>
+
+                        <!-- II.III REGISTROS DO CARREGAMENTO -->
+
+                        <div class="form-group">
+                            <label for="laudo">LAUDO: </label>
+                            <input required type="text" id="laudo" name="laudo" value="" autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="baia">N° BAIA DE CARREGAMENTO/ BRAÇO: </label>
+                            <input required type="text" id="baia" name="baia" value="" autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="temperaturaAmostra">TEMPERATURA DA AMOSTRA (°C): </label>
+                            <input required type="text" id="temperaturaAmostra" name="temperaturaAmostra" value="" autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="densidade">DENSIDADE DA AMOSTRA: </label>
+                            <input required type="text" id="densidade" name="densidade" value="" autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="temperaturaCarreta">TEMPERATURA DA CARRETA (°C): </label>
+                            <input required type="text" id="temperaturaCarreta" name="temperaturaCarreta" value="" autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lacresAmostra">LACRES DAS AMOSTRAS: </label>
+                            <input required type="text" id="lacresAmostra" name="lacresAmostra" value="" autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lacreMotorista">LACRE DA AMOSTRA DO MOTORISTA: </label>
+                            <input required type="text" id="lacreMotorista" name="lacreMotorista" value="" autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lacresCarreta">LACRES DA CARRETA: </label>
+                            <input required type="text" id="lacresCarreta" name="lacresCarreta" value="" autocomplete="off">
+                        </div>
+                        <!-- II.III REGISTROS DO CARREGAMENTO -->
+
+                        <div class="form-group">
+                            <label for="obs">OBSERVAÇÃO: </label>
+                            <input type="text" id="obs" name="obs" value="" autocomplete="off">
+                        </div>
                     </div>
 
-<!-- II.III REGISTROS DO CARREGAMENTO -->
-
-                    <div class="form-group">
-                        <label for="laudo">LAUDO: </label>
-                        <input required type="text" id="laudo" name="laudo" value="" autocomplete="off">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="baia">N° BAIA DE CARREGAMENTO/ BRAÇO: </label>
-                        <input required type="text" id="baia" name="baia" value="" autocomplete="off">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="temperaturaAmostra">TEMPERATURA DA AMOSTRA (°C): </label>
-                        <input required type="text" id="temperaturaAmostra" name="temperaturaAmostra" value="" autocomplete="off">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="densidade">DENSIDADE DA AMOSTRA:  </label>
-                        <input required type="text" id="densidade" name="densidade" value="" autocomplete="off">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="temperaturaCarreta">TEMPERATURA DA CARRETA (°C): </label>
-                        <input required type="text" id="temperaturaCarreta" name="temperaturaCarreta" value="" autocomplete="off">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="lacresAmostra">LACRES DAS AMOSTRAS: </label>
-                        <input required type="text" id="lacresAmostra" name="lacresAmostra" value="" autocomplete="off">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="lacreMotorista">LACRE DA AMOSTRA DO MOTORISTA: </label>
-                        <input required type="text" id="lacreMotorista" name="lacreMotorista" value="" autocomplete="off">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="lacresCarreta">LACRES DA CARRETA: </label>
-                        <input required type="text" id="lacresCarreta" name="lacresCarreta" value="" autocomplete="off">
-                    </div>
-<!-- II.III REGISTROS DO CARREGAMENTO -->
-
-                    <div class="form-group">
-                        <label for="obs">OBSERVAÇÃO: </label>
-                        <input type="text" id="obs" name="obs" value="" autocomplete="off">
-                    </div>
-</div>
-                    
                     <button class="inserirDados" type="submit">Confirmar Checklist</button>
-                    
-                
+
+
                 </form>
 
             <?php else: ?>
                 <p>Nenhum checklist disponível para preenchimento. </p>
-                
+
             <?php endif; ?>
-        </div>
+            </div>
 
 </body>
 

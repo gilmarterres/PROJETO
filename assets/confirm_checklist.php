@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $vedacao = filter_input(INPUT_POST, 'vedacao', FILTER_UNSAFE_RAW);
     $valvula = filter_input(INPUT_POST, 'valvula', FILTER_UNSAFE_RAW);
     $transporte = filter_input(INPUT_POST, 'transporte', FILTER_UNSAFE_RAW);
-    $tubos = filter_input(INPUT_POST, 'tubos', FILTER_UNSAFE_RAW);    
+    $tubos = filter_input(INPUT_POST, 'tubos', FILTER_UNSAFE_RAW);
     $carregamento = filter_input(INPUT_POST, 'carregamento', FILTER_UNSAFE_RAW);
     $responsavelExpedicao = filter_input(INPUT_POST, 'responsavelExpedicao', FILTER_UNSAFE_RAW);
     $laudo = filter_input(INPUT_POST, 'laudo', FILTER_UNSAFE_RAW);
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $lacresAmostra = filter_input(INPUT_POST, 'lacresAmostra', FILTER_UNSAFE_RAW);
     $lacreMotorista = filter_input(INPUT_POST, 'lacreMotorista', FILTER_UNSAFE_RAW);
     $lacresCarreta = filter_input(INPUT_POST, 'lacresCarreta', FILTER_UNSAFE_RAW);
-    $obs = filter_input(INPUT_POST, 'obs', FILTER_UNSAFE_RAW);    
+    $obs = filter_input(INPUT_POST, 'obs', FILTER_UNSAFE_RAW);
     $flow = 2;
 
     if ($id_to_update) {
@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt_update->bindParam(':lacreMotorista', $lacreMotorista, PDO::PARAM_STR);
             $stmt_update->bindParam(':lacresCarreta', $lacresCarreta, PDO::PARAM_STR);
             $stmt_update->bindParam(':obs', $obs, PDO::PARAM_STR);
-            
+
             $stmt_update->execute();
 
             //$dados_expedicao['name_us_exp'] = $name_us_exp;
@@ -104,6 +104,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $mensagem = "Idientificação Inválida";
     }
-
 }
-?>
