@@ -1,7 +1,7 @@
 <?php
 require_once("../assets/connection.php");
 
-$sql = "SELECT id, flow, ticket, circulacao, produto, transportadora, nomeMotorista, data, placaCarreta,
+$sql = "SELECT id, flow, ticket, produto, transportadora, nomeMotorista, data, placaCavalo,
                  cnhMotorista, horaEntrada, placaTanque1, destino, responsavelBalanca,
                  placaTanque2, volumeCarreta FROM db_checklist.dbo.tb_marking WHERE flow = 1";
 
@@ -53,7 +53,6 @@ try {
         <table>
             <tr>
                 <th>ticket</th>
-                <th>circulacao</th>
                 <th>produto</th>
                 <th>transportadora</th>
                 <th>nomeMotorista</th>
@@ -70,7 +69,6 @@ try {
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     echo "<tr>";
                     echo "<td><a href=\"edit_checklist.php?id=" . htmlspecialchars($row['id'] ?? '') . "\">" . htmlspecialchars($row['ticket'] ?? '') . "</td>";
-                    echo "<td><a href=\"edit_checklist.php?id=" . htmlspecialchars($row['id'] ?? '') . "\">" . htmlspecialchars($row['circulacao'] ?? '') . "</td>";
                     echo "<td>" . htmlspecialchars($row['produto'] ?? '') . "</td>";
                     echo "<td>" . htmlspecialchars($row['transportadora'] ?? '') . "</td>";
                     echo "<td>" . htmlspecialchars($row['nomeMotorista'] ?? '') . "</td>";

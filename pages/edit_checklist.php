@@ -11,8 +11,8 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
     $id_expedicao = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-    $sql_select = "SELECT id, flow, circulacao, produto, transportadora, nomeMotorista,
-                   data, placaCarreta, cnhMotorista, horaEntrada, placaTanque1,
+    $sql_select = "SELECT id, flow, produto, transportadora, nomeMotorista,
+                   data, placaCavalo, cnhMotorista, horaEntrada, placaTanque1,
                    destino, responsavelBalanca, placaTanque2, volumeCarreta
                    FROM db_checklist.dbo.tb_marking 
                    WHERE id = :id";
@@ -64,7 +64,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             <table class="tableEdit">
                 <thead>
                     <tr>
-                        <th>circulacao</th>
                         <th>produto</th>
                         <th>transportadora</th>
                         <th>nomeMotorista</th>
@@ -77,7 +76,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 <tbody>
                     <?php
                     echo "<tr>";
-                    echo "<td>" . htmlspecialchars($dados_expedicao['circulacao'] ?? '') . "</td>";
                     echo "<td>" . htmlspecialchars($dados_expedicao['produto'] ?? '') . "</td>";
                     echo "<td>" . htmlspecialchars($dados_expedicao['transportadora'] ?? '') . "</td>";
                     echo "<td>" . htmlspecialchars($dados_expedicao['nomeMotorista'] ?? '') . "</td>";

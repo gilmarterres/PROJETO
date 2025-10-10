@@ -1,10 +1,3 @@
-let v1 = 0.02;
-let v2 = 0.01;
-console.log(v1 + v2);
-
-
-
-//////////////////////////////////////////////////////////////////////////
 const Q66 = Number(window.APP_CONFIG.densidade);
 const Q67 = Number(window.APP_CONFIG.temperaturaAmostra);
 const Q68 = Number(window.APP_CONFIG.temperaturaCarreta);
@@ -51,8 +44,8 @@ console.log("Volume Conversion Factor: " + Q71);
 function atualizarValores() {
 
     //dados fixos
-    const densidade20 = Q70;
-    const fatorCorrecao20 = Q71;
+    //const densidade20 = Q70;
+    //const fatorCorrecao20 = Q71;
 
     //captura valores de densidade, temperaturas e volume da carreta.
     // const volumeCarreta = <?php echo json_encode($dados_expedicao['volumeCarreta'] ?? '-'); ?>;
@@ -61,9 +54,9 @@ function atualizarValores() {
     // const temperaturaCarreta = <?php echo json_encode($dados_expedicao['temperaturaCarreta'] ?? '-'); ?>;
 
     const volumeCarreta = window.APP_CONFIG.volumeCarreta;
-    const densidade = window.APP_CONFIG.densidade;
-    const temperaturaAmostra = window.APP_CONFIG.temperaturaAmostra;
-    const temperaturaCarreta = window.APP_CONFIG.temperaturaCarreta;
+    // const densidade = window.APP_CONFIG.densidade;
+    // const temperaturaAmostra = window.APP_CONFIG.temperaturaAmostra;
+    // const temperaturaCarreta = window.APP_CONFIG.temperaturaCarreta;
 
     // 1. Pega o elemento de entrada (MASSA DA CARRETA)
     const massaCarretaInput = document.getElementById('massaCarreta');
@@ -74,8 +67,8 @@ function atualizarValores() {
     // 3. Pega os elementos que precisam ser atualizados
     const densidadeA = document.getElementById('densidade');
     const fatorCorrecaoA = document.getElementById('fatorCorrecao');
-    densidadeA.textContent = densidade20;
-    fatorCorrecaoA.textContent = fatorCorrecao20;
+    densidadeA.textContent = Q70.toFixed(3);
+    fatorCorrecaoA.textContent = Q71.toFixed(6);
 
     const volumeConvertido = document.getElementById('volumeConvertido');
     const volumeConvertidoBalanca = document.getElementById('volumeConvertidoBalanca');
@@ -87,9 +80,9 @@ function atualizarValores() {
     const valorFormatado = novoValor === '' ? '0' : novoValor;
 
     //cáuculos de conversão:
-    calcVolumeConvertidoBalanca = novoValor / densidade20;
+    calcVolumeConvertidoBalanca = novoValor / Q70;
 
-    calcVolumeConvertido = (volumeCarreta / 1000 * fatorCorrecao20);
+    calcVolumeConvertido = (volumeCarreta / 1000 * Q71);
     valorComPonto = calcVolumeConvertido.toFixed(3);
     valorFinal = valorComPonto.replace('.', ',');
 
@@ -114,18 +107,18 @@ function atualizarValores() {
     const v1 = volumeCarreta * 0.005;
     const v2 = volumeCarreta * -0.005;
 
-    console.log(v1);
-    console.log(v2);
-    console.log(calcVolume);
+    // console.log(v1);
+    // console.log(v2);
+    // console.log(calcVolume);
 
 
     const divResultado = document.getElementById('resultadoConversao');
 
     if (calcVolume < v1 && calcVolume > v2) {
         divResultado.style.backgroundColor = 'blue';
-        console.log("azul");
+        //console.log("azul");
     } else {
-        console.log("vermelho");
+        //console.log("vermelho");
         divResultado.style.backgroundColor = 'red';
     }
 

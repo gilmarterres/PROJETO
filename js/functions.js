@@ -10,7 +10,7 @@ if (btNew) {
 const btConsult = document.getElementById("bt_consult");
 if (btConsult) {
     btConsult.addEventListener("click", function () {
-        window.location.href = "../pages/consult_checklist.php";
+        window.location.href = "../pages/consulta_checklist.php";
     });
 }
 
@@ -40,6 +40,6 @@ const bt_back_ck = document.getElementById("bt_back_ck");
 if (bt_back_ck) {
     bt_back_ck.addEventListener("click", function () {
         console.log("Voltar")
-        window.location.href = "./consult_checklist.php";
+        window.location.href = "./consulta_checklist.php";
     });
 }

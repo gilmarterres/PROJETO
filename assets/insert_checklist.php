@@ -9,12 +9,11 @@ foreach ($_POST as $key => $value) {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $flow = 1;
     $ticket = $_POST['ticket'] ?? null;
-    $circulacao = $_POST['circulacao'] ?? null;
     $produto = $_POST['produto'] ?? null;
     $transportadora = $_POST['transportadora'] ?? null;
     $nomeMotorista = $_POST['nomeMotorista'] ?? null;
     $data = $_POST['data'] ?? null;
-    $placaCarreta = $_POST['placaCarreta'] ?? null;
+    $placaCavalo = $_POST['placaCavalo'] ?? null;
     $cnhMotorista = $_POST['cnhMotorista'] ?? null;
     $horaEntrada = $_POST['horaEntrada'] ?? null;
     $placaTanque1 = $_POST['placaTanque1'] ?? null;
@@ -47,20 +46,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         // 2. Insere na tabela 'tb_marking' (esta inserção sempre ocorrerá)
         $sql_marking = "INSERT INTO db_checklist.dbo.tb_marking
-                        (flow, ticket, circulacao, produto, transportadora, nomeMotorista, data, placaCarreta,
+                        (flow, ticket, produto, transportadora, nomeMotorista, data, placaCavalo,
                          cnhMotorista, horaEntrada, placaTanque1, destino, responsavelBalanca, placaTanque2, volumeCarreta)
-                        VALUES (:flow, :ticket, :circulacao, :produto, :transportadora, :nomeMotorista, :data, :placaCarreta,
+                        VALUES (:flow, :ticket, :produto, :transportadora, :nomeMotorista, :data, :placaCavalo,
                         :cnhMotorista, :horaEntrada, :placaTanque1, :destino, :responsavelBalanca, :placaTanque2, :volumeCarreta)";
         $stmt_marking = $conn->prepare($sql_marking);
 
         $stmt_marking->bindParam(':flow', $flow);
         $stmt_marking->bindParam(':ticket', $ticket);
-        $stmt_marking->bindParam(':circulacao', $circulacao);
         $stmt_marking->bindParam(':produto', $produto);
         $stmt_marking->bindParam(':transportadora', $transportadora);
         $stmt_marking->bindParam(':nomeMotorista', $nomeMotorista);
         $stmt_marking->bindParam(':data', $data);
-        $stmt_marking->bindParam(':placaCarreta', $placaCarreta);
+        $stmt_marking->bindParam(':placaCavalo', $placaCavalo);
         $stmt_marking->bindParam(':cnhMotorista', $cnhMotorista);
         $stmt_marking->bindParam(':horaEntrada', $horaEntrada);
         $stmt_marking->bindParam(':placaTanque1', $placaTanque1);

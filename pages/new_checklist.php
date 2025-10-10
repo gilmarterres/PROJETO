@@ -44,12 +44,8 @@
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="ticket">N° Ticket:</label>
+                        <label for="ticket">N° Ticket/Circulação:</label>
                         <input required type="text" id="ticket" name="ticket" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label for="circulacao">N° Circulação:</label>
-                        <input required type="text" id="circulacao" name="circulacao" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="produto">Produto:</label>
@@ -78,8 +74,8 @@
                         <input required type="date" id="data" name="data" value="<?php echo $today ?>" autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label for="placaCarreta">Placa da carreta:</label>
-                        <input required type="text" id="placaCarreta" name="placaCarreta" autocomplete="off">
+                        <label for="placaCavalo">Placa do cavalo:</label>
+                        <input required type="text" id="placaCavalo" name="placaCavalo" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="horaEntrada">Hora entrada:</label>

@@ -1,5 +1,3 @@
-console.log("Gilmar")
-
 function tab1a(a) {
     let b = a;
     let c = null;

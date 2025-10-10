@@ -14,12 +14,11 @@ $camposExcluidos = [
 ];
 
 $nomesAmigaveis = [
-    'circulacao' => 'Número de Circulação',
     'produto' => 'Produto',
     'transportadora' => 'Transportadora',
     'nomeMotorista' => 'Nome do Motorista',
     'data' => 'Data do Checklist',
-    'placaCarreta' => 'Placa da Carreta',
+    'placaCavalo' => 'Placa do Cavalo',
     'cnhMotorista' => 'CNH do Motorista',
     'horaEntrada' => 'Hora de Entrada',
     'placaTanque1' => 'Placa Tanque 1',
@@ -45,7 +44,6 @@ $nomesAmigaveis = [
 
 $gruposCampos = [
     'Dados Gerais do Carregamento' => [
-        'circulacao',
         'data',
         'horaEntrada',
         'produto',
@@ -57,7 +55,7 @@ $gruposCampos = [
         'nomeMotorista',
         'cnhMotorista',
         'transportadora',
-        'placaCarreta',
+        'placaCavalo',
         'placaTanque1',
         'placaTanque2'
     ],
@@ -83,7 +81,7 @@ $gruposCampos = [
 if (isset($_GET['id']) && !empty($_GET['id'])) {
     $id_expedicao = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-    $sql_select = "SELECT id,flow,ticket,circulacao,produto,transportadora,nomeMotorista,data,placaCarreta,cnhMotorista,horaEntrada,
+    $sql_select = "SELECT id,flow,ticket,produto,transportadora,nomeMotorista,data,placaCavalo,cnhMotorista,horaEntrada,
                     placaTanque1,destino,responsavelBalanca,placaTanque2,volumeCarreta,farois,vagoes,cavalo,extintores,
                     verificado,lavar,vedacao,valvula,transporte,tubos,carregamento,responsavelExpedicao,laudo,baia,
                     temperaturaAmostra,densidade,temperaturaCarreta,lacresAmostra,lacreMotorista,lacresCarreta,obs
@@ -163,333 +161,7 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes do Checklist</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            margin: 20px;
-            color: #333;
-            line-height: 1.6;
-            background-color: #ccc;
-        }
-
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .header-green {
-            background-color: #5cb85c;
-            color: white;
-            padding: 10px;
-            text-align: center;
-            border-radius: 5px 5px 0 0;
-            margin-bottom: 10px;
-        }
-
-        h1 {
-            margin: 0;
-            font-weight: normal;
-            font-size: 1.8em;
-            color: #fff;
-        }
-
-        .btn-voltar {
-            display: inline-block;
-            background-color: #f0ad4e;
-            color: white;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 0.9em;
-            transition: background-color 0.3s ease;
-            margin-bottom: 20px;
-        }
-
-        .btn-voltar:hover {
-            background-color: #ec971f;
-        }
-
-        .info-bar {
-            background-color: #f0f8f0;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            border: 1px solid #d2e6d2;
-        }
-
-        .info-item {
-            flex: 1 1 270px;
-            font-size: 0.9em;
-        }
-
-        .info-item strong {
-            font-weight: bold;
-            margin-right: 5px;
-        }
-
-        .info-bar2 {
-            background-color: #f0f8f0;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            border: 1px solid #d2e6d2;
-        }
-
-        .info-item2 {
-            flex: 1 1 370px;
-            font-size: 0.9em;
-        }
-
-        .info-item2 strong {
-            font-weight: bold;
-            margin-right: 5px;
-        }
-
-        .info-bar3 {
-            background-color: #ff0000ff;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            border: 1px solid #d2e6d2;
-            /* Adicionamos 'justify-content: center' aqui para centralizar o H2
-       horizontalmente dentro do container flex, caso ele não tenha 'width: 100%' */
-            justify-content: center;
-        }
-
-        .info-bar3 h2 {
-            color: #ffffffff;
-            /* Propriedade chave: centraliza o texto dentro do <h2> */
-            text-align: center;
-            /* Garante que o H2 ocupe toda a largura disponível para que a centralização
-       funcione perfeitamente (útil em containers flex) */
-            width: 100%;
-            margin: 10px;
-        }
-
-        .info-item3 {
-            flex: 1 1 370px;
-            font-size: 0.9em;
-        }
-
-        .info-item3 strong {
-            font-weight: bold;
-            margin-right: 5px;
-        }
-
-        .checklist-section {
-            margin-bottom: 20px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-
-            /*background-image: url('../logo.png');  Substitua pelo caminho da sua imagem */
-            /* background-repeat: no-repeat; A imagem não se repetirá */
-            background-position: center center;
-            /* Centraliza a imagem no meio da página */
-            background-attachment: fixed;
-            /* A marca d'água permanece fixa ao rolar a página */
-            background-size: 70%;
-            /* Ajuste o tamanho da imagem (ex: 70% da largura do body) */
-            /*opacity: 0.15;  Define a opacidade para a imagem (15% visível). Ajuste conforme necessário */
-            /* ATENÇÃO: Aplicar opacidade diretamente ao body pode afetar todo o conteúdo.
-            Melhor usar um pseudo-elemento ou uma div de sobreposição para a imagem.
-            Veja o Cenário 2/3. */
-        }
-
-        .checklist-section h2 {
-            color: #555;
-            font-size: 1.2em;
-            margin-top: 0;
-            margin-bottom: 15px;
-            padding-bottom: 5px;
-            border-bottom: 1px dashed #ccc;
-        }
-
-        .checklist-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-            flex-wrap: wrap;
-        }
-
-        .checklist-item:last-child {
-            border-bottom: none;
-        }
-
-        .question {
-            flex-grow: 1;
-            margin-right: 15px;
-            font-size: 0.95em;
-            padding-right: 10px;
-        }
-
-        .options {
-            flex-shrink: 0;
-            display: flex;
-            gap: 15px;
-            font-size: 0.9em;
-        }
-
-        .options input[type="radio"] {
-            margin-right: 5px;
-        }
-
-        .status-sim {
-            color: #27ae60;
-            font-weight: bold;
-        }
-
-        .status-nao {
-            color: #c0392b;
-            font-weight: bold;
-        }
-
-        .status-na {
-            color: #3498db;
-            font-weight: bold;
-        }
-
-        .input-group {
-            margin-bottom: 15px;
-            font-size: 0.9em;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #555;
-        }
-
-        .input-group input[type="text"],
-        .input-group textarea {
-            width: calc(100% - 18px);
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            box-sizing: border-box;
-            background-color: #eee;
-        }
-
-        .input-group textarea {
-            resize: vertical;
-            min-height: 60px;
-        }
-
-        .message-box {
-            background-color: #fff3cd;
-            color: #856404;
-            border: 1px solid #ffeeba;
-            padding: 15px;
-            border-radius: 5px;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .error-message {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        @media (max-width: 768px) {
-            .info-bar {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .info-item {
-                flex: 1 1 100%;
-            }
-
-            .checklist-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .options {
-                margin-top: 5px;
-            }
-
-            .input-group input,
-            .input-group textarea {
-                width: 100%;
-            }
-        }
-
-        .back-button {
-            background-color: #4caf50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-            height: auto;
-        }
-
-        .back-button:hover {
-            background-color: #45a049;
-        }
-
-        .back-button:active {
-            background-color: #3e8e41;
-            transform: translateY(1px);
-        }
-
-
-        .form-container {
-            display: flex;
-            flex-wrap: wrap;
-            /* Isso permite que os elementos quebrem para a próxima linha */
-            gap: 20px;
-            /* Adiciona um espaço entre as colunas */
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            /* flex-basis: calc(30% - 10px); 50% para duas colunas, menos metade do gap */
-            /* min-width: 250px; */
-        }
-
-        .valor-azul {
-            /* Define a cor azul */
-            color: blue;
-            /* Garante que o texto está em negrito (caso não use <strong>) */
-            font-weight: bold;
-        }
-
-        .valor-vermelho {
-            /* Define a cor azul */
-            color: red;
-            /* Garante que o texto está em negrito (caso não use <strong>) */
-            font-weight: bold;
-        }
-
-        #massaCarreta {
-            width: 100px;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/cssChecklist.css">
 </head>
 
 <body>
@@ -506,10 +178,8 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
             </div>
         <?php elseif ($dados_expedicao): ?>
             <div class="info-bar">
-                <div class="info-item"><strong>TICKET :</strong>
+                <div class="info-item"><strong>TICKET/CIRCULAÇÃO :</strong>
                     <?php echo htmlspecialchars($dados_expedicao['ticket'] ?? '-'); ?></div>
-                <div class="info-item"><strong>CIRCULAÇÃO :</strong>
-                    <?php echo htmlspecialchars($dados_expedicao['circulacao'] ?? '-'); ?></div>
                 <div class="info-item"><strong>PRODUTO :</strong>
                     <?php echo htmlspecialchars($dados_expedicao['produto'] ?? '-'); ?></div>
                 <div class="info-item"><strong>LAUDO :</strong>
@@ -528,8 +198,8 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
                 </div>
                 <div class="info-item"><strong>DESTINO :</strong>
                     <?php echo htmlspecialchars($dados_expedicao['destino'] ?? '-'); ?></div>
-                <div class="info-item"><strong>PLACA CARRETA :</strong>
-                    <?php echo htmlspecialchars($dados_expedicao['placaCarreta'] ?? '-'); ?></div>
+                <div class="info-item"><strong>PLACA DO CAVALO:</strong>
+                    <?php echo htmlspecialchars($dados_expedicao['placaCavalo'] ?? '-'); ?></div>
                 <div class="info-item"><strong>PLACA TANQUE 1 :</strong>
                     <?php echo htmlspecialchars($dados_expedicao['placaTanque1'] ?? '-'); ?></div>
                 <div class="info-item"><strong>PLACA TANQUE 2 :</strong>
@@ -601,10 +271,10 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
                         <input class="valor-azul" type="number" id="massaCarreta" autocomplete="off" oninput="atualizarValores()"></strong>
                 </div>
                 <div class="info-item2"><strong>DENSIDADE 20°: </strong>
-                    <span class="valor-vermelho"><span id="densidade">Kg/L</span></span>
+                    <span class="valor-vermelho"><span id="densidade"></span> Kg/L</span>
                 </div>
                 <div class="info-item2"><strong>FATOR CORREÇÃO: </strong>
-                    <span class="valor-vermelho"><span id="fatorCorrecao">a 20 °C</span></span>
+                    <span class="valor-vermelho"><span id="fatorCorrecao"></span> a 20 °C</span>
                 </div>
                 <div class="info-item2"><strong>VOLUME CONVERTIDO:</strong>
                     <span class="valor-azul"><span id="volumeConvertido"></span> M³</span>

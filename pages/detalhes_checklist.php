@@ -25,12 +25,11 @@ $camposExcluidos = [
 ];
 
 $nomesAmigaveis = [
-    'circulacao' => 'Número de Circulação',
     'produto' => 'Produto',
     'transportadora' => 'Transportadora',
     'nomeMotorista' => 'Nome do Motorista',
     'data' => 'Data do Checklist',
-    'placaCarreta' => 'Placa da Carreta',
+    'placaCavalo' => 'Placa do Cavalo',
     'cnhMotorista' => 'CNH do Motorista',
     'horaEntrada' => 'Hora de Entrada',
     'placaTanque1' => 'Placa Tanque 1',
@@ -59,7 +58,6 @@ $nomesAmigaveis = [
     'baia' => 'N° Baia de Carregamento/Braço',
     'temperaturaAmostra' => 'Temperatura da Amostra (°C)',
     'densidade' => 'Densidade da Amostra',
-    'vCarregado' => 'Volume Carregado',
     'temperaturaCarreta' => 'Temperatura da Carreta (°C)',
     'lacresAmostra' => 'Lacres das Amostras',
     'lacreMotorista' => 'Lacre da Amostra do Motorista',
@@ -78,7 +76,6 @@ $nomesAmigaveis = [
 // Organização dos campos em grupos para exibição no HTML
 $gruposCampos = [
     'Dados Gerais do Carregamento' => [
-        'circulacao',
         'data',
         'horaEntrada',
         'produto',
@@ -92,7 +89,7 @@ $gruposCampos = [
         'nomeMotorista',
         'cnhMotorista',
         'transportadora',
-        'placaCarreta',
+        'placaCavalo',
         'placaTanque1',
         'placaTanque2'
     ],
@@ -114,7 +111,6 @@ $gruposCampos = [
         'baia',
         'temperaturaAmostra',
         'densidade',
-        'vCarregado',
         'temperaturaCarreta',
         'lacresAmostra',
         'lacreMotorista',
