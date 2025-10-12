@@ -4,7 +4,7 @@ body {
     margin: 20px;
 }
 
-form{
+form {
     background-color: #fff;
     padding: 30px;
     border-radius: 8px;
@@ -13,14 +13,14 @@ form{
     box-sizing: border-box;
 }
 
-fieldset{
+fieldset {
     border: 1px solid #28a745;
     padding: 20px;
     border-radius: 5px;
     margin-bottom: 20px;
 }
 
-legend{
+legend {
     font-size: 1.5em;
     font-weight: bold;
     color: #333;
@@ -32,7 +32,7 @@ legend{
     width: auto;
 }
 
-.form-row{
+.form-row {
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 15px;
@@ -41,18 +41,21 @@ legend{
 
 .form-container {
     display: flex;
-    flex-wrap: wrap; /* Isso permite que os elementos quebrem para a próxima linha */
-    gap: 20px; /* Adiciona um espaço entre as colunas */
+    flex-wrap: wrap;
+    /* Isso permite que os elementos quebrem para a próxima linha */
+    gap: 20px;
+    /* Adiciona um espaço entre as colunas */
     margin-top: 20px;
     margin-bottom: 20px;
 }
 
-.form-group{
-    flex-basis: calc(33% - 10px); /* 50% para duas colunas, menos metade do gap */
+.form-group {
+    flex-basis: calc(33% - 10px);
+    /* 50% para duas colunas, menos metade do gap */
     min-width: 250px;
 }
 
-label{
+label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
@@ -63,20 +66,27 @@ input[type="password"],
 input[type="submit"],
 input[type="text"],
 input[type="date"],
-input[type="time"]{
+input[type="time"],
+select {
     width: calc(100%);
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+
+    /* Adicione esta linha para forçar a herança da fonte */
+    font-family: inherit;
+
     font-size: 1em;
 }
 
+/* O bloco de :focus pode permanecer o mesmo, pois o problema é a família da fonte, não o foco */
 input[type="password"]:focus,
 input[type="submit"]:focus,
 input[type="text"]:focus,
 input[type="date"]:focus,
-input[type="time"]:focus{
+input[type="time"]:focus,
+select:focus {
     border-color: #007bff;
     outline: none;
     box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
@@ -148,7 +158,7 @@ a:hover {
     text-align: center;
 }
 
-.bt-logar{
+.bt-logar {
     background-color: #4caf50;
     color: white;
     padding: 10px 20px;
@@ -161,30 +171,30 @@ a:hover {
     height: auto;
 }
 
-.bt-logar:hover{
+.bt-logar:hover {
     background-color: #45a049;
 }
 
-.bt-logar:active{
+.bt-logar:active {
     background-color: #3e8e41;
     transform: translateY(1px);
 }
 
-.tableEdit{
+.tableEdit {
     margin-bottom: 32px;
 }
 
-.radio-group{
+.radio-group {
     min-width: 200px;
 }
 
-input[type="radio"]{
+input[type="radio"] {
     transform: scale(2);
     margin-right: 15px;
     margin-left: 10px;
 }
 
-button{
+button {
     background-color: #4caf50;
     color: white;
     padding: 10px 20px;
@@ -197,16 +207,16 @@ button{
     height: auto;
 }
 
-button:hover{
+button:hover {
     background-color: #45a049;
 }
 
-button:active{
+button:active {
     background-color: #3e8e41;
     transform: translateY(1px);
 }
 
-.inserirDados{
+.inserirDados {
     background-color: #4caf50;
     color: white;
     padding: 10px 20px;
@@ -217,4 +227,21 @@ button:active{
     font-weight: bold;
     transition: background-color 0.3s ease;
     height: auto;
+}
+
+
+
+
+/* //////////////////////////////////////////   css no new chwcklist */
+/* Classe para inputs inválidos */
+.input-error {
+    border-color: red !important;
+    /* Deixa a borda vermelha para destaque */
+    background-color: #ffeaea;
+    /* Fundo levemente avermelhado */
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+}
+
+.input-success {
+    border-color: green;
 }

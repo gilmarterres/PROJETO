@@ -168,7 +168,7 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
     <a href="#" onclick="history.back();" class="back-button">Voltar</a>
     <div class="container">
         <div class="header-green">
-            <h1>CHECKLIST</h1>
+            <h3>CHECKLIST E AUTORIZAÇÃO DE EMBARQUE PARA CARREGAMENTO DE BIODIESEL</h3>
         </div>
 
         <?php if ($mensagem): ?>
@@ -290,6 +290,13 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
                 </div>
 
             </div>
+
+            <div class="info-bar2">
+
+            
+            </div>
+
+
         <?php else: ?>
             <div class="message-box error-message">
                 <p>Nenhum checklist encontrado para o ID fornecido ou ocorreu um erro.</p>
