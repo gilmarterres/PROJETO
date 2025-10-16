@@ -162,14 +162,20 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes do Checklist</title>
     <link rel="stylesheet" href="../css/cssChecklist.css">
+
+
+
+
 </head>
 
 <body>
     <a href="#" onclick="history.back();" class="back-button">Voltar</a>
     <div class="container">
-        <div class="header-green">
-            <h3>CHECKLIST E AUTORIZAÇÃO DE EMBARQUE PARA CARREGAMENTO DE BIODIESEL</h3>
-        </div>
+<div class="header-green">
+    <img src="../logo_branca.png" alt="Biopower" class="header-logo">
+    
+    <h3>CHECKLIST E AUTORIZAÇÃO DE EMBARQUE PARA CARREGAMENTO DE BIODIESEL</h3>
+</div>
 
         <?php if ($mensagem): ?>
             <div
@@ -317,6 +323,15 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
     </script>
     <script src="../js/tabelaDensidade.js"></script>
     <script src="../js/conversaoDados.js"></script>
+
+
+
+
+
+
+
+
+
 
 </body>
 

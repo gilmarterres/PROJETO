@@ -328,3 +328,43 @@
             margin-top: 5px;
             margin-bottom: 5px;
         }
+
+
+
+/* Estilo do cabeçalho verde principal */
+.header-green {
+    display: flex; /* Ativa o Flexbox */
+    align-items: center; /* Centraliza verticalmente a logo e o texto */
+    justify-content: flex-start; /* Alinha os itens (logo e h3) à ESQUERDA */
+    
+    padding: 7px 7px; 
+    background-color: #69b343; /* A cor verde do seu cabeçalho */
+    color: white; /* Cor do texto */
+    border-radius: 5px 5px 0 0;
+    margin-bottom: 13px;
+    
+    /* Adicione estas propriedades para lidar com o texto em múltiplas linhas */
+    text-align: center; /* Garante que o texto comece à esquerda */
+    flex-wrap: nowrap; /* Impede que a logo e o H3 quebrem linha */
+}
+
+/* Estilo do título H3 dentro do cabeçalho */
+.header-green h3 {
+    margin: 0; /* Remove a margem padrão do h3 */
+    font-size: 1.1em; /* Ajuste o tamanho da fonte se necessário */
+    line-height: 1.3; /* Melhora a legibilidade se o texto quebrar em 2 linhas */
+    
+    /* Permite que o texto ocupe o espaço restante e quebre linha */
+    flex-grow: 1; /* Permite que o H3 ocupe o espaço disponível */
+    max-width: calc(100% - 30px - 15px); /* Largura máxima, considerando a logo e o espaçamento */
+    /* 30px da logo + 15px de margin-right */
+}
+
+/* Estilo da Logo (Pequena, no canto esquerdo) */
+.header-logo {
+    height: 40px; /* Define uma altura menor para a logo */
+    width: auto; /* A largura se ajusta proporcionalmente */
+    margin-right: 15px; /* Espaçamento entre a logo e o texto */
+    flex-shrink: 0; /* Impede que a logo encolha */
+    border-radius: 6px; /* <--- ADICIONE ESTA LINHA */
+}
