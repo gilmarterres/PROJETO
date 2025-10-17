@@ -368,3 +368,72 @@
     flex-shrink: 0; /* Impede que a logo encolha */
     border-radius: 6px; /* <--- ADICIONE ESTA LINHA */
 }
+
+
+
+/* Estilos para o Bloco de Faturamento (Baseado na imagem) */
+
+.bloco-faturamento {
+    /* Define a largura total e a margem inferior para separar do final da página */
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 40px; 
+    border: 1px solid #ccc; /* Borda leve para delimitar */
+    border-radius: 4px;
+    overflow: hidden; /* Garante que o header arredonde junto */
+}
+
+/* Faixa azul/cinza do cabeçalho */
+.header-faturamento {
+    background-color: #a0c3e1; /* Cor azul claro da sua imagem */
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+    padding: 4px 10px;
+    font-size: 0.8em;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Estilo para a linha de dados consolidada */
+.dados-faturamento {
+    background-color: #f9f9f9; 
+    color: #000;
+    font-size: 0.6em; /* 1. DIMINUI A FONTE */
+    font-weight: bold;
+    padding: 5px 9px; /* 2. DIMINUI O ESPAÇAMENTO VERTICAL INTERNO (DE 10PX PARA 8PX) */
+    
+    /* Regras para controlar o espaço entre as linhas de texto */
+    line-height: 1.2; /* 3. DIMINUI O ESPAÇAMENTO ENTRE AS LINHAS DE TEXTO */
+    
+    word-wrap: break-word; 
+    white-space: pre-wrap; 
+
+}
+
+
+
+/* Estilo para o botão de download PDF */
+.btn-pdf {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%; /* Largura total do container */
+    padding: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    
+    /* Cor verde forte para destacar */
+    background-color: #27ae60; /* Verde escuro (o mesmo que o botão OK do teclado) */
+    color: white;
+    font-size: 1.1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-pdf:hover {
+    background-color: #1e8449; /* Escurece no hover */
+}

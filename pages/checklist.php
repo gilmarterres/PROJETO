@@ -153,7 +153,42 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
     ];
 }
 
+// ... Continuação do código PHP (após o bloco 'if (!$dados_expedicao):')
+
+$dados_faturamento_texto = '';
+
+if ($dados_expedicao) {
+    // 1. LAUDO
+    $laudo = htmlspecialchars($dados_expedicao['laudo'] ?? '-');
+
+    // 2. LACRES
+    $lacresCarreta = htmlspecialchars($dados_expedicao['lacresCarreta'] ?? '-');
+    $lacresAmostra = htmlspecialchars($dados_expedicao['lacresAmostra'] ?? '-');
+    $lacreMotorista = htmlspecialchars($dados_expedicao['lacreMotorista'] ?? '-');
+
+    // 3. PLACAS (Combinando Cavalo e Tanques)
+    $placaCavalo = htmlspecialchars($dados_expedicao['placaCavalo'] ?? '-');
+    $placaTanque1 = htmlspecialchars($dados_expedicao['placaTanque1'] ?? '-');
+    $placaTanque2 = htmlspecialchars($dados_expedicao['placaTanque2'] ?? '-');
+
+    // Combina placas, usando '//' como separador (apenas se houver valor)
+    $placas_combinadas = implode(' // ', array_filter([$placaCavalo, $placaTanque1, $placaTanque2]));
+
+    // 4. MOTORISTA
+    $nomeMotorista = htmlspecialchars($dados_expedicao['nomeMotorista'] ?? '-');
+
+    // Construção da PRIMEIRA linha (Laudo, Lacres, Placas)
+// Construção da PRIMEIRA linha (Laudo, Lacres, Placas)
+    $dados_faturamento_texto = "LAUDO: {$laudo} // " .
+        "LACRES DA CARRETA: {$lacresCarreta} // " .
+        "LACRES DAS AMOSTRAS: {$lacresAmostra} // " .
+        "LACRE DA AMOSTRA DO MOTORISTA: {$lacreMotorista} " .
+        "PLACAS: {$placas_combinadas} Nome Motorista: {$nomeMotorista}";
+    // Remova as quebras de linha entre o sinal de igual (=) e a primeira aspas.
+}
+
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -163,7 +198,7 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
     <title>Detalhes do Checklist</title>
     <link rel="stylesheet" href="../css/cssChecklist.css">
 
-
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script> -->
 
 
 </head>
@@ -171,11 +206,11 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
 <body>
     <a href="#" onclick="history.back();" class="back-button">Voltar</a>
     <div class="container">
-<div class="header-green">
-    <img src="../logo_branca.png" alt="Biopower" class="header-logo">
-    
-    <h3>CHECKLIST E AUTORIZAÇÃO DE EMBARQUE PARA CARREGAMENTO DE BIODIESEL</h3>
-</div>
+        <div class="header-green">
+            <img src="../logo_branca.png" alt="Biopower" class="header-logo">
+
+            <h3>CHECKLIST E AUTORIZAÇÃO DE EMBARQUE PARA CARREGAMENTO DE BIODIESEL</h3>
+        </div>
 
         <?php if ($mensagem): ?>
             <div
@@ -238,7 +273,7 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
                             $exibirValor = 'N/A';
                             $classeCor = 'status-na';
                         }
-                    ?>
+                        ?>
                         <div class="checklist-item">
                             <div class="question"><?php echo htmlspecialchars($pergunta); ?></div>
                             <div class="options">
@@ -274,7 +309,8 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
 
                 <div class="info-item2">
                     <strong><label for="massaCarreta">MASSA DA CARRETA (BALANÇA):</label>
-                        <input class="valor-azul" type="number" id="massaCarreta" autocomplete="off" oninput="atualizarValores()"></strong>
+                        <input class="valor-azul" type="number" id="massaCarreta" autocomplete="off"
+                            oninput="atualizarValores()"></strong>
                 </div>
                 <div class="info-item2"><strong>DENSIDADE 20°: </strong>
                     <span class="valor-vermelho"><span id="densidade"></span> Kg/L</span>
@@ -297,10 +333,20 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
 
             </div>
 
-            <div class="info-bar2">
 
-            
+            <div class="bloco-faturamento">
+                <div class="header-faturamento">EXCLUSIVO FATURAMENTO:</div>
+                <div class="dados-faturamento dados-faturamento-linha1">
+                    <?php echo trim($dados_faturamento_texto); ?>
+                </div>
+                <div class="dados-faturamento dados-faturamento-linha2" id="dadosFaturamentoLinha2">
+                </div>
             </div>
+
+
+            <!-- <button id="downloadPdf" class="btn-pdf">
+                BAIXAR CHECKLIST (PDF)
+                </button> -->
 
 
         <?php else: ?>
@@ -324,14 +370,97 @@ function formatChecklistValue($key, $value, $nomesAmigaveis)
     <script src="../js/tabelaDensidade.js"></script>
     <script src="../js/conversaoDados.js"></script>
 
+    <script>
+        function atualizarLinhaFaturamento2() {
+            // 1. Valores brutos do PHP
+            const tempCarreta = window.APP_CONFIG.temperaturaCarreta || '---';
+            const densidadeBruta = window.APP_CONFIG.densidade || '---';
+
+            // 2. Valores corrigidos/calculados que são exibidos na tela
+            // 'densidade' na verdade exibe a densidade corrigida (20°)
+            const densidade20C = document.getElementById('densidade').textContent;
+            // 'volumeConvertidoBalanca' será usado como o Volume Ambiente/Convertido
+            const volumeConvertido = document.getElementById('volumeConvertidoBalanca').textContent;
+
+            // Formatação do Volume Convertido (para M³ no final)
+            // Se o valor for vazio ou '0', mostra '---', senão usa o valor lido
+            const volumeFinal = (volumeConvertido && volumeConvertido !== '0') ? volumeConvertido : '---';
+
+            // 3. Construção da string conforme o formato da imagem
+            // TEMP. CARRETA 24,3 °C DENS. A TEMPERATURA 33,5 Kg/L / DENS. CORRIGIDA A TEMPERATURA DE 20°: 0,885 / M³ VOLUME AMBIENTE: 60.000 M³.
+            let novaLinha = `TEMP. CARRETA ${tempCarreta} °C DENS. A TEMPERATURA ${densidadeBruta} Kg/L / DENS. CORRIGIDA A TEMPERATURA DE 20°: ${densidade20C} / M³ VOLUME AMBIENTE: ${volumeFinal} M³`;
+
+            // 4. Adiciona o conteúdo à div
+            const elementoFaturamento2 = document.getElementById('dadosFaturamentoLinha2');
+            if (elementoFaturamento2) {
+                elementoFaturamento2.textContent = novaLinha;
+            }
+        }
+
+        // 5. Garante a atualização inicial e em tempo real:
+
+        // Atraso para garantir que conversaoDados.js já executou atualizarValores() no carregamento
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(atualizarLinhaFaturamento2, 500);
+        });
+
+        // Adiciona um listener no input da massa da carreta para atualizar sempre que o usuário digitar
+        document.getElementById('massaCarreta').addEventListener('input', atualizarLinhaFaturamento2);
+
+        // Se houver uma função 'atualizarValores()' no seu conversaoDados.js,
+        // o ideal seria inserir a chamada para 'atualizarLinhaFaturamento2()' DENTRO dela.
+        // Se você fizer isso, pode remover os listeners acima.
 
 
 
+///////////////////////////////////////////////////////////////
 
 
 
+// Adicione este código no seu bloco principal <script>
+
+// Adicione este código no seu bloco principal <script>
+
+document.getElementById('downloadPdf').addEventListener('click', function () {
+    // 1. Seleciona o elemento que você quer transformar em PDF
+    const element = document.querySelector('.container');
+    
+    const backButton = document.querySelector('.back-button');
+    const pdfButton = document.getElementById('downloadPdf');
+    
+    // Esconde os botões
+    if (backButton) backButton.style.display = 'none';
+    if (pdfButton) pdfButton.style.display = 'none';
+
+    // 2. CONFIGURAÇÕES OTIMIZADAS
+    const opt = {
+        margin:       10, // Margens em milímetros
+        filename:     `Checklist_Expedicao_${<?php echo json_encode($dados_expedicao['ticket'] ?? date('Ymd')); ?>}.pdf`,
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { 
+            scale: 3, // <--- AUMENTA A RESOLUÇÃO DA CAPTURA (MAIS NITIDEZ)
+            logging: false, 
+            dpi: 300, 
+            letterRendering: true 
+        },
+        jsPDF:        { 
+            unit: 'mm', 
+            format: 'a4', 
+            orientation: 'portrait' 
+        }
+    };
+
+    // 3. Gera o PDF e faz o download
+    html2pdf().set(opt).from(element).save().then(function() {
+        // 4. Garante que os botões voltem a aparecer
+        if (backButton) backButton.style.display = '';
+        if (pdfButton) pdfButton.style.display = 'flex';
+    });
+});
 
 
+        //////////////////////////////////////////////
+    </script>
 
 </body>
 
